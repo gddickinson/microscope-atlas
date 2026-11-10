@@ -132,3 +132,11 @@ FCS from a simulated 2D diffusion trace (N and D recovered from the autocorrelat
 crosstalk (single pinhole (a/r)² vs the array's fill-factor floor, signal/background in thick samples), and expansion
 factor vs label displacement. Physics in `sim_engine.js` (now 447 lines; split before adding more), tested in
 `tests/sim_engine3.test.mjs`. README gains Köhler and AFM figures. Next: R3 diagrams for every technique.
+
+## 2026-11-10: Round 9 (hourly), R3 diagrams for every technique
+22 new light-path diagrams in `lightpath_defs2.js` (FLIM with TCSPC, two-channel FRET, FCS correlator, FRAP, SPT,
+spectral detection with a grating and array, Raman spectrometer, CARS/SRS pump and Stokes with forward detection,
+SHG, QPI interferometer, iSCAT, OCT Michelson, photoacoustic, X-ray zone plates, CLEM, high-content, slide scanner,
+intravital, miniscope, adaptive optics loop, light field, open hardware). Shared helpers moved to `lightpath_kit.js`.
+All 52 techniques now have their own diagram (`tests/lightpath.test.mjs`); each was rendered and checked for overlaps
+and clipped labels. Techniques figure refreshed. Next in R3: step-through mode linking `light_path` steps to parts.
