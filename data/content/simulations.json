@@ -1,0 +1,20 @@
+[
+ {"id":"psf","group":"Optics","title":"PSF and the Rayleigh criterion","blurb":"Two point sources blurred by an Airy pattern: change NA, wavelength and separation and watch them merge.","techniques":["widefield","confocal","brightfield","tirf"]},
+ {"id":"na","group":"Optics","title":"Numerical aperture and immersion","blurb":"Light cones, refraction at the coverslip and why oil objectives reach NA 1.4+.","techniques":["widefield","tirf","confocal","brightfield"]},
+ {"id":"lens","group":"Optics","title":"Infinity-corrected imaging","blurb":"Ray tracing through objective and tube lens: magnification, focal lengths and the back focal plane.","techniques":["brightfield","widefield"]},
+ {"id":"nyquist","group":"Optics","title":"Pixel size and Nyquist sampling","blurb":"Sample a sub-resolution structure with different pixel sizes and see aliasing appear.","techniques":["widefield","confocal","smlm"]},
+ {"id":"phase","group":"Optics","title":"Phase contrast and the invisible cell","blurb":"Phasor picture of how Zernike's quarter-wave ring turns a phase shift into contrast.","techniques":["phase-contrast","dic","qpi"]},
+ {"id":"tirf","group":"Sectioning","title":"TIRF and the evanescent field","blurb":"Incidence angle, critical angle and penetration depth, with HILO and epi for comparison.","techniques":["tirf","hilo"]},
+ {"id":"pinhole","group":"Sectioning","title":"Confocal pinhole and optical sections","blurb":"Pinhole size in Airy units against section thickness, signal and resolution.","techniques":["confocal","spinning-disk","ism"]},
+ {"id":"twophoton","group":"Sectioning","title":"One-photon vs two-photon excitation","blurb":"Why excitation ∝ I² confines fluorescence to the focus, shown as cross-sections of the cone.","techniques":["multiphoton","shg","cars-srs"]},
+ {"id":"lightsheet","group":"Sectioning","title":"Light-sheet thickness vs field of view","blurb":"Gaussian beam optics: thinner sheets diverge faster. Compare with Bessel and lattice sheets.","techniques":["light-sheet","lattice-light-sheet","oblique-plane"]},
+ {"id":"sted","group":"Super-resolution","title":"STED depletion","blurb":"Excitation spot, doughnut and the shrinking effective PSF as depletion intensity rises.","techniques":["sted","minflux"]},
+ {"id":"smlm","group":"Super-resolution","title":"Single-molecule localization","blurb":"Molecules blink, get localized frame by frame and build a super-resolved image; precision vs photons.","techniques":["smlm","dna-paint","minflux","spt"]},
+ {"id":"simk","group":"Super-resolution","title":"Structured illumination in Fourier space","blurb":"Moiré fringes and the extended OTF support from three pattern orientations.","techniques":["sim"]},
+ {"id":"jablonski","group":"Fluorescence","title":"Jablonski diagram and photophysics","blurb":"Absorption, relaxation, emission, intersystem crossing and bleaching; the lifetime decay.","techniques":["widefield","flim","smlm"]},
+ {"id":"fret","group":"Fluorescence","title":"FRET ruler","blurb":"Efficiency vs distance for common pairs, and what donor lifetime tells you.","techniques":["fret","flim"]},
+ {"id":"noise","group":"Detection","title":"Camera noise: CCD, EMCCD, sCMOS","blurb":"Shot noise, read noise and EM excess noise on a simulated low-light image, with SNR curves.","techniques":["widefield","smlm","tirf","spinning-disk"]},
+ {"id":"frap","group":"Dynamics","title":"FRAP recovery","blurb":"Bleach a spot, watch diffusion refill it, and fit the recovery for D and mobile fraction.","techniques":["frap","fcs"]},
+ {"id":"spt","group":"Dynamics","title":"Single-particle tracking and MSD","blurb":"Free, confined and directed motion; MSD curves and the localization-error offset.","techniques":["spt","fcs","smlm"]},
+ {"id":"electron","group":"Electron","title":"Electron wavelength and resolution","blurb":"De Broglie wavelength vs voltage with relativistic correction, and why EM is not at the wavelength limit.","techniques":["tem","cryo-em","sem","cryo-et"]}
+]

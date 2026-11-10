@@ -1,0 +1,102 @@
+# Session log
+
+## 2026-11-09: Round 1, first build (R0)
+George asked for an extensive microscopy project in the style of Code Breaker: a sourced database of
+microscopes, teaching pages and simulations for every technique, useful for teaching and revision.
+
+Built a FastAPI + plain-JS app (port 8010) with a fluorescence-themed dark UI and a background of blinking
+single molecules that slowly builds a "super-resolved" image.
+- Database: 293 systems in 6 files from 6 parallel research agents (confocal/multiphoton 49, super-resolution 47,
+  light-sheet/in vivo 50, widefield/screening 48, electron/probe 49, label-free/open/historical 52; two duplicates
+  merged), 28 detectors, 28 objectives. Every entry has source URLs and a `checked` date.
+- Caveat: the session's shared web-search quota (200) ran out part-way through the research, so many facts rest on
+  search-result summaries of the cited pages rather than full reads, and many years are null. Agents' lists of
+  doubtful facts are the starting point of R1. Not yet in the database: Revvity Operetta/Opera Phenix (403),
+  3DHISTECH (SSL error), Gatan K3 (blocked), Siemens Elmiskop, Axiovert 200M. STM is tagged `afm` until an `spm` id exists.
+- Teaching pages: all 51 techniques (three agents), 210 papers, each DOI checked against Crossref by the agents;
+  I re-checked three DOIs recalled from memory in superres.json (all correct). Some history years and typical
+  numbers are flagged as from memory in the agents' reports (e.g. Nicol prism 1828, Nipkow 1884, MINFLUX
+  σ ≈ L/(4√N) constant) and should be spot-checked in R1.
+- Fluorophores: FPbase GraphQL (1,013 proteins and dyes; 71 curated spectra). Names not matched yet: sfGFP,
+  mNeptune2, GCaMP6s, jGCaMP7s, FITC, TRITC, JF549/646, TMR, Fura-2, Rhod-2, MitoTracker Deep Red, Abberior STAR dyes.
+- Simulations (18): PSF/Rayleigh, NA and immersion, infinity optics, Nyquist, phase contrast, TIRF, confocal pinhole,
+  two-photon, light-sheet, STED, SMLM, SIM k-space, Jablonski, FRET, camera noise, FRAP, SPT/MSD, electron wavelength.
+  Physics lives in `sim_engine.js` with node tests; the tests caught a wrong Soumpasis argument (τD/2t vs 2τD/t), fixed.
+- Pages: techniques, systems browser/detail/compare, manufacturers, detectors/objectives, fluorophores, spectra viewer
+  with crosstalk tables, technique chooser, optics calculator, fundamentals (10 sections), history (276 events),
+  glossary (67), question bank (208 Q&As), portfolio, about.
+- My Microscopy page uses only facts George has confirmed; George should review it.
+- Tests: 11 pytest + node engine tests pass; Playwright smoke test of 19 routes clean (fixed: stack overflow from
+  `Math.max(...)` on large arrays; a slider id clashing with the background canvas id).
+- Repo: private GitHub repo gddickinson/microscope-atlas (Code Breaker is private too; making it public is George's call).
+Next: Round 2 (R1 data audit).
+
+## 2026-11-09: Round 2, public release, static site, quiz, lab tools, papers, community (George's requests)
+- Repo to be public, with a static export: `scripts/build_static.py` dumps every API response through the FastAPI
+  TestClient into `site/api/*.json`; `static_api.js` answers the front end from those files (system and fluorophore
+  search run in the browser); Python-only tools show a notice. `.github/workflows/pages.yml` tests, builds and
+  publishes to GitHub Pages on push. Asset paths are relative so the site works under any sub-path (tested at /site/).
+- Interview prep became a teaching Quiz (`quiz.js`): six generated multiple-choice types (light-path diagram,
+  tagline, equation, key number with same-technique distractors, glossary, fluorophore peaks), Leitner flashcards
+  over the 208 worked questions, and browse. The content field `interview` is now `quiz`; all interview and
+  job-search references were removed from the repo.
+- Lab Tools hub (`lab.js`, `lab_ui.js`) with tools written by three parallel agents: microscope setup and planning
+  (`lab_setup*.js`), labelling and probes (`lab_label*.js`), bench calculators and analysis (`lab_bench*.js`,
+  `lab_analysis*.js`, plus a Python file inspector `atlas/lab_files.py`). Reference values cite sources per row.
+- Papers database: 257 papers (cited landmark papers + 56 curated reviews, protocols, rigor guides, software),
+  Crossref metadata and citation counts (`scripts/build_papers.py`); one recalled DOI (Cromey 2010) did not resolve
+  and was dropped. Community page: 49 resources in 6 groups, all links checked (`scripts/check_links.py`).
+- Auto-linking (`links.js`): technique names, glossary terms and software in teaching text link to pages/sites.
+- My Microscopy: people and labs (Parker, Pathak, Hughes/Boise State NAM, Patel, Sanders) and code (FLIKA,
+  George's FLIKA edition and plugins, CellScope), each link fetched and checked; DOIs of George's papers verified.
+  Gallery of 8 renderings of raw TIRF Ca²⁺ puff recordings from Dickinson & Parker 2013 Biophys J (published;
+  linked by the archive catalogue). The archive's notes say sharing archive-derived material needs Ian Parker's
+  agreement, so these stay LOCAL-ONLY (`data/portfolio_staging/`, git-ignored; shown with a "local preview" badge)
+  until George confirms. Publish by moving approved files + manifest entries to `data/portfolio/`.
+- Systems link check: 450 source links, 49 not OK; most are publisher 403s to scripts (doi.org → Science), about
+  ten are real 404s (docs/link_report_systems.md) for R1.
+- Repo made public (single clean commit, force-pushed by George); GitHub Pages live at
+  https://gddickinson.github.io/microscope-atlas/ (CI needed numpy/tifffile/pillow/python-multipart; fixed).
+  Live-site smoke test of 22 routes clean.
+- My Microscopy: 8 project pages (`scripts/content/portfolio_projects_src.py`: question, approach, findings, role,
+  techniques, people, links), clickable from highlights, gallery and a Projects grid. 27 local-only images
+  (git-ignored) including renders of the published Zenodo data for Nat Commun 2021 (DNA-PAINT) and 2025 (PIEZO1),
+  raw TIRF puff data for Biophys J 2013, and figure panels; each with licence and provenance in the local manifest.
+  Open points for George: CellScope role wording, Ian Parker's permission for archive images.
+
+## 2026-11-10: Round 3 (hourly), R1 data audit, part 1
+Link checker now encodes spaces and non-ASCII URLs. Of 450 system source links, 10 dead pages were replaced by
+Wayback Machine snapshots of the same pages (titled "archived copy") and 5 dead duplicates dropped where the entry
+keeps other sources; the remaining failures are publisher 403s to scripts. Added Revvity Opera Phenix Plus and
+Operetta CLS (295 systems) and the Gatan K3 detector, each from vendor and facility pages. Next in R1: 3DHISTECH,
+Axiovert 200M, Elmiskop, an `spm` technique page, and re-reading snippet-sourced facts.
+- 2026-11-10: 200 Wikimedia Commons images (80 instruments, 120 micrographs; PD/CC0/CC BY/CC BY-SA only, licence
+  re-checked on download, author and source shown with each) via `scripts/fetch_commons.py` and the curated
+  `scripts/content/images_src.py`; 15 mismatched or weak images removed after review. Shown on system pages,
+  technique pages (43 of 51 techniques have images) and a new Image Gallery. Gaps: hilo, lattice light-sheet, OPM,
+  fluctuation, FCS, FRAP, miniscope, light-field. CellScope now credited as written by George with Claude Code.
+- 2026-11-10: Methods papers (140, every technique ≥2, all DOIs checked against Crossref; `methods_src.py`, merged
+  by build_papers.py as category "Methods") → 386 papers. 150 video tutorials checked via YouTube oEmbed
+  (`videos_src.py`), shown on technique pages and a Video Tutorials page. 29 optics/component suppliers added to
+  Community (88 links, plus all video links, checked; 403 now counts as "blocked", not failed). Removed the
+  unresolvable Cromey 2010 DOI. Weak spots: stereo methods papers; thin videos for HILO, lattice, CARS/SRS, photoacoustic.
+- 2026-11-10: Virtual optical table (`#/table`): browser-only 2D ray tracer, 43 part types (real cameras and
+  objectives from the database, dye spectra for fluorescence, supplier links), 33 presets including 11 cited
+  literature set-ups, readouts from sim_engine, undo/save/share. Linked from the Lab Tools menu and hub, home page and
+  technique pages ("Build it on the optical table"). Node tests cover the optics and every preset.
+
+## 2026-11-10: Round 4 (hourly), R1 data audit, part 2
+Added 3DHISTECH Pannoramic 1000, ZEISS Axiovert 200M and Siemens Elmiskop I (298 systems), each from vendor,
+facility, museum or manual sources; no resolution or fluorescence claims that the sources did not make (Elmiskop
+dates differ between sources, 1954-1956, and the summary says so). Next in R1: an `spm` (STM) teaching page and
+re-reading snippet-sourced facts.
+
+## 2026-11-10: Sample imaging on the optical table; more My Microscopy; group attribution (George's requests)
+- Optical table: specimens (11, seeded) on the sample parts and a simulated image for every camera/PMT, formed
+  from the traced optics (NA, M, λ, inferred illumination mode incl. TIRF/HILO/confocal/spinning disk/light sheet/
+  2P/STED/SIM/brightfield/darkfield), Gaussian PSF (σ = 0.21 λ/NA), camera pixels and noise; image viewer with LUTs,
+  contrast, histogram, line profile, ground truth and PNG export. Light-sheet preset sheet thinned to ~3.9 µm; two
+  imaging demo presets. Tests in `table_imaging.test.mjs`. Photometry is relative; STED I/Is and HILO field assumed.
+- My Microscopy: 9 more project pages (17 total) with 15 more local-only figure images (42 total). All
+  contributions now described as group efforts (George's rule, also in CLAUDE.md); "My role" → "Contribution".
+- History squashed into one clean commit again (force-pushed by George).

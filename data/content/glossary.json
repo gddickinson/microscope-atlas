@@ -1,0 +1,306 @@
+[
+ {
+  "term": "Airy disc",
+  "def": "The central bright spot of the diffraction pattern of a point source through a circular aperture; radius 0.61λ/NA.",
+  "see": "widefield"
+ },
+ {
+  "term": "Airy unit (AU)",
+  "def": "Pinhole diameter equal to the Airy disc diameter, 1.22λ/NA in the sample. One AU balances sectioning and signal.",
+  "see": "confocal"
+ },
+ {
+  "term": "Aliasing",
+  "def": "False low-frequency patterns created when an image is sampled with pixels too large for its finest detail."
+ },
+ {
+  "term": "Apochromat",
+  "def": "Objective corrected for chromatic aberration at three or more wavelengths and spherical aberration at two or more."
+ },
+ {
+  "term": "Autofluorescence",
+  "def": "Fluorescence from endogenous molecules (NADH, flavins, lipofuscin, collagen); a background, or the signal itself in label-free FLIM.",
+  "see": "flim"
+ },
+ {
+  "term": "Back focal plane",
+  "def": "Plane behind the objective where each direction of light in the sample is focused to one point: a Fourier plane."
+ },
+ {
+  "term": "Bessel beam",
+  "def": "A beam with a narrow, long non-diffracting core surrounded by rings, made with an annular pupil.",
+  "see": "lattice-light-sheet"
+ },
+ {
+  "term": "Binning",
+  "def": "Combining adjacent pixels into one to gain signal per pixel and speed at the cost of sampling."
+ },
+ {
+  "term": "Birefringence",
+  "def": "Different refractive indices for different polarizations, shown by ordered structures such as spindles, collagen and crystals.",
+  "see": "polarization"
+ },
+ {
+  "term": "Bleed-through (crosstalk)",
+  "def": "Signal from one fluorophore detected in another's channel because spectra overlap.",
+  "see": "spectral"
+ },
+ {
+  "term": "Clearing",
+  "def": "Making tissue transparent by matching refractive indices and removing lipids (e.g. CLARITY, iDISCO, CUBIC).",
+  "see": "light-sheet"
+ },
+ {
+  "term": "Coherence length",
+  "def": "Distance over which a light wave keeps a fixed phase relationship; short coherence gives OCT its depth resolution.",
+  "see": "oct"
+ },
+ {
+  "term": "Contrast transfer function (CTF)",
+  "def": "In TEM, how phase contrast at each spatial frequency depends on defocus and aberrations; it oscillates and must be corrected.",
+  "see": "cryo-em"
+ },
+ {
+  "term": "Correction collar",
+  "def": "Ring on an objective that moves internal lenses to compensate for coverslip thickness or sample index."
+ },
+ {
+  "term": "Critical angle",
+  "def": "Angle of incidence above which light is totally internally reflected: arcsin(n2/n1).",
+  "see": "tirf"
+ },
+ {
+  "term": "Dark current",
+  "def": "Electrons generated thermally in a sensor without light; reduced by cooling."
+ },
+ {
+  "term": "Deconvolution",
+  "def": "Computational reversal of PSF blurring using a measured or modelled PSF."
+ },
+ {
+  "term": "Depth of field",
+  "def": "Axial range over which the specimen appears in focus; shrinks with higher NA."
+ },
+ {
+  "term": "Dichroic mirror",
+  "def": "Interference filter at 45° that reflects some wavelengths and transmits others, separating excitation from emission.",
+  "see": "widefield"
+ },
+ {
+  "term": "Drift correction",
+  "def": "Removing stage or sample movement over time, using fiducial beads or image cross-correlation.",
+  "see": "smlm"
+ },
+ {
+  "term": "Duty cycle",
+  "def": "Fraction of time a switching fluorophore spends in its on state; low duty cycles are needed for dense SMLM labelling.",
+  "see": "smlm"
+ },
+ {
+  "term": "Electron multiplying gain",
+  "def": "On-chip avalanche amplification in an EMCCD that lifts signals above read noise."
+ },
+ {
+  "term": "Epi-illumination",
+  "def": "Illumination through the objective, so the same lens excites and collects; the standard fluorescence geometry.",
+  "see": "widefield"
+ },
+ {
+  "term": "Evanescent wave",
+  "def": "A non-propagating field that decays exponentially beyond a totally reflecting interface; excites a ~100 nm layer in TIRF.",
+  "see": "tirf"
+ },
+ {
+  "term": "Excess noise factor",
+  "def": "Extra noise from stochastic gain (√2 for EMCCDs), equivalent to halving quantum efficiency."
+ },
+ {
+  "term": "Extinction coefficient",
+  "def": "How strongly a molecule absorbs at a wavelength (M⁻¹cm⁻¹)."
+ },
+ {
+  "term": "Fiducial marker",
+  "def": "A bright, stable bead or particle used to register channels or correct drift.",
+  "see": "smlm"
+ },
+ {
+  "term": "Field number",
+  "def": "Diameter (mm) of the intermediate image field an eyepiece or port can use; field of view = FN / magnification."
+ },
+ {
+  "term": "Fluorescence lifetime",
+  "def": "Average time a fluorophore stays excited before emitting, typically 1-5 ns; sensitive to its environment.",
+  "see": "flim"
+ },
+ {
+  "term": "Förster radius R0",
+  "def": "Donor-acceptor distance at which FRET efficiency is 50%, typically 4-7 nm.",
+  "see": "fret"
+ },
+ {
+  "term": "Fourier ring correlation (FRC)",
+  "def": "Resolution estimate from the correlation of two independent half-images across spatial frequencies.",
+  "see": "smlm"
+ },
+ {
+  "term": "Galvanometer mirror",
+  "def": "A fast motor-driven mirror that steers the beam in point-scanning microscopes.",
+  "see": "confocal"
+ },
+ {
+  "term": "GaAsP detector",
+  "def": "Photomultiplier with gallium arsenide phosphide photocathode, about 40-45% QE in the visible.",
+  "see": "confocal"
+ },
+ {
+  "term": "Hybrid detector",
+  "def": "Detector combining a photocathode with an avalanche diode for high QE, low noise and photon counting.",
+  "see": "confocal"
+ },
+ {
+  "term": "Immersion medium",
+  "def": "Liquid between objective and coverslip (oil, water, glycerol, silicone) that sets the maximum NA."
+ },
+ {
+  "term": "Isoplanatic patch",
+  "def": "Region over which an aberration correction stays valid, often only tens of µm in tissue.",
+  "see": "adaptive-optics"
+ },
+ {
+  "term": "Köhler illumination",
+  "def": "Illumination scheme giving even light with the lamp imaged into the condenser aperture, not the specimen.",
+  "see": "brightfield"
+ },
+ {
+  "term": "Localization precision",
+  "def": "Uncertainty in the fitted position of a single emitter, roughly PSF σ/√N.",
+  "see": "smlm"
+ },
+ {
+  "term": "Missing cone",
+  "def": "Region of the 3D widefield OTF with no axial information, the reason widefield cannot section."
+ },
+ {
+  "term": "Missing wedge",
+  "def": "Directions not sampled in tomography because the specimen cannot tilt beyond about ±60-70°.",
+  "see": "cryo-et"
+ },
+ {
+  "term": "Modulation transfer function (MTF)",
+  "def": "Contrast transmitted at each spatial frequency; the modulus of the OTF."
+ },
+ {
+  "term": "Nipkow disk",
+  "def": "Spinning disk with a spiral of pinholes that scans many foci in parallel.",
+  "see": "spinning-disk"
+ },
+ {
+  "term": "Nyquist sampling",
+  "def": "Sampling at least twice the highest spatial frequency present; pixels ≤ λ/4NA at the sample."
+ },
+ {
+  "term": "Optical section",
+  "def": "Thin slice of a thick sample imaged without out-of-focus light.",
+  "see": "confocal"
+ },
+ {
+  "term": "Optical transfer function (OTF)",
+  "def": "Fourier transform of the PSF; describes how each spatial frequency is transferred by the optics."
+ },
+ {
+  "term": "Photoactivation / photoconversion",
+  "def": "Light-driven switching of a fluorophore from dark to bright or one colour to another (PA-GFP, mEos).",
+  "see": "smlm"
+ },
+ {
+  "term": "Photobleaching",
+  "def": "Irreversible destruction of a fluorophore by light, often via the triplet state and oxygen."
+ },
+ {
+  "term": "Phototoxicity",
+  "def": "Damage to living samples by illumination, often through reactive oxygen species."
+ },
+ {
+  "term": "Pinhole",
+  "def": "Aperture in an image plane that blocks out-of-focus light in confocal microscopes.",
+  "see": "confocal"
+ },
+ {
+  "term": "Point spread function (PSF)",
+  "def": "Image of a point source; the 'blur kernel' of the microscope."
+ },
+ {
+  "term": "Quantum efficiency (QE)",
+  "def": "Fraction of photons a detector converts into signal."
+ },
+ {
+  "term": "Quantum yield",
+  "def": "Fraction of absorbed photons re-emitted as fluorescence."
+ },
+ {
+  "term": "Rayleigh criterion",
+  "def": "Two points are resolved when the peak of one falls on the first minimum of the other: d = 0.61λ/NA."
+ },
+ {
+  "term": "Rayleigh range",
+  "def": "Distance from a Gaussian beam waist over which the beam area doubles; half the usable light-sheet length.",
+  "see": "light-sheet"
+ },
+ {
+  "term": "Read noise",
+  "def": "Electronic noise added when a pixel is read out, in electrons RMS."
+ },
+ {
+  "term": "Refractive index",
+  "def": "Ratio of light speed in vacuum to that in a medium; mismatches cause aberration."
+ },
+ {
+  "term": "sCMOS",
+  "def": "Scientific CMOS camera: low read noise, high speed and large field, with per-pixel amplifiers."
+ },
+ {
+  "term": "Shot noise",
+  "def": "Statistical fluctuation in photon counts, √N; the fundamental noise floor."
+ },
+ {
+  "term": "Spatial light modulator (SLM)",
+  "def": "Device that shapes light's phase or amplitude pixel by pixel, used for SIM, lattices and adaptive optics."
+ },
+ {
+  "term": "Spectral unmixing",
+  "def": "Separating overlapping fluorophores by fitting each pixel's spectrum to reference spectra.",
+  "see": "spectral"
+ },
+ {
+  "term": "Stokes shift",
+  "def": "Difference between excitation and emission peak wavelengths."
+ },
+ {
+  "term": "Strehl ratio",
+  "def": "Peak intensity of the real PSF relative to a perfect one; ≥0.8 is diffraction limited.",
+  "see": "adaptive-optics"
+ },
+ {
+  "term": "Total internal reflection",
+  "def": "Complete reflection of light hitting a lower-index medium beyond the critical angle.",
+  "see": "tirf"
+ },
+ {
+  "term": "Tube lens",
+  "def": "Lens forming the image from an infinity-corrected objective; its focal length sets magnification."
+ },
+ {
+  "term": "Vitreous ice",
+  "def": "Non-crystalline ice formed by plunge freezing, preserving specimens for cryo-EM.",
+  "see": "cryo-em"
+ },
+ {
+  "term": "Working distance",
+  "def": "Gap between the objective front lens and the coverslip or sample when in focus."
+ },
+ {
+  "term": "Z' factor",
+  "def": "Screening assay quality measure from control means and standard deviations; >0.5 is excellent.",
+  "see": "high-content"
+ }
+]

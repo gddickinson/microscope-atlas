@@ -1,0 +1,11 @@
+fastapi==0.162.2
+uvicorn==0.54.0
+httpx==0.28.1
+pytest==9.2.0
+numpy==2.5.4
+matplotlib==3.11.2
+tifffile==2026.11.8
+pillow==13.0.0
+python-multipart==0.0.33
+# dev only: README screenshots and route smoke test (uses the installed Google Chrome)
+playwright==1.65.0

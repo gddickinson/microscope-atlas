@@ -1,0 +1,39 @@
+# Link check
+
+452 links, 35 not OK (403 often means the site blocks scripts, not that the page is gone).
+
+- 403 https://asrc.gc.cuny.edu/instruments/witec-confocal-raman-microscope-alpha300r
+- 403 https://chemistryviews.org/?p=39865
+- 403 https://cshprotocols.cshlp.org/content/2013/11/pdb.top078600.abstract
+- 403 https://doi.org/10.1002/anie.200802376
+- 403 https://doi.org/10.1073/pnas.211400898
+- 403 https://doi.org/10.1111/j.1365-2818.1993.tb03346.x
+- 403 https://doi.org/10.1126/science.1100035
+- 403 https://doi.org/10.1126/science.1127344
+- 403 https://doi.org/10.1126/science.1153529
+- 403 https://doi.org/10.1126/science.1156947
+- 403 https://doi.org/10.1126/science.1162493
+- 403 https://doi.org/10.1126/science.1257998
+- 403 https://doi.org/10.1126/science.aab3500
+- 403 https://doi.org/10.1126/science.aak9913
+- 403 https://doi.org/10.1126/science.aaq1392
+- 403 https://europepmc.org/article/MED/2359127
+- 403 https://news.stanford.edu/stories/2026/02/octopi-low-cost-autonomous-microscope-ai-malaria-diagnosis
+- 403 https://news.thomasnet.com/fullstory/confocal-microscope-is-programmable-8518
+- 403 https://publications.goettingen-research-online.de/ID-11719?locale=de
+- 403 https://scilit.net/publications/dec903b5c453e138030858afaed82c74
+- TimeoutError https://sigmaaldrich.com/FM/en/tech-docs/paper/140113
+- 405 https://ui.adsabs.harvard.edu/abs/2006Sci...313.1642B/abstract
+- 403 https://www.agilent.com/cs/library/applications/detection-and-automated-imaging-of-regions-of-interest-5994-3404EN-agilent.pdf
+- 403 https://www.agilent.com/en/support/cell-analysis/cell-imaging-microscopy/imaging-microscopy-faqs
+- 403 https://www.britannica.com/science/differential-interference-contrast
+- 503 https://www.keyence.com/products/microscope/fluorescence-microscope/bz-x700/models/bz-x810
+- 502 https://www.madcitylabs.com/rm21.html
+- 403 https://www.photonics.com/Product.aspx?PRID=21321
+- 403 https://www.photonics.com/Products/Confocal-and-Multiphoton-Laser-Scanning-Microscope/pr71326
+- 403 https://www.photoniques.com/en/products/5229-single-photon-counting-confocal-microscope
+- 403 https://www.revvity.com/product/opera-phenix-plus-system-hh14001000
+- 403 https://www.revvity.com/product/operetta-cls-system-hh16000020
+- 403 https://www.tandfonline.com/doi/abs/10.2144/000112798
+- 403 https://www.technologynetworks.com/analysis/product-news/miltenyi-biotec-launches-fully-automated-light-sheet-microscope-335379
+- 403 https://www.technologynetworks.com/analysis/product-news/renishaw-launches-the-invia-qontor-222451

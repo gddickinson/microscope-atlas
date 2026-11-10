@@ -1,0 +1,40 @@
+# Microscope Atlas roadmap
+
+**Resuming?** Read the tail of `SESSION_LOG.md`, then this file, then `INTERFACE.md`. Take the row marked
+`in_progress`, else the topmost `pending` one. Each round ends with tests passing, the screenshot smoke test clean,
+SESSION_LOG updated, a commit and a push.
+
+Rules: sourced data only (see CLAUDE.md); new physics goes in `sim_engine.js` with a node test; files under 500 lines.
+
+## Ledger
+| ID | Task | Completion criteria | Status | Results |
+|---|---|---|---|---|
+| R0 | First build: app, 51 technique pages, 18 simulations, systems database, FPbase fluorophores, README | Tests pass; every route renders without console errors | completed 2026-11-09 | 293 systems, 149 makers, 56 components, 1,013 fluorophores, 71 spectra, 208 self-test Q&As |
+| R1 | Data audit: re-check entries whose facts came from search-result summaries; fill null years; add Revvity Operetta CLS / Opera Phenix Plus, 3DHISTECH, Gatan K3, Zeiss Axiovert 200M, Siemens Elmiskop; add an `spm` technique id for STM; `scripts/check_links.py` for dead source URLs | Every doubtful item from the R0 agent reports resolved or marked; link check report committed | in_progress | 2026-11-10: link checker fixed (URL encoding); 10 dead sources replaced by Wayback snapshots of the same pages, 5 dropped where other sources remain; remaining failures are publisher 403s to scripts. Added Opera Phenix Plus, Operetta CLS, Gatan K3, then 3DHISTECH Pannoramic 1000, Axiovert 200M, Siemens Elmiskop I (298 systems). Next: `spm` technique page (STM), re-read snippet-sourced facts |
+| R2 | Simulations II: deconvolution (Richardson-Lucy), aberrations and adaptive optics (Zernike modes, Strehl), Köhler illumination, DIC shear, FLIM phasor, FCS autocorrelation, cryo-EM CTF, tomography missing wedge, AFM tip convolution, spinning-disk crosstalk, expansion factor | 10 new sims, each with engine tests | pending | |
+| R3 | A dedicated light-path diagram for every technique (now 29 of 51), plus step-through mode tying `light_path` steps to highlighted components | 51 of 51 diagrams | pending | |
+| R4 | Image Lab: load your own image; PSF blur, noise, FFT, sampling, deconvolution; localize spots in a single-molecule frame | Works on a test TIFF/PNG; numbers checked against Python | pending | |
+| R5 | Microscope builder: pick objective, camera, lasers and filters from the database; compute resolution, sampling, field of view, expected photons and SNR | Configurator page with tests of the calculations | pending | |
+| R6 | Database growth: lasers and light sources, filter sets, more systems (target 450+), licensed instrument photos (Wikimedia Commons, with credits) | Validator passes; licence recorded per image | pending | |
+| R7 | Quiz: flashcards with spaced repetition and generated multiple choice | Page works offline; progress persists | completed 2026-11-09 | Six question generators plus 208 flashcards |
+| R8 | Technique comparison matrix (all techniques vs resolution, depth, speed, live-cell, cost) with sortable view | Matrix page | pending | |
+| R9 | Portfolio polish: links to George's public tools (FLIKA plugins etc.), case studies of his imaging work, only with his approval | George has reviewed the page | pending (needs George) | |
+| R10 | Static export (e.g. GitHub Pages) so the atlas can be shown without running Python | Decision from George on making it public | pending (needs George) | |
+| R11 | Accessibility, phone layout and performance pass | Lighthouse-style checks; keyboard navigation of sims | pending | |
+
+## Upgrade rounds
+A scheduled loop runs one round at a time while the session is open: read SESSION_LOG tail, take the next
+ledger row, build, test, screenshot smoke test, log, commit, push.
+
+| Round | Focus | Status |
+|---|---|---|
+| 1 | R0 foundation | completed 2026-11-09 |
+| 2 | R1 data audit | in_progress |
+| 3 | R2 simulations II (first half) | pending |
+| 4 | R3 diagrams for every technique | pending |
+| 5 | R2 second half; R8 comparison matrix | pending |
+| 6 | R4 Image Lab | pending |
+| 7 | R5 microscope builder | pending |
+| 8 | R7 study mode | pending |
+| 9 | R6 database growth | pending |
+| 10 | R11 polish | pending |

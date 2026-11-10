@@ -1,0 +1,262 @@
+# Microscope Atlas
+
+**Learn how microscopes work, find the right instrument, and get the numbers right at the bench.**
+
+Microscope Atlas is an open web app for microscopists and lab scientists. It brings together:
+- teaching pages for 51 imaging techniques, with light-path diagrams and interactive physics simulations;
+- a quiz;
+- lab tools for setting up a microscope, planning labelling and making solutions;
+- sourced databases of microscope systems, detectors, objectives, fluorophores and papers;
+- a page of community resources.
+
+- **Use it online:** the static site is published on GitHub Pages from this repository (see
+  [Static site](#static-site)). It needs nothing installed.
+- **Run the full app:** it adds tools that need Python on the server, such as reading microscopy files
+  (see [Running the full app](#running-the-full-app)).
+
+![Home page](docs/img/home.jpg)
+
+| | |
+|---|---|
+| **51** techniques with teaching pages, from brightfield to MINFLUX and cryo-ET | **18** interactive simulations running the real equations |
+| **37 lab tools** for setup, labelling, bench calculations and analysis | A **quiz** with generated questions and 208 flashcards |
+| **298** microscope systems from **149** makers and labs, every entry sourced | **386** papers with Crossref metadata, incl. **142** methods and protocol papers |
+| **1,013** fluorophores and **71** spectra from FPbase | **88** checked links to societies, forums, software and data |
+| **200** freely licensed images of instruments and micrographs, each credited | **298** systems with sourced specs and dated sources |
+
+## Contents
+- [Techniques](#techniques) · [Simulations](#simulations) · [Virtual optical table](#virtual-optical-table) · [Lab tools](#lab-tools) · [Quiz](#quiz)
+- [Databases](#databases) · [Community and papers](#community-and-papers)
+- [Static site](#static-site) · [Running the full app](#running-the-full-app) · [How the data were gathered](#how-the-data-were-gathered) · [Project layout](#project-layout)
+
+## Techniques
+There are 51 methods in eight families:
+- transmitted light;
+- fluorescence;
+- optical sectioning;
+- super-resolution;
+- functional and spectroscopic;
+- label-free;
+- electron and probe;
+- systems and formats: screening, slide scanners, intravital, miniscopes, adaptive optics and open hardware.
+
+Each page has:
+- the physics in plain language, with the key equations;
+- an animated light-path diagram; hover a component to see what it does;
+- a walk along the light path, and the numbers worth remembering;
+- strengths, limitations, sample preparation, bench tips and the artefacts people actually hit;
+- a history timeline and landmark papers;
+- the instruments in the database that use it;
+- test-yourself questions.
+
+Technique names, glossary terms and software mentioned in the text link to their pages.
+
+![Technique index](docs/img/techniques.jpg)
+
+| TIRF | STED |
+|---|---|
+| ![TIRF page](docs/img/technique_tirf.jpg) | ![STED page](docs/img/technique_sted.jpg) |
+
+## Simulations
+All the physics is in one module, `sim_engine.js`. It is tested against known values: Bessel zeros, 83.8% encircled
+energy at 1 Airy unit, relativistic electron wavelengths, MSD recovery of D, and the Soumpasis half-time.
+
+| Optics | Sectioning | Super-resolution | Fluorescence, detection and dynamics |
+|---|---|---|---|
+| PSF and the Rayleigh criterion<br>Numerical aperture and immersion<br>Infinity-corrected imaging<br>Nyquist sampling<br>Phase contrast phasors | TIRF evanescent field<br>Confocal pinhole<br>One- vs two-photon<br>Light-sheet thickness vs field | STED depletion<br>Single-molecule localization<br>SIM in Fourier space | Jablonski and lifetimes<br>FRET ruler<br>Camera noise: CCD, EMCCD, sCMOS, qCMOS<br>FRAP recovery<br>Single-particle tracking and MSD<br>Electron wavelength |
+
+| Two points and the Rayleigh criterion | Localization microscopy building an image |
+|---|---|
+| ![PSF simulation](docs/img/sim_psf.jpg) | ![SMLM simulation](docs/img/sim_smlm.jpg) |
+
+| TIRF penetration depth | STED doughnut and effective PSF |
+|---|---|
+| ![TIRF simulation](docs/img/sim_tirf.jpg) | ![STED simulation](docs/img/sim_sted.jpg) |
+
+| SIM: moiré and extended OTF support | Camera noise at low light |
+|---|---|
+| ![SIM simulation](docs/img/sim_simk.jpg) | ![Noise simulation](docs/img/sim_noise.jpg) |
+
+## Virtual optical table
+Prototype microscopes and laser set-ups on a breadboard with live 2D ray tracing. There are 43 part types:
+- sources: lasers, LEDs, lamps, fibres;
+- mirrors and scanners: mirrors, galvos, SLMs, DMDs, deformable mirrors;
+- dichroics, filters, polarization optics, apertures and pinholes;
+- lenses, real objectives and prisms;
+- AOTFs and AOMs;
+- fluorescent and scattering samples, and a TIRF interface;
+- real cameras and point detectors.
+
+Each part explains what it does and links to techniques and suppliers. Readouts give power and spot size, plus
+magnification, resolution, Nyquist sampling, TIRF depth and Airy-unit pinhole size.
+
+There are 33 presets, from a 4f relay and interferometers to TIRF, confocal, two-photon, light-sheet, STED and SIM.
+Eleven are simplified set-ups from landmark papers and build guides, each cited and with its simplifications stated
+(Axelrod 1981, Minsky, Denk 1990, Huisken 2004, OpenSPIM, Gibbs 2018 prism-TIRF, Parker lab TIRF and two-photon,
+Hell & Wichmann 1994, Gustafsson 2000, Tokunaga 2008, Dunsby 2008). Layouts can be saved, exported and shared
+as links.
+
+**Sample imaging:** put a specimen on the table and every camera or detector shows a simulated image. Specimens
+include USAF and Siemens-star targets, bead pairs, microtubules, actin, mitochondria, nuclear pores, single
+molecules, DNA-origami grids and Ca²⁺ puff sites. The image is formed by the optics you built: NA,
+magnification and wavelength from the trace, and the illumination mode (widefield haze, TIRF, HILO, confocal
+pinhole, spinning disk, light sheet, two-photon, STED, raw SIM, brightfield or darkfield). It is sampled by the
+real camera, with shot, read and EM noise. The viewer has zoom, colour tables, contrast, histogram, line profile,
+scale bar, side-by-side ground truth and PNG export.
+
+![Simulated images from optical-table presets](docs/img/table_images.jpg)
+
+| Objective-type TIRF | STED |
+|---|---|
+| ![Optical table: TIRF](docs/img/table_tirf.jpg) | ![Optical table: STED](docs/img/table_sted.jpg) |
+
+## Lab tools
+These are calculators, planners and reference tables for people at the microscope and the bench.
+- **Microscope setup:**
+  - Köhler illumination checklist;
+  - camera and objective matcher (pixel size at the sample against Nyquist);
+  - axial z-step;
+  - TIRF beam offset in the back focal plane;
+  - laser power density;
+  - immersion and mounting-media refractive indices;
+  - objective finder;
+  - optics calculator.
+- **Planning:**
+  - acquisition planner (data volume, write speed, sampling in time);
+  - light-dose budget;
+  - technique chooser.
+- **Labelling and probes:**
+  - multicolour panel designer;
+  - fluorescent protein picker;
+  - antibody dilutions;
+  - secondary antibody planner;
+  - degree of labelling;
+  - labelling reactions;
+  - tags and probes;
+  - fixation and permeabilization;
+  - spectra viewer.
+- **Bench calculators:**
+  - molarity, dilutions, serial dilutions, unit conversions and percent solutions;
+  - cell seeding by plate format;
+  - hemocytometer counts;
+  - RPM to RCF;
+  - buffer and super-resolution imaging-buffer recipes;
+  - photon flux and Stokes-Einstein diffusion.
+- **Analysis:**
+  - localization precision;
+  - FRET;
+  - FRAP fitting;
+  - MSD analysis;
+  - SNR;
+  - a microscopy file inspector (full app only).
+
+Reference values come from cited sources (manufacturers, protocols, papers), linked beside each table.
+
+![Lab tools](docs/img/lab.jpg)
+
+| Spectra viewer | Technique chooser |
+|---|---|
+| ![Spectra](docs/img/spectra.jpg) | ![Chooser](docs/img/chooser.jpg) |
+
+## Video tutorials
+150 checked video lectures and how-tos (iBiology, Harvard Microcourses, NEUBIAS, EMBL, imaging facilities), covering all 51 techniques, on a filterable page and on each technique page.
+
+![Video tutorials](docs/img/videos.jpg)
+
+## Quiz
+- **Multiple choice:** questions are generated from the atlas itself. Name the technique from its light-path
+  diagram, match equations, key numbers, terms and fluorophores.
+- **Flashcards:** 208 worked questions with model answers, scheduled with Leitner boxes so missed cards return sooner.
+- **Progress:** stored in your browser.
+
+![Quiz](docs/img/quiz.jpg)
+
+## Databases
+- **Microscope systems:** search by technique, family, kind and maker. Each entry has:
+  - sourced specifications and resolution;
+  - source links;
+  - the date the sources were read.
+
+  You can compare up to six systems side by side.
+- **Detectors and objectives:** sCMOS, qCMOS, EMCCD, SPAD, hybrid and electron detectors; flagship TIRF,
+  silicone, water, multiphoton and cleared-tissue objectives.
+- **Fluorophores:** every fluorescent protein and dye in FPbase, with peaks, brightness, pKa, lifetime and
+  maturation.
+- **Image gallery:** 200 Wikimedia Commons images (public domain, CC0, CC BY or CC BY-SA): historical and modern instruments, and example micrographs for 42 techniques. Each shows author, licence and source, and appears on its system and technique pages.
+- **History:** a timeline of 276 events.
+
+![Systems browser](docs/img/systems.jpg)
+
+![Image gallery](docs/img/gallery.jpg)
+
+| System detail | Comparison |
+|---|---|
+| ![LSM 980](docs/img/system_detail.jpg) | ![Comparison](docs/img/compare.jpg) |
+
+## Community and papers
+- **Papers:** 386 papers, including 142 methods papers and protocols (at least two for every technique). They include the landmark papers behind each technique, plus reviews, protocols,
+  analysis benchmarks, software and guides to rigorous imaging. Each has Crossref metadata and citation counts,
+  and can be searched and filtered by technique.
+- **Community:** societies, forums, training, image-analysis software, acquisition and data tools, data
+  archives, open hardware, and guides to building your own microscope (TIRF, two-photon, light-sheet,
+  OpenFlexure, UC2). Every link is checked automatically.
+
+| Papers | Community |
+|---|---|
+| ![Papers](docs/img/papers.jpg) | ![Community](docs/img/community.jpg) |
+
+## Static site
+`scripts/build_static.py` exports the app to `site/`:
+- It calls every API endpoint through the real FastAPI app and saves each response as JSON, so the static site
+  shows exactly the same data.
+- System and fluorophore searches run in the browser (`static_api.js`).
+- Tools that need Python on the server show a notice instead.
+
+The workflow in `.github/workflows/pages.yml` runs the data and API tests, builds the site and publishes it to
+GitHub Pages on every push to `main`. The output is plain files, so it can be hosted anywhere (any web server,
+S3 or Netlify, for example) under any path.
+
+```bash
+.venv/bin/python scripts/build_static.py --out site
+python3 -m http.server -d site 8080      # then open http://127.0.0.1:8080
+```
+
+## Running the full app
+```bash
+python3 -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python run.py            # then open http://127.0.0.1:8010
+.venv/bin/python -m pytest -q tests/
+```
+- The front end is plain ES modules with no build step.
+- Node is optional; it runs the JavaScript tests.
+- Google Chrome is optional; with Playwright it powers `scripts/screenshots.py`, the README figures and a smoke
+  test of every page.
+
+## How the data were gathered
+- **Instruments:** researched from manufacturer pages, datasheets, imaging-facility pages, papers and museum
+  pages. Specifications that could not be confirmed were left out rather than guessed.
+  - `scripts/validate_data.py` enforces the schema in [docs/DATA_SCHEMA.md](docs/DATA_SCHEMA.md).
+  - `scripts/check_links.py --systems` reports dead source links ([docs/link_report_systems.md](docs/link_report_systems.md)).
+  - Some facts rest on search-result summaries of the cited pages. An audit against the full pages is on the
+    [roadmap](ROADMAP.md).
+- **Papers and teaching pages:** DOIs are checked against Crossref.
+- **Fluorophores:** data from [FPbase](https://www.fpbase.org) (CC BY-SA 4.0).
+- **Images:** from [Wikimedia Commons](https://commons.wikimedia.org); `scripts/fetch_commons.py` re-checks every licence and records the credit shown beside each image.
+
+Corrections are welcome: each record is one line of JSON under `data/`.
+
+## Project layout
+```
+atlas/            Python: catalogue, content, fluorophores, lab file reader, FastAPI app
+atlas/web/static/ front end: pages, light paths, simulations (sim_engine.js), quiz, lab tools, static data layer
+data/             systems, components, technique pages, fluorophores, spectra, papers, community (JSON)
+scripts/          validation, static export, FPbase, Crossref papers, link checks, content build, screenshots
+tests/            data, API, lab-file and JavaScript tests
+```
+See [INTERFACE.md](INTERFACE.md) for a file-by-file map and [ROADMAP.md](ROADMAP.md) for what comes next.
+
+## Author
+Built by George Dickinson, a cell biologist who has been part of quantitative-imaging research teams for twenty years
+(TIRF Ca²⁺ imaging, STORM, sptPALM and DNA-PAINT) and now builds analysis software for imaging labs.
+Developed with Claude Code. Content is for education; check instrument specifications with their makers.

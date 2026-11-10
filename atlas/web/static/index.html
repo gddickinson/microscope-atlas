@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Microscope Atlas</title>
+<link rel="icon" href="static/icon.svg">
+<link rel="stylesheet" href="static/style.css">
+<link rel="stylesheet" href="static/style_pages.css">
+<link rel="stylesheet" href="static/style_table.css">
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+<header class="top">
+  <a class="brand" href="#/"><span class="lens"></span>Microscope&nbsp;Atlas</a>
+  <nav class="groups">
+    <details><summary>Learn</summary><div class="menu">
+      <a href="#/techniques" data-nav="techniques">Techniques</a>
+      <a href="#/fundamentals" data-nav="fundamentals">Optics Fundamentals</a>
+      <a href="#/sims" data-nav="sims">Simulations</a>
+      <a href="#/history" data-nav="history">History</a>
+      <a href="#/glossary" data-nav="glossary">Glossary</a>
+      <a href="#/quiz" data-nav="quiz">Quiz</a>
+      <a href="#/videos" data-nav="videos">Video Tutorials</a>
+    </div></details>
+    <details><summary>Database</summary><div class="menu">
+      <a href="#/systems" data-nav="systems">Microscope Systems</a>
+      <a href="#/compare" data-nav="compare">Compare</a>
+      <a href="#/manufacturers" data-nav="manufacturers">Manufacturers</a>
+      <a href="#/gallery" data-nav="gallery">Image Gallery</a>
+      <a href="#/components/detectors" data-nav="components">Detectors and Objectives</a>
+      <a href="#/fluorophores" data-nav="fluorophores">Fluorophores</a>
+      <a href="#/spectra" data-nav="spectra">Spectra Viewer</a>
+    </div></details>
+    <details><summary>Lab Tools</summary><div class="menu">
+      <a href="#/lab" data-nav="lab">All lab tools</a>
+      <a href="#/table" data-nav="table">Virtual optical table</a>
+      <a href="#/lab/camera-match">Camera and objective matcher</a>
+      <a href="#/lab/tirf-offset">TIRF beam offset</a>
+      <a href="#/lab/dilution">Dilution calculator</a>
+      <a href="#/lab/recipes">Buffers and recipes</a>
+      <a href="#/lab/frapfit">FRAP fitter</a>
+      <a href="#/spectra" data-nav="spectra">Spectra viewer</a>
+      <a href="#/chooser" data-nav="chooser">Technique chooser</a>
+      <a href="#/calc" data-nav="calc">Optics calculator</a>
+    </div></details>
+    <details><summary>Community</summary><div class="menu">
+      <a href="#/community" data-nav="community">Resources and links</a>
+      <a href="#/papers" data-nav="papers">Papers database</a>
+    </div></details>
+    <details><summary>About</summary><div class="menu">
+      <a href="#/portfolio" data-nav="portfolio">My Microscopy</a>
+      <a href="#/about" data-nav="about">About this Atlas</a>
+    </div></details>
+  </nav>
+  <form class="search" id="search"><input type="search" placeholder="Search systems..." aria-label="Search systems"></form>
+</header>
+<main id="app" tabindex="-1"></main>
+<footer class="foot">Microscope Atlas · data sourced and dated per entry · fluorophore data from <a href="https://www.fpbase.org" target="_blank" rel="noopener">FPbase</a> (CC BY-SA 4.0)</footer>
+<script type="module" src="static/main.js"></script>
+</body>
+</html>

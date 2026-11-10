@@ -1,0 +1,810 @@
+{
+ "title": "My microscopy",
+ "intro": "Twenty years of team research in quantitative imaging, from single-channel calcium signals at 500 frames per second to DNA-PAINT read-out of data stored in DNA origami, and now analysis software for imaging labs. The work below was done with many colleagues in the labs listed further down. This atlas is a way to keep the whole field fresh, and to share why I love it.",
+ "highlights": [
+  {
+   "project": "temperature-puffs-2013",
+   "title": "Optical patch-clamp by TIRF",
+   "text": "Parker lab studies of single IP3-receptor channel openings ('blips' and 'puffs') in intact cells, imaged by TIRF at up to 500 frames per second on the lab's home-built microscope (UC Irvine).",
+   "techniques": [
+    "tirf",
+    "widefield"
+   ]
+  },
+  {
+   "project": "ip3r-tracking-2014",
+   "title": "Super-resolution of calcium channels",
+   "text": "Team work using STORM and sptPALM to map and track IP3 receptors (Smith et al., Biophys. J. 2014), and multicolour STORM correlated with live calcium imaging of the same cells.",
+   "techniques": [
+    "smlm",
+    "spt"
+   ]
+  },
+  {
+   "project": "dna-memory-2021",
+   "title": "Reading data stored in DNA",
+   "text": "Part of the Boise State team that stored digital data in DNA origami and read it back by DNA-PAINT super-resolution microscopy (Nat. Commun. 2021), followed by work on DNA-PAINT probe design (ACS Nano 2024).",
+   "techniques": [
+    "dna-paint"
+   ]
+  },
+  {
+   "project": "piezo1-halotag-2025",
+   "title": "Analysis software for imaging labs",
+   "text": "Analysis software for imaging labs: single-molecule analysis in the team's PIEZO1-HaloTag study (Nat. Commun. 2025), FLIKA plugins, and deep-learning segmentation and tracking pipelines validated against hand-annotated ground truth.",
+   "techniques": [
+    "spt",
+    "smlm"
+   ]
+  },
+  {
+   "project": "lysosome-naadp-2010",
+   "title": "Electron microscopy",
+   "text": "Transmission electron microscopy and morphometry of lysosomes in a Patel lab study of lysosome proliferation and NAADP signalling (J. Biol. Chem. 2010).",
+   "techniques": [
+    "tem"
+   ]
+  },
+  {
+   "project": "lysosome-naadp-2010",
+   "title": "Confocal imaging",
+   "text": "Confocal imaging of lysosomes on a Zeiss LSM 510 in the same study (J. Biol. Chem. 2010), and on other confocal systems over the years.",
+   "techniques": [
+    "confocal"
+   ]
+  }
+ ],
+ "instruments": [
+  {
+   "technique": "tirf",
+   "instrument": "Custom TIRF (Olympus IX70, 60×/1.45), Cascade 128 and Evolve 512 EMCCDs, designed and built by Ian Parker",
+   "work": "Single-channel Ca²⁺ imaging; waves and puffs in widefield and TIRF"
+  },
+  {
+   "technique": "smlm",
+   "instrument": "Nikon N-STORM, 100×/1.49 APO TIRF",
+   "work": "STORM and sptPALM of IP3 receptors"
+  },
+  {
+   "technique": "dna-paint",
+   "instrument": "Nikon Eclipse Ti2 TIRF, 100×/1.49 with 1.5× magnifier, ProEM EMCCD",
+   "work": "DNA-PAINT of DNA origami, 40,000-frame acquisitions"
+  },
+  {
+   "technique": "confocal",
+   "instrument": "Zeiss Axiovert 200M with LSM 510",
+   "work": "LysoTracker imaging of lysosomes"
+  },
+  {
+   "technique": "tem",
+   "instrument": "JEOL 1010 with Gatan Orius CCD; Reichert Ultracut E",
+   "work": "Ultrastructure and morphometry"
+  }
+ ],
+ "labs": [
+  {
+   "name": "Parker lab",
+   "pi": "Prof. Ian Parker",
+   "where": "Neurobiology & Behavior, UC Irvine",
+   "years": "2010-present",
+   "work": "Team research on IP3-receptor channels and Ca2+ puffs using TIRF, STORM and sptPALM, and analysis software (FLIKA).",
+   "offers": "Pioneering optical patch-clamp methods; a gallery of Ca2+ images and movies.",
+   "links": [
+    {
+     "title": "Lab website",
+     "url": "https://parkerlab.bio.uci.edu"
+    },
+    {
+     "title": "Calcium images and movies",
+     "url": "https://parkerlab.bio.uci.edu/images_movies_presentations/calcium.htm"
+    },
+    {
+     "title": "Microscopy construction guides",
+     "url": "https://evanescentlight.com/microscopy_construction.htm"
+    }
+   ]
+  },
+  {
+   "name": "Pathak lab",
+   "pi": "Prof. Medha Pathak",
+   "where": "Physiology & Biophysics, UC Irvine",
+   "years": "2018-present",
+   "work": "Team research on PIEZO1, including single-molecule and cell imaging and its analysis (PIEZO1-HaloTag, Nat. Commun. 2025).",
+   "offers": "Research on mechanotransduction and the PIEZO1 ion channel.",
+   "links": [
+    {
+     "title": "Lab website",
+     "url": "https://www.pathaklab-uci.com"
+    }
+   ]
+  },
+  {
+   "name": "Nucleic Acid Memory team",
+   "pi": "Prof. Will Hughes (with R. Zadegan and T. Andersen)",
+   "where": "Micron School of Materials Science & Engineering, Boise State University; the Hughes lab is now at UBC Okanagan",
+   "years": "2019-2022",
+   "work": "Team research on storing digital data in DNA origami and reading it by DNA-PAINT (Nat. Commun. 2021).",
+   "offers": "Digital nucleic acid memory (dNAM): DNA origami 'pegboards' read by super-resolution microscopy.",
+   "links": [
+    {
+     "title": "Boise State news: data is in our DNA",
+     "url": "https://www.boisestate.edu/news/2021/04/22/data-is-in-our-dna-researchers-advance-dna-as-a-memory-material/"
+    },
+    {
+     "title": "Hughes lab at UBC Okanagan",
+     "url": "https://news.ok.ubc.ca/2026/03/30/undergraduate-students-help-turn-science-fiction-into-reality/"
+    },
+    {
+     "title": "Creating a molecular pegboard (CFI)",
+     "url": "https://innovation.ca/projects-results/research-stories/dna-data-storage"
+    }
+   ]
+  },
+  {
+   "name": "Patel lab",
+   "pi": "Prof. Sandip Patel",
+   "where": "Cell & Developmental Biology, University College London",
+   "years": "2002-2004, 2008-2010",
+   "work": "Team research on Ca2+ signalling by acidic organelles, NAADP and two-pore channels, including confocal and electron microscopy of lysosomes.",
+   "offers": "Leading work on lysosomal Ca2+ signalling, NAADP and two-pore channels.",
+   "links": [
+    {
+     "title": "UCL profile",
+     "url": "https://profiles.ucl.ac.uk/9779"
+    },
+    {
+     "title": "Lab page",
+     "url": "https://www.ucl.ac.uk/life-sciences/sandip-patels-lab"
+    }
+   ]
+  },
+  {
+   "name": "Sanders lab",
+   "pi": "Prof. Dale Sanders FRS",
+   "where": "Department of Biology, University of York (PhD)",
+   "years": "1998-2002",
+   "work": "PhD research in the lab on Ca2+ release channels and signalling in plants.",
+   "offers": "Ion channels in plant signalling and zinc homeostasis; later Director of the John Innes Centre.",
+   "links": [
+    {
+     "title": "Profile (New Phytologist Foundation)",
+     "url": "https://www.newphytologist.org/people/dale-sanders"
+    }
+   ]
+  }
+ ],
+ "code": [
+  {
+   "title": "FLIKA",
+   "url": "https://flika-org.github.io",
+   "about": "Open-source Python image-processing program for biologists, created in the Parker lab by Kyle Ellefsen; widely used for Ca2+ puff detection and single-particle tracking."
+  },
+  {
+   "title": "FLIKA source (flika-org)",
+   "url": "https://github.com/flika-org/flika",
+   "about": "The main FLIKA repository."
+  },
+  {
+   "title": "FLIKA, extended edition",
+   "url": "https://github.com/gddickinson/flika---Georges-Edition",
+   "about": "A modernised FLIKA fork extended for SMLM, single-particle tracking, Ca2+ imaging and FRAP."
+  },
+  {
+   "title": "FLIKA plugins",
+   "url": "https://github.com/gddickinson/flika_plugins",
+   "about": "Plugins for puff detection, SMLM, light-sheet and particle tracking, used by the Parker and Pathak labs."
+  },
+  {
+   "title": "CellScope",
+   "url": "https://github.com/gddickinson/cellscope",
+   "about": "Cell segmentation, tracking and morphology pipeline written with Claude Code (Cellpose-SAM fine-tuned on DIC, SAM2 gap filling), validated against hand annotation."
+  },
+  {
+   "title": "All repositories (gddickinson)",
+   "url": "https://github.com/gddickinson",
+   "about": "Imaging, analysis and teaching tools on GitHub."
+  }
+ ],
+ "code_papers": [
+  {
+   "cite": "Ellefsen KL, Settle B, Parker I, Smith IF (2014) Cell Calcium 56:147-156",
+   "doi": "10.1016/j.ceca.2014.06.003",
+   "note": "The algorithm behind FLIKA's automated detection of local Ca2+ signals."
+  }
+ ],
+ "papers": [
+  {
+   "cite": "Dickinson GD, Mortuza GM, Clay W, Piantanida L, et al. (2021) Nature Communications 12:2371",
+   "doi": "10.1038/s41467-021-22277-y",
+   "note": "An alternative approach to nucleic acid memory: data stored in DNA origami, read by DNA-PAINT."
+  },
+  {
+   "cite": "Dickinson GD, Ellefsen KL, Dawson SP, Pearson JE, Parker I (2016) Science Signaling 9:ra108",
+   "doi": "10.1126/scisignal.aag1625",
+   "note": "Hindered cytoplasmic diffusion of IP3 restricts its cellular range of action; journal cover."
+  },
+  {
+   "cite": "Smith IF, Swaminathan D, Dickinson GD, Parker I (2014) Biophysical Journal 107:834-845",
+   "doi": "10.1016/j.bpj.2014.05.051",
+   "note": "Single-molecule tracking (sptPALM) and STORM of IP3 receptors."
+  },
+  {
+   "cite": "Dickinson GD, Parker I (2013) Biophysical Journal 104:386-395",
+   "doi": "10.1016/j.bpj.2012.12.024",
+   "note": "Temperature dependence of IP3-mediated local and global Ca2+ signals, imaged by TIRF at up to 500 frames per second."
+  }
+ ],
+ "software": [
+  "FLIKA plugins for single-particle tracking, localization and analysis, used in the Parker and Pathak labs",
+  "Cellpose-SAM fine-tuning and SAM2 gap filling for cell segmentation and tracking (mean IoU ~0.83 against hand annotation)",
+  "This atlas: FastAPI and JavaScript, with simulations of the physics"
+ ],
+ "footnote": "All of this work was done by teams; see each paper for its full author list and contributions. The Parker-lab microscopes were designed and built by Ian Parker.",
+ "projects": [
+  {
+   "id": "phd-plant-calcium-2002",
+   "title": "Calcium messengers in plants",
+   "year": 2002,
+   "paper": {
+    "cite": "Dickinson GD (2002) Ligand-gated calcium mobilisation in higher plants. PhD thesis, University of York",
+    "doi": null
+   },
+   "licence": "PhD thesis, author's copyright; the figure panel is a local preview only",
+   "question": "In animal cells the messengers cyclic ADP-ribose (cADPR) and NAADP release calcium from internal stores. Do plants make and use the same messengers, and what are the channels they act on?",
+   "approach": "cADPR was measured in red beet by HPLC and a radioimmunoassay. Plant tissues were screened for the enzyme that makes cADPR (ADP-ribosyl cyclase) with a fluorescent assay that follows the formation of cyclic GDP-ribose, and the cauliflower enzyme was characterised and partly purified by column chromatography. Nuclei isolated from Arabidopsis leaves, checked by bright-field and DAPI fluorescence microscopy, were tested for the same activity. Calcium release from ER-enriched cauliflower microsomes was studied under different pH and redox conditions, and the Arabidopsis protein database was searched for relatives of animal calcium-release channels.",
+   "findings": [
+    "Basal cADPR in red beet was in the picomole per milligram range.",
+    "Red beet, maize, Arabidopsis and cauliflower all showed ADP-ribosyl cyclase activity; the cauliflower activity had a Km of 130.4 uM and was enriched 49-fold by partial purification.",
+    "Soluble and membrane cyclase activities differed and responded differently to cGMP, suggesting more than one cyclase.",
+    "Ligand-gated calcium release from cauliflower microsomes was modulated by pH and redox agents, in ways that differed between ligands.",
+    "Several Arabidopsis proteins carry SPRY domains like those of ryanodine receptors, but none resembled the animal ligand-gated calcium-release channels."
+   ],
+   "role": "This was George's PhD research in the Sanders lab at the University of York, which combined biochemistry, fluorescence assays, microscopy and bioinformatics.",
+   "techniques": [
+    "widefield",
+    "brightfield"
+   ],
+   "people": "Supervisor: Dale Sanders; Sanders lab, Department of Biology, University of York",
+   "why_it_matters": "It explored whether the calcium-mobilising messengers known from animal cells also work in plants; related work from the lab showed NAADP releasing calcium from plant ER (Navazio et al., PNAS 2000)."
+  },
+  {
+   "id": "lysosome-naadp-2010",
+   "title": "When lysosomes multiply: NAADP signalling in neurons",
+   "year": 2010,
+   "paper": {
+    "cite": "Dickinson GD, Churchill GC, Brailoiu E, Patel S (2010) Deviant nicotinic acid adenine dinucleotide phosphate (NAADP)-mediated Ca2+ signaling upon lysosome proliferation. J Biol Chem 285(18):13321-13325",
+    "doi": "10.1074/jbc.C110.112573"
+   },
+   "licence": "Publisher copyright (ASBMB); figure panels are local previews only",
+   "question": "Lysosomes are an intracellular calcium store released by the messenger NAADP, and they build up in neurons in ageing and in many neurodegenerative diseases. Does having more lysosomes change calcium signalling?",
+   "approach": "Lysosomes were made to proliferate in cultured rat hippocampal neurons (10 days) and PC12 cells (5 days) by inhibiting the lysosomal proteases cathepsin B and L with Z-Phe-Ala-diazomethylketone (ZPAD). Lysosome numbers were checked three ways: LysoTracker Red imaged by widefield epifluorescence (Olympus IX71) and by confocal microscopy (Zeiss Axiovert 200M with LSM 510, 63x/1.4 oil, 543 nm excitation); transmission electron microscopy of fixed, resin-embedded cells (ultrathin sections on a Reichert Ultracut E, uranyl acetate and lead citrate staining, JEOL 1010 with a Gatan Orius CCD), with lysosomes and mitochondria counted and measured in ImageJ; and qRT-PCR of the lysosomal proteins LAMP-1 and LAMP-2.\n\nCalcium was then measured by ratiometric Fura-2 imaging (340/380 nm excitation every 3 s from a TILL Photonics monochromator, 20x/0.75 objective) in 30-60 cells per experiment, in response to GPN (which bursts lysosomes), the cell-permeant NAADP-AM, glutamate, thapsigargin and high potassium.",
+   "findings": [
+    "ZPAD increased the number and size of electron-dense lysosomes in both cell types but had little effect on mitochondria.",
+    "LysoTracker staining of PC12 cells rose with ZPAD concentration, about 10-fold at 200 uM; 50 uM ZPAD raised LAMP-1 and LAMP-2 transcripts 2-3-fold.",
+    "Calcium released by GPN from lysosomes rose about 4-fold, while the ER store (thapsigargin) was unchanged.",
+    "Responses to NAADP-AM were 1.5-2-fold larger in neurons and PC12 cells, and responses to glutamate (an NAADP-linked transmitter) were also enhanced; depolarisation-evoked signals were unchanged."
+   ],
+   "role": "George was one of the authors of this team study from the Patel lab at UCL, with collaborators in Oxford and at Temple University, which combined electron microscopy, confocal imaging and calcium imaging.",
+   "techniques": [
+    "tem",
+    "confocal",
+    "widefield"
+   ],
+   "people": "Authors: George Dickinson, Grant Churchill, Eugen Brailoiu, Sandip Patel; Patel lab, University College London",
+   "links": [
+    {
+     "title": "Paper (J Biol Chem)",
+     "url": "https://doi.org/10.1074/jbc.C110.112573"
+    }
+   ],
+   "why_it_matters": "It links the lysosome build-up seen in ageing and neurodegeneration to exaggerated calcium signals, and offers a simple drug treatment for studying acidic calcium stores."
+  },
+  {
+   "id": "trpml1-tpc-2011",
+   "title": "Two lysosomal channels that work independently",
+   "year": 2011,
+   "paper": {
+    "cite": "Yamaguchi S, Jha A, Li Q, Soyombo AA, Dickinson GD, Churamani D, Brailoiu E, Patel S, Muallem S (2011) Transient receptor potential mucolipin 1 (TRPML1) and two-pore channels are functionally independent organellar ion channels. J Biol Chem 286(26):22934-22942",
+    "doi": "10.1074/jbc.M110.210930"
+   },
+   "licence": "CC BY 4.0 per Crossref (JBC version of record); figure panel is a local preview only",
+   "question": "NAADP releases calcium from endosomes and lysosomes, and two families of channels there, TRP mucolipins (TRPMLs) and two-pore channels (TPCs), had both been proposed as its target. Do they work together, and which one does NAADP act on?",
+   "approach": "Tagged TRPML1 or TRPML3 (mCherry) and TPC1 or TPC2 (GFP) were expressed in HeLa, HEK293 and SKBR3 cells and imaged on confocal microscopes (Bio-Rad MRC 1000 or Olympus FluoView FV1000, 40x objective, sequential scanning to avoid bleed-through); overlap of labelled organelles was counted in ImageJ. Co-immunoprecipitation tested physical association, patch clamp measured TRPML1 currents with and without TPCs and of a plasma-membrane-targeted TPC2, and Fura-2 calcium imaging measured NAADP responses in SKBR3 cells, given by microinjection or as the cell-permeant NAADP-AM. NAADP-evoked calcium oscillations were compared in pancreatic acinar cells from wild-type and TRPML1-knockout mice.",
+   "findings": [
+    "TRPML1 overlapped almost completely with TPC2 (90.2 +/- 4.4% of organelles) and only partly with TPC1 (20.3 +/- 3.1%); TRPML3 overlapped with TPC2 more modestly (64.9 +/- 6.0%).",
+    "TRPML1, and to some extent TRPML3, co-immunoprecipitated with TPC2, less so with TPC1.",
+    "TPCs did not change TRPML1 currents, and TRPML1 did not change the single-channel properties of NAADP-activated TPC2.",
+    "Overexpressing TPCs enhanced NAADP-evoked calcium signals but overexpressing TRPML1 did not, and NAADP-evoked oscillations were the same in TRPML1-knockout acinar cells.",
+    "The authors conclude that TRPML1 and TPCs sit in the same complex but work independently, and that TPCs, not TRPMLs, are the targets of NAADP."
+   ],
+   "role": "George was one of the authors of this multi-lab study (UT Southwestern, NIH, UCL and Temple University), which combined confocal imaging, calcium imaging, electrophysiology and biochemistry.",
+   "techniques": [
+    "confocal",
+    "widefield"
+   ],
+   "people": "Authors: Soichiro Yamaguchi, Archana Jha, Qin Li, Abigail Soyombo, George Dickinson, Dev Churamani, Eugen Brailoiu, Sandip Patel, Shmuel Muallem; Muallem lab (UT Southwestern and NIH), Patel lab (UCL), Temple University",
+   "links": [
+    {
+     "title": "Paper (J Biol Chem)",
+     "url": "https://doi.org/10.1074/jbc.M110.210930"
+    }
+   ],
+   "why_it_matters": "It became a standard reference for the view that two-pore channels, not TRPML1, mediate NAADP-evoked calcium release."
+  },
+  {
+   "id": "puff-trigger-2012",
+   "title": "Bigger channel clusters fire more often",
+   "year": 2012,
+   "paper": {
+    "cite": "Dickinson GD, Swaminathan D, Parker I (2012) The probability of triggering calcium puffs is linearly related to the number of inositol trisphosphate receptors in a cluster. Biophys J 102(8):1826-1836",
+    "doi": "10.1016/j.bpj.2012.03.029"
+   },
+   "licence": "Publisher copyright (Biophysical Society / Elsevier); figure panels are local previews only",
+   "question": "Calcium puffs come from clusters of IP3 receptor channels, and different clusters hold different numbers of channels. How does the number of channels in a cluster change how often it fires?",
+   "approach": "SH-SY5Y neuroblastoma cells were loaded with Fluo-4, caged IP3 and the slow calcium buffer EGTA, which keeps signals local. A UV flash from an arc lamp released IP3, and calcium was imaged on the Parker lab's home-built TIRF microscope (Olympus IX70, 60x/1.45, Cascade 128 EMCCD at 128 x 128 pixels of 0.33 um and 500 frames per second). With this resolution the opening of a single channel (a 'blip') is visible, and puffs fall back to baseline in steps as channels close.\n\nThe single-channel signal was used as a yardstick: dividing the largest puff at a site by the blip amplitude gave a minimal estimate of the number of channels in that cluster. Puff frequency, intervals and first-puff latency were then compared with cluster size, and with stochastic simulations of channel clusters built from a four-subunit De Young-Keizer receptor model.",
+   "findings": [
+    "Blips had a mean amplitude of 0.113 dF/F0 (187 events), and 1,243 dwell-state levels from 155 puff sites formed a ladder of seven evenly spaced Gaussian peaks, so fluorescence scales linearly with the number of open channels.",
+    "Counting closing steps and dividing peak amplitude by the blip size gave the same channel numbers (slope 1.002, R = 0.95).",
+    "Puff frequency rose about linearly with cluster size, and interpuff interval and first-puff latency varied as its reciprocal (101 sites).",
+    "Simulations in which any one channel opening can trigger a puff reproduced these relationships.",
+    "The signalling power of a site (calcium per puff times puff frequency) therefore grows about as the square of cluster size, so large clusters dominate and can act as pacemakers for calcium waves."
+   ],
+   "role": "George was one of the authors of this team study from the Parker lab at UC Irvine, which combined TIRF calcium imaging, image analysis and stochastic modelling.",
+   "techniques": [
+    "tirf"
+   ],
+   "people": "Authors: George Dickinson, Divya Swaminathan, Ian Parker; Parker lab, UC Irvine",
+   "links": [
+    {
+     "title": "Paper (Biophys J)",
+     "url": "https://doi.org/10.1016/j.bpj.2012.03.029"
+    }
+   ],
+   "why_it_matters": "The link between cluster size and triggering rate became a standard benchmark for stochastic models of calcium puffs."
+  },
+  {
+   "id": "presenilin-tpc-2012",
+   "title": "Presenilins, lysosomes and two-pore channels",
+   "year": 2012,
+   "paper": {
+    "cite": "Neely Kayala KM, Dickinson GD, Minassian A, Walls KC, Green KN, LaFerla FM (2012) Presenilin-null cells have altered two-pore calcium channel expression and lysosomal calcium: implications for lysosomal function. Brain Res 1489:8-16",
+    "doi": "10.1016/j.brainres.2012.10.036"
+   },
+   "licence": "Publisher copyright (Elsevier); figure panel is a local preview only",
+   "question": "Presenilins, mutated in familial Alzheimer's disease, help control both calcium stores and the breakdown of proteins by lysosomes. What happens to the lysosomal calcium store, and to the two-pore channels that release it, when presenilins are missing?",
+   "approach": "Mouse embryonic fibroblasts lacking presenilin 1, presenilin 2 or both (PSDKO) were compared with control cells. Lysosomal calcium was measured by Fura-2 ratiometric imaging while GPN, which bursts lysosomes, released their contents. Cells expressing TPC1-GFP or TPC2-GFP and stained with LysoTracker Red were imaged as confocal z-stacks (Leica, 0.5 um steps), and Bitplane Imaris surface models counted and measured lysosomes and channel puncta in 3D. Western blots measured TPC1, TPC2 and the autophagy marker LC3, and a long-lived protein-degradation assay measured lysosomal proteolysis.",
+   "findings": [
+    "Cells lacking both presenilins released less calcium in response to GPN, so their lysosomal calcium store was smaller despite a build-up of lysosomes.",
+    "Imaris analysis showed more LysoTracker-stained lysosomes, of larger average volume, in knockout cells, while TPC2-GFP puncta were fewer.",
+    "Loss of presenilin prevented the formation of a high-molecular-weight form of TPC1 and TPC2.",
+    "Blocking lysosomal calcium release (with Ned-19) reduced autophagy, whereas lysosomal inhibitors did not change two-pore channel levels."
+   ],
+   "role": "George was one of the authors of this team study from the LaFerla and Green labs at UC Irvine, which combined calcium imaging, confocal imaging with 3D image analysis, and biochemistry.",
+   "techniques": [
+    "confocal",
+    "widefield"
+   ],
+   "people": "Authors: Kara Neely Kayala, George Dickinson, Anet Minassian, Ken Walls, Kim Green, Frank LaFerla; UC Irvine",
+   "links": [
+    {
+     "title": "Paper (Brain Research)",
+     "url": "https://doi.org/10.1016/j.brainres.2012.10.036"
+    }
+   ],
+   "why_it_matters": "It linked loss of presenilin function to changes in lysosomal calcium and two-pore channels, part of the wider picture of calcium imbalance in Alzheimer's disease."
+  },
+  {
+   "id": "temperature-puffs-2013",
+   "title": "How temperature changes IP3 receptor calcium signals",
+   "year": 2013,
+   "paper": {
+    "cite": "Dickinson GD, Parker I (2013) Temperature dependence of IP3-mediated local and global Ca2+ signals. Biophys J 104(2):386-395",
+    "doi": "10.1016/j.bpj.2012.12.024"
+   },
+   "licence": "Publisher copyright (Biophysical Society / Elsevier); images are rendered from the lab's raw data and stay local until Ian Parker agrees",
+   "question": "Most calcium imaging in cultured cells is done at room temperature, not body temperature. How does temperature change the single-channel and cluster-level calcium signals made by IP3 receptors, and the cell-wide waves they build?",
+   "approach": "SH-SY5Y neuroblastoma cells were loaded with the calcium dye Fluo-4 and a caged IP3 analogue, and a UV flash released IP3 inside them. Calcium was imaged on the Parker lab's custom TIRF microscope (Olympus IX70, 60x/1.45 objective, 488 nm excitation, Cascade 128 EMCCD at 128 x 128 pixels of 0.33 um and up to 500 frames per second). Moving the laser focus from the edge to the centre of the objective's back aperture switched the same microscope between TIRF, for local puffs and blips, and widefield illumination, for global waves. Cells loaded with the slow buffer EGTA showed isolated puffs and single-channel blips.\n\nThe dish sat in a brass holder with two Peltier elements that set the temperature anywhere from 12 to 40 C, monitored by a thermocouple. Puff and blip amplitudes, durations, latencies and frequencies were measured from small regions of interest, resting calcium was calibrated with Fura-2, and temperature coefficients (Q10) and break points were found from Arrhenius plots with segmental regression.",
+   "findings": [
+    "Puff and blip amplitudes and spatial spread hardly changed between 12 and 40 C, so calcium flow through an open channel is nearly temperature independent.",
+    "Kinetics sped up with warming: puff duration shortened with a Q10 of about 0.49, and blip (single-channel) durations shortened 3.1-3.4-fold from 12 to 40 C.",
+    "Global calcium waves were larger when cooler (Q10 = 0.73), explained by longer channel openings.",
+    "Puff and blip durations, puff latency and frequency, and wave frequency all showed a break in their Arrhenius plots near 25 C, possibly a lipid phase transition in the ER membrane.",
+    "Cooling from 24 to 12 C prolongs single-channel signals about 3-fold without reducing their amplitude, which can help optical recording of channel gating."
+   ],
+   "role": "George was one of the authors of this team study from the Parker lab at UC Irvine, which combined TIRF calcium imaging on the lab's home-built microscope and temperature-controlled stage with kinetic analysis.",
+   "techniques": [
+    "tirf",
+    "widefield"
+   ],
+   "people": "Authors: George Dickinson, Ian Parker; Parker lab, UC Irvine",
+   "links": [
+    {
+     "title": "Paper (Biophys J)",
+     "url": "https://doi.org/10.1016/j.bpj.2012.12.024"
+    },
+    {
+     "title": "Parker lab calcium images and movies",
+     "url": "https://parkerlab.bio.uci.edu/images_movies_presentations/calcium.htm"
+    }
+   ],
+   "why_it_matters": "Results obtained at room temperature need care when extrapolated to body temperature, and cooling offers a simple way to slow channel gating enough to see it optically."
+  },
+  {
+   "id": "puff-recruitment-2013",
+   "title": "How a puff recruits its channels",
+   "year": 2013,
+   "paper": {
+    "cite": "Dickinson GD, Parker I (2013) Factors determining the recruitment of inositol trisphosphate receptor channels during calcium puffs. Biophys J 105(11):2474-2484",
+    "doi": "10.1016/j.bpj.2013.10.028"
+   },
+   "licence": "Publisher copyright (Biophysical Society / Elsevier); figure panels are local previews only",
+   "question": "Once one IP3 receptor channel in a cluster opens, calcium-induced calcium release can open its neighbours. How likely is each neighbour to join in, and what sets the size, duration and spread of the resulting puff?",
+   "approach": "SH-SY5Y cells loaded with Fluo-4, EGTA and caged IP3 were imaged by TIRF with single-channel resolution (Olympus IX70, 60x/1.45, Cascade 128 EMCCD, 128 x 128 pixels of 0.33 um, 500 frames per second) after UV photorelease of IP3. Each event was scored by the number of channels open at its peak, using the single-channel blip amplitude (dF/F0 = 0.11) as the unit, and each site's cluster size was taken from its largest event. Spatial spread was measured as the width at half maximum (FWHM) of fluorescence profiles along 3-pixel-wide lines through each event.",
+   "findings": [
+    "Across 3,499 events at 562 puff sites, any given channel in a cluster had a mean probability of about 66% of opening after an initial 'trigger' channel opened, so the chance of triggering a puff rises steeply with cluster size.",
+    "Mean puff amplitude scaled with cluster size, but individual amplitudes varied widely even at sites of similar size, and successive puffs at a site were uncorrelated in amplitude.",
+    "Puffs took longer to end the larger they were, consistent with channels closing independently after a mean open time, but termination time did not depend on cluster size once amplitude was accounted for.",
+    "Puffs spread further the larger they were (mean widths about 0.9 um for blips and 1.7 um for puffs), independent of cluster size."
+   ],
+   "role": "George was one of the authors of this team study from the Parker lab at UC Irvine, which combined TIRF calcium imaging with single-channel resolution and quantitative analysis.",
+   "techniques": [
+    "tirf"
+   ],
+   "people": "Authors: George Dickinson, Ian Parker; Parker lab, UC Irvine",
+   "links": [
+    {
+     "title": "Paper (Biophys J)",
+     "url": "https://doi.org/10.1016/j.bpj.2013.10.028"
+    }
+   ],
+   "why_it_matters": "The roughly 66% coupling between neighbouring channels is widely used to calibrate models of calcium puffs."
+  },
+  {
+   "id": "ip3r-tracking-2014",
+   "title": "Tracking single IP3 receptors: mobile and anchored",
+   "year": 2014,
+   "paper": {
+    "cite": "Smith IF, Swaminathan D, Dickinson GD, Parker I (2014) Single-molecule tracking of inositol trisphosphate receptors reveals different motilities and distributions. Biophys J 107(4):834-845",
+    "doi": "10.1016/j.bpj.2014.05.051"
+   },
+   "licence": "Publisher copyright (Biophysical Society / Elsevier); figure panels are local previews only",
+   "question": "Calcium puffs arise again and again at the same fixed sites, yet photobleaching studies suggested most IP3 receptors move freely in the ER membrane. Which receptors move, which stay put, and how are the stationary ones arranged?",
+   "approach": "Type 1 IP3 receptors tagged with the photoconvertible protein mEos2 were expressed in COS-7 cells, whose thin periphery holds a nearly flat sheet of ER. For sptPALM, weak 405 nm light converted a few molecules at a time to the red form, which was imaged with 561 nm excitation in semi-TIRF on a custom Olympus IX70 microscope (100x/1.40 objective) and an Evolve 512 EMCCD at 167 nm per pixel and 150 ms per frame (6.67 frames per second), typically 5,000 frames per cell. Insight3 fitted each spot with a 2D Gaussian and linked spots within 664 nm in consecutive frames; custom MATLAB code computed step sizes, mean squared displacement and two-component fits, and re-linked blinking immobile molecules.\n\nNative receptors in untransfected cells were imaged by STORM on a Nikon N-STORM (100x/1.49 TIRF objective) with an anti-IP3R1 antibody and a Cy3-Alexa Fluor 647 secondary, recording 15,000 frames at 15 ms.",
+   "findings": [
+    "About 70% of IP3R1 molecules were freely motile, with an apparent diffusion coefficient of about 0.095 um2 per second; the rest were essentially immotile.",
+    "Mean step sizes split into two groups centred near 46 and 169 nm, and the slow group matched molecules in fixed cells, confirming it was immobile.",
+    "Diffusion slowed only slightly on cooling (Q10 = 1.40), as expected for passive diffusion.",
+    "Some immotile receptors sat in clusters a few hundred nanometres across, the size expected for puff sites; activating IP3/calcium signalling did not change motility or clustering within seconds.",
+    "STORM of native IP3R1 showed a pattern closely resembling that of the tagged receptors."
+   ],
+   "role": "George was one of the authors of this team study from the Parker lab, which combined single-molecule tracking, STORM and image analysis.",
+   "techniques": [
+    "smlm",
+    "spt",
+    "tirf"
+   ],
+   "people": "Authors: Ian F. Smith, Divya Swaminathan, George Dickinson, Ian Parker; Parker lab, UC Irvine",
+   "links": [
+    {
+     "title": "Paper (Biophys J)",
+     "url": "https://doi.org/10.1016/j.bpj.2014.05.051"
+    }
+   ],
+   "why_it_matters": "It suggested that calcium puffs come from small, stable clusters of anchored receptors, while the more numerous mobile receptors appear functionally silent."
+  },
+  {
+   "id": "puff-termination-2014",
+   "title": "How calcium puffs switch off",
+   "year": 2014,
+   "paper": {
+    "cite": "Wiltgen SM, Dickinson GD, Swaminathan D, Parker I (2014) Termination of calcium puffs and coupled closings of inositol trisphosphate receptor channels. Cell Calcium 56(3):157-168",
+    "doi": "10.1016/j.ceca.2014.06.005"
+   },
+   "licence": "Publisher copyright (Elsevier); figure panels are local previews only",
+   "question": "Calcium-induced calcium release is self-reinforcing, yet puffs end within tens of milliseconds. What closes the channels?",
+   "approach": "SH-SY5Y cells loaded with Fluo-8, EGTA and caged IP3 were imaged on a home-built TIRF microscope (Olympus IX70, 60x/1.45, 488 nm excitation of a roughly 100 nm evanescent field, Cascade 128 EMCCD, 0.33 um pixels, 420 frames per second). The stepwise rises and falls of puffs were read as the openings and closings of individual channels, puffs were sorted by shape, and step dwell times were compared with stochastic simulations of channels that close independently and of a De Young-Keizer cluster model, with noise added to mimic the recordings. At sites showing only one- and two-channel events, 2D Gaussian fitting localised the fluorescence centroids to check that the channels were neighbours. Puffs were also recorded at 12, 22 and 36 C.",
+   "findings": [
+    "Puffs took many shapes: smoothly decaying, stepwise, 'square' and with re-openings; 63% of 774 puffs at 94 sites showed no re-openings.",
+    "When several channels were open they stayed open together longer than independent gating predicts, then closed in near-synchrony.",
+    "For closely adjacent pairs (centroids within about 100-150 nm), both channels stayed open together for 36.6 ms on average, against 7.5 ms expected for independent closing, and the second closed only 4.9 ms after the first (15 ms expected).",
+    "Warming changed the shape of puffs, not just their speed: at 36 C puffs spent a larger fraction of their duration near their peak than at 12 C.",
+    "Neither calcium inhibition of the receptors nor local depletion of ER calcium readily explains this; the authors propose that neighbouring receptors are coupled, possibly through allosteric interactions."
+   ],
+   "role": "George was one of the authors of this team study from the Parker lab at UC Irvine, which combined TIRF imaging of single-channel calcium signals, localisation of their centroids and stochastic simulations.",
+   "techniques": [
+    "tirf"
+   ],
+   "people": "Authors: Steven Wiltgen, George Dickinson, Divya Swaminathan, Ian Parker; Parker lab, UC Irvine",
+   "links": [
+    {
+     "title": "Paper (Cell Calcium)",
+     "url": "https://doi.org/10.1016/j.ceca.2014.06.005"
+    }
+   ],
+   "why_it_matters": "Coupled closing of neighbouring channels is a key constraint for models of how calcium puffs end."
+  },
+  {
+   "id": "storm-puffs-poster-2015",
+   "title": "Mapping IP3 receptors to calcium puffs (poster, unpublished)",
+   "year": 2015,
+   "paper": {
+    "cite": "Dickinson GD, Parker I (2015) Side-stepping the resolution limit to map IP3-receptors to calcium signals. Poster, Gordon Research Conference on Calcium Signaling. Unpublished",
+    "doi": null
+   },
+   "licence": "Unpublished poster work; images are local previews only",
+   "question": "Puffs arise from clusters of IP3 receptors smaller than the optical resolution limit. Can super-resolution imaging of the receptors in fixed cells be matched to puffs recorded in the same cells while they were alive?",
+   "approach": "Native IP3 receptor types 1, 2 and 3 were immunostained in fixed SH-SY5Y cells and imaged on a Nikon N-STORM (100x/1.49 TIRF objective, Andor iXon3 EMCCD at 15 ms per frame). Single-colour 3D STORM used Cy3-Alexa Fluor 647 dye pairs and a cylindrical lens (30,000 frames); two- and three-colour direct STORM imaged IP3R1 with the ER marker KDEL and all three receptor types. Clustering of IP3R1 was measured from 3D distances between localisations and by density-based clustering (DBSCAN), against KDEL and an antibody-alone control.\n\nIn the correlative experiments, puffs were first recorded in live cells by TIRF and located by 2D Gaussian fitting in FLIKA; the cells were then fixed and imaged by STORM, and the two data sets were aligned with fluorescent microspheres on the coverglass. The poster won the poster prize at the meeting.",
+   "findings": [
+    "IP3R1 localisations were closer together than those of KDEL, with a peak at about 100 nm, and formed clusters with more localisations and larger areas than the antibody-alone control.",
+    "IP3R1 was the most abundant type, and the three receptor types colocalised only to a limited extent.",
+    "Puff sites were very stable, moving little over 2 minutes.",
+    "Puff centroids were no closer to IP3R1 localisations than to the ER marker KDEL, so the mapping did not show a correlation; the poster discusses possible reasons, such as other receptor types or receptors deeper in the cell.",
+    "Cells held far more IP3R1 than their roughly 10 puff sites per cell would suggest."
+   ],
+   "role": "George was one of the two authors of this Parker-lab poster, which combined STORM, live-cell TIRF calcium imaging and correlative image registration. This work was not published as a paper.",
+   "techniques": [
+    "smlm",
+    "tirf"
+   ],
+   "people": "Authors: George Dickinson, Ian Parker; Parker lab, UC Irvine",
+   "why_it_matters": "It tested directly whether the receptors seen by super-resolution microscopy are the ones that make puffs, and showed how hard that mapping is."
+  },
+  {
+   "id": "ip3-diffusion-2016",
+   "title": "IP3 is a local messenger, not a global one",
+   "year": 2016,
+   "paper": {
+    "cite": "Dickinson GD, Ellefsen KL, Dawson SP, Pearson JE, Parker I (2016) Hindered cytoplasmic diffusion of inositol trisphosphate restricts its cellular range of action. Sci Signal 9(453):ra108",
+    "doi": "10.1126/scisignal.aag1625"
+   },
+   "licence": "Publisher copyright (AAAS); cover and figure panels are local previews only",
+   "question": "A classic measurement in oocyte extracts gave IP3 a diffusion coefficient near 280 um2 per second, making it a messenger that reaches the whole cell. How fast does IP3 really spread inside intact mammalian cells?",
+   "approach": "Elongated SH-SY5Y cells were loaded with Fluo-4 and caged i-IP3. A galvanometer-steered 405 nm laser released i-IP3 either at one spot or as 10 evenly spaced spots along the cell, aimed with a dim coaxial 450 nm guide laser. Calcium puffs, used as natural IP3 detectors spread through the cell, were imaged on the custom TIRF microscope (Olympus IX70, 60x/1.45) with an Evolve 512 EMCCD at 0.266 um per pixel and about 66 frames per second.\n\nPuffs were detected with an automated algorithm (Ellefsen et al. 2014), and the latency to the first puff at each site was plotted against distance from the spot. Numerical diffusion simulations over a range of diffusion coefficients were compared with these latencies, alongside analytical solutions.",
+   "findings": [
+    "After a spot flash, mean first-puff latencies were about 20 times longer at the far end of the cell than near the spot; after a distributed flash they showed no trend along the cell.",
+    "Fitting the simulations gave an effective IP3 diffusion coefficient of 10 um2 per second or less (5-10 um2 per second), about 30-fold slower than the earlier value.",
+    "The predicted range of action of IP3 is under 5 um, smaller than a typical mammalian cell.",
+    "The authors propose that binding to immobile, functionally inactive receptors hinders IP3 diffusion."
+   ],
+   "role": "George was one of the authors of this team study from the Parker lab with theoretical collaborators in Buenos Aires and Los Alamos, which combined TIRF calcium imaging, laser photolysis, image analysis and modelling.",
+   "techniques": [
+    "tirf"
+   ],
+   "people": "Authors: George Dickinson, Kyle Ellefsen, Silvina Ponce Dawson, John Pearson, Ian Parker; Parker lab, UC Irvine, with Universidad de Buenos Aires and Los Alamos National Laboratory",
+   "links": [
+    {
+     "title": "Paper (Science Signaling)",
+     "url": "https://doi.org/10.1126/scisignal.aag1625"
+    }
+   ],
+   "why_it_matters": "IP3 is better thought of as a local signal, which changes how cells can keep different IP3-driven signals apart."
+  },
+  {
+   "id": "calcium-noise-2020",
+   "title": "Finding calcium signals in the noise",
+   "year": 2020,
+   "paper": {
+    "cite": "Swaminathan D, Dickinson GD, Demuro A, Parker I (2020) Noise analysis of cytosolic calcium image data. Cell Calcium 86:102152",
+    "doi": "10.1016/j.ceca.2019.102152"
+   },
+   "licence": "Publisher copyright (Elsevier); figure panels are local previews only",
+   "question": "Many calcium signals inside cells are probably too small to see as discrete events. Can statistical noise analysis, as used for electrical recordings, detect them in calcium imaging data?",
+   "approach": "Local calcium signals were imaged by TIRF (Olympus IX70, 60x/1.45, Cascade 128 EMCCD, 333 nm pixels) in SH-SY5Y cells loaded with Fluo-4, EGTA and caged IP3 (125 frames per second; about 5,000 frames before and 6,000 after a UV flash) and in Xenopus oocytes injected with picomolar IP3 (500 frames per second). Two methods were developed. Power-spectrum analysis compared low- and high-frequency power in each region, since shot noise is flat while local calcium release adds low-frequency power, and turned the excess-power ratio (eta) into maps; Lorentzian fits gave event kinetics. Spatio-temporal cross-correlation measured how strongly each pixel's fluctuations correlated with its neighbours (xi), since calcium signals spread over several pixels while shot noise does not.",
+   "findings": [
+    "Averaging over larger regions suppressed shot noise and raised the excess-power ratio at a puff site (eta from 0.8 for a single pixel to 42 for a 15 x 15-pixel region).",
+    "Power-spectrum maps and cross-correlation maps both picked out the same puff 'hot spots' in SH-SY5Y cells, and Lorentzian fits gave decay times close to those measured directly (at one site 43 ms, against 50 ms from the fluorescence traces).",
+    "In oocytes given picomolar IP3, where discrete events could not be resolved, both methods still found localised sites of increased fluctuation."
+   ],
+   "role": "George was one of the authors of this team study from the Parker lab at UC Irvine, which combined TIRF calcium imaging with new statistical image-analysis methods.",
+   "techniques": [
+    "tirf",
+    "fluctuation"
+   ],
+   "people": "Authors: Divya Swaminathan, George Dickinson, Angelo Demuro, Ian Parker; Parker lab, UC Irvine",
+   "links": [
+    {
+     "title": "Paper (Cell Calcium)",
+     "url": "https://doi.org/10.1016/j.ceca.2019.102152"
+    }
+   ],
+   "why_it_matters": "Noise analysis can reveal calcium signals that are too small or too frequent to pick out one by one."
+  },
+  {
+   "id": "dna-memory-2021",
+   "title": "Storing data in DNA origami and reading it with DNA-PAINT",
+   "year": 2021,
+   "paper": {
+    "cite": "Dickinson GD, Mortuza GM, Clay W, Piantanida L, Green CM, Watson C, Hayden EJ, Andersen T, Kuang W, Graugnard E, Zadegan R, Hughes WL (2021) An alternative approach to nucleic acid memory. Nat Commun 12:2371",
+    "doi": "10.1038/s41467-021-22277-y"
+   },
+   "licence": "CC BY 4.0 (paper); data deposit on Zenodo listed as MIT",
+   "question": "DNA can store data densely and for a long time, but reading it back normally needs sequencing. Can data written as patterns on DNA origami be read optically instead, and recovered reliably when some bits or whole origami are missing?",
+   "approach": "In digital nucleic acid memory (dNAM), each rectangular DNA origami (about 90 x 70 nm) carries a 6 x 8 grid of sites; a staple strand with a docking extension is a 1 and one without is a 0. The message 'Data is in our DNA!\\n' was split across 15 origami designs that also carry index, orientation, parity and checksum bits, protected by fountain codes. Origami were folded, gel-purified and deposited on plasma-cleaned coverslips in flow cells.\n\nThe bits were read by DNA-PAINT: Cy3B-labelled imager strands bind docking sites briefly and repeatedly, giving blinks that can be localised. Imaging used a Nikon Eclipse Ti2 in TIRF (100x/1.49 objective plus 1.5x magnifier, 561 nm laser, ProEM EMCCD at 300 ms per frame), typically 40,000 frames per recording. Localisations came from ThunderSTORM, drift was corrected in Picasso, and custom Python code fitted each origami to the 6 x 8 grid by maximum likelihood, called each bit, and passed the bits to the decoder. AFM checked the origami.",
+   "findings": [
+    "One 40,000-frame recording identified about 4,500 origami in 2,982 um2.",
+    "Only about 750 successfully decoded origami were needed to recover the message with near 100% probability.",
+    "The full message was recovered 100% of the time even when origami recovery was as low as 63%.",
+    "In simulations the decoder recovered whole messages while errors averaged under 7.4 per origami."
+   ],
+   "role": "George was one of the authors of this team study from the Nucleic Acid Memory team at Boise State University, which combined DNA nanotechnology, DNA-PAINT super-resolution imaging, image analysis and coding theory.",
+   "techniques": [
+    "dna-paint",
+    "smlm",
+    "tirf"
+   ],
+   "people": "Authors: George Dickinson, Golam Md Mortuza, William Clay, Luca Piantanida, Christopher Green, Chad Watson, Eric Hayden, Tim Andersen, Wan Kuang, Elton Graugnard, Reza Zadegan, Will Hughes; Boise State University",
+   "links": [
+    {
+     "title": "Paper (Nat Commun, open access)",
+     "url": "https://doi.org/10.1038/s41467-021-22277-y"
+    },
+    {
+     "title": "DNA-PAINT recordings and localisations (Zenodo)",
+     "url": "https://doi.org/10.5281/zenodo.4672665"
+    },
+    {
+     "title": "Code (BoiseState/NAM)",
+     "url": "https://github.com/BoiseState/NAM"
+    }
+   ],
+   "why_it_matters": "It showed a way to read data stored in DNA without sequencing, using super-resolution microscopy."
+  },
+  {
+   "id": "dna-paint-probes-2024",
+   "title": "Shorter DNA-PAINT probes that still see 5 nm",
+   "year": 2024,
+   "paper": {
+    "cite": "Piantanida L, Dickinson GD, Majikes JM, Clay W, Liddle JA, Andersen T, Hayden EJ, Kuang W, Hughes WL (2024) DNA-PAINT probe modifications support high-resolution imaging with shorter binding domains. ACS Nano 18(33):22369-22377",
+    "doi": "10.1021/acsnano.4c06886"
+   },
+   "licence": "Publisher copyright (ACS); figure panel is a local preview only",
+   "question": "DNA-PAINT imager strands with short binding domains could pack more readable sites onto a DNA nanostructure, but they bind too briefly to be imaged well. Can chemical or structural changes to the probe keep them bound long enough?",
+   "approach": "Cy3B-labelled imager probes were shortened and stabilised with mini-hairpin loops and/or bridged nucleic acid (BNA) bases. Their bright and dark times were measured on DNA origami carrying a single docking strand, giving binding and unbinding rates, and their resolving power was tested on origami with sparse and fully occupied 6 x 8 grids. Imaging used a Nikon Eclipse Ti2 in TIRF (100x/1.49 plus 1.5x, about 107 nm per pixel, 561 nm laser, ProEM EMCCD, 150 ms frames, typically 40,000 frames). Dwell times came from Picasso picks and custom code, resolution from Gaussian fits (FWHM) to line profiles, and results were compared with simulated recordings and a thermodynamic model of duplex stability.",
+   "findings": [
+    "A BNA-modified probe with a 4-nucleotide binding domain, 43% shorter than previously reported probes, gave about 5 nm resolution.",
+    "Probes L5b and L4b had binding and unbinding rates equivalent to the standard 7-nt probe L7, and resolved the full grid with FWHM of 5.4 and 5.1 nm (L7: 5.1 nm).",
+    "The unbinding rate tracked the free energy of binding in both experiment and model, so probe performance can be predicted ahead of time.",
+    "On a NAM pattern, L5b and L4b worked with half the exposure time and 25% fewer frames while keeping FWHM below 6 nm."
+   ],
+   "role": "George was one of the authors of this team study from Boise State University and NIST, which combined probe chemistry, DNA-PAINT imaging, simulations and thermodynamic modelling.",
+   "techniques": [
+    "dna-paint",
+    "smlm",
+    "tirf"
+   ],
+   "people": "Authors: Luca Piantanida, George Dickinson, Jacob Majikes, William Clay, J. Alexander Liddle, Tim Andersen, Eric Hayden, Wan Kuang, Will Hughes; Boise State University and NIST",
+   "links": [
+    {
+     "title": "Paper (ACS Nano)",
+     "url": "https://doi.org/10.1021/acsnano.4c06886"
+    }
+   ],
+   "why_it_matters": "Shorter probes can target shorter sites, which raises the information density of DNA-origami memory and helps DNA-PAINT more widely."
+  },
+  {
+   "id": "piezo1-halotag-2025",
+   "title": "Seeing the PIEZO1 channel in human stem-cell-derived cells",
+   "year": 2025,
+   "paper": {
+    "cite": "Bertaccini GA, Casanellas I, Evans EL, Nourse JL, Dickinson GD, Liu G, Seal S, et al., Parker I, Pathak MM (2025) Visualizing PIEZO1 localization and activity in hiPSC-derived single cells and organoids with HaloTag technology. Nat Commun 16:5556",
+    "doi": "10.1038/s41467-025-59150-1"
+   },
+   "licence": "CC BY 4.0 (paper, code and example data)",
+   "question": "PIEZO1 turns mechanical forces into calcium signals, but studying the endogenous human channel has been hard. Can a HaloTag knocked into human stem cells show where PIEZO1 sits, how it moves and when it opens, in single cells and in tissue?",
+   "approach": "The team engineered human induced pluripotent stem cells (WTC-11) so that endogenous PIEZO1 carries a HaloTag, differentiated them into endothelial cells, keratinocytes and neural stem cells, and labelled the channel with Janelia Fluor dyes. TIRF movies of JF646-labelled channels were analysed by ThunderSTORM localisation and FLIKA nearest-neighbour linking, and trajectories were split into mobile and immobile groups by path length before mean-squared-displacement analysis; fixed cells gave the localisation error. Channel activity was read with the calcium-sensitive ligand JF646-BAPTA imaged at 200 and 500 frames per second. Lattice light-sheet microscopy with adaptive optics imaged PIEZO1 in neural organoids.",
+   "findings": [
+    "PIEZO1-HaloTag appeared as distinct puncta; analysis of 889,971 trajectories from 40 videos showed mobile and immobile populations.",
+    "Mobile puncta had an apparent diffusion coefficient of 0.029 um2 per second in endothelial cells (0.026 in neural stem cells); immobile puncta at most 0.003 um2 per second.",
+    "JF646-BAPTA signals at PIEZO1 puncta flickered between dim and bright states, and the PIEZO1 agonist Yoda1 (2 uM) increased the number and brightness of active puncta.",
+    "At 500 frames per second, rises and falls of these flickers were complete within 2 frames, approaching patch-clamp time resolution."
+   ],
+   "role": "George was one of the authors of this team study led by the Pathak lab at UC Irvine, which combined stem-cell engineering, TIRF and light-sheet imaging, and single-molecule analysis software.",
+   "techniques": [
+    "tirf",
+    "spt",
+    "smlm",
+    "lattice-light-sheet"
+   ],
+   "people": "Authors: Gabriella Bertaccini, Ignasi Casanellas, Elizabeth Evans, Jamison Nourse, George Dickinson and colleagues, including Sayan Seal, Srigokul Upadhyayula, Ian Parker and Medha Pathak; Pathak lab, UC Irvine, with UC Berkeley",
+   "links": [
+    {
+     "title": "Paper (Nat Commun, open access)",
+     "url": "https://doi.org/10.1038/s41467-025-59150-1"
+    },
+    {
+     "title": "Analysis code: PIEZO1-LocalizationTools (Zenodo)",
+     "url": "https://doi.org/10.5281/zenodo.15048049"
+    },
+    {
+     "title": "Code on GitHub",
+     "url": "https://github.com/Pathak-Lab/PIEZO1-LocalizationTools"
+    },
+    {
+     "title": "Raw supplementary movies (Zenodo)",
+     "url": "https://doi.org/10.5281/zenodo.15059239"
+    }
+   ],
+   "why_it_matters": "It provides human cell lines and an open analysis pipeline for watching an endogenous mechanosensitive channel move and open."
+  },
+  {
+   "id": "analysis-software",
+   "title": "Analysis software: FLIKA plugins and CellScope",
+   "year": 2025,
+   "paper": {
+    "cite": "Ly AT, Freites JA, Bertaccini GA, Evans EL, Dickinson GD, Tobias DJ, Pathak MM (2025) Single-particle tracking reveals heterogeneous PIEZO1 diffusion. Biophys J 124(24):4457-4470",
+    "doi": "10.1016/j.bpj.2025.01.010"
+   },
+   "licence": "CC BY 4.0 (Ly et al. 2025); FLIKA is open source; screenshots are local previews only",
+   "question": "Imaging labs produce far more data than anyone can score by hand. How can calcium events, single particles and whole cells be detected, tracked and measured reproducibly, with tools biologists can use?",
+   "approach": "FLIKA is an open-source Python image-processing program developed in the Parker lab; its puff detection builds on the algorithm of Ellefsen et al. (2014, Cell Calcium). A modernised fork and more than 20 plugins for puff detection, localisation microscopy, light-sheet data and single-particle tracking are used by the Parker and Pathak labs. In Ly et al. (2025), PIEZO1-tdTomato puncta were imaged by TIRF at 10 frames per second and tracked in FLIKA (difference-of-Gaussians filtering, thresholding, 2D Gaussian centroids, linking within three pixels), with a custom Python script that iterated through tracking parameters. CellScope is a separate pipeline for segmenting and tracking whole cells (Cellpose-SAM, SAM2 gap filling), validated against hand annotation.",
+   "findings": [
+    "Ly et al. 2025: PIEZO1 trajectories split into mobile and immobile groups; cholesterol removal and Yoda1 increased mobility, while GsMTx-4 and added cholesterol reduced it.",
+    "Ly et al. 2025: mobile PIEZO1 puncta showed anomalous subdiffusion.",
+    "The same FLIKA linking step is part of the published PIEZO1-HaloTag pipeline (Bertaccini et al. 2025).",
+    "CellScope segmentation reaches a mean IoU of about 0.83 against hand annotation (unpublished)."
+   ],
+   "role": "George was one of the authors of Ly et al. (2025), a team study from the Pathak lab, and is one of the contributors to the FLIKA plugins used by the Parker and Pathak labs. He wrote CellScope with Claude Code.",
+   "techniques": [
+    "spt",
+    "smlm",
+    "tirf",
+    "high-content"
+   ],
+   "people": "Ly et al. 2025 authors: Alan Ly, J. Alfredo Freites, Gabriella Bertaccini, Elizabeth Evans, George Dickinson, Douglas Tobias, Medha Pathak (UC Irvine); FLIKA: Parker lab, UC Irvine",
+   "links": [
+    {
+     "title": "FLIKA",
+     "url": "https://flika-org.github.io"
+    },
+    {
+     "title": "FLIKA plugins",
+     "url": "https://github.com/gddickinson/flika_plugins"
+    },
+    {
+     "title": "CellScope",
+     "url": "https://github.com/gddickinson/cellscope"
+    },
+    {
+     "title": "Ly et al. 2025 (Biophys J, open access)",
+     "url": "https://doi.org/10.1016/j.bpj.2025.01.010"
+    },
+    {
+     "title": "Ellefsen et al. 2014: the puff-detection algorithm",
+     "url": "https://doi.org/10.1016/j.ceca.2014.06.003"
+    }
+   ],
+   "why_it_matters": "Open, tested analysis tools make imaging results reproducible and let more labs ask quantitative questions of their data."
+  },
+  {
+   "id": "dna-scaffold-2025",
+   "title": "A bigger DNA origami for storing data",
+   "year": 2025,
+   "paper": {
+    "cite": "Kobernat SE, Lazouskaya M, Balzer BC, Wolf A, Mortuza GM, Dickinson GD, Andersen T, Hughes WL, Piantanida L, Hayden EJ (2025) Engineering a custom-sized DNA scaffold for more efficient DNA origami-based nucleic acid data storage. Synth Biol 10(1):ysaf008",
+    "doi": "10.1093/synbio/ysaf008"
+   },
+   "licence": "CC BY-NC 4.0 (paper); figure panels are local previews only",
+   "question": "In digital nucleic acid memory (dNAM), data are written as patterns of strands on DNA origami and read by DNA-PAINT. A larger origami would hold more bits each, but needs a longer single-stranded scaffold than is commonly available. Can one be made?",
+   "approach": "A new phagemid was built to produce an 11,054-nucleotide single-stranded scaffold, which was folded with 352 staple strands into a rectangle of about 116 x 95 nm carrying an 8 x 10 grid of sites at 10 nm spacing. Folding was checked by agarose gel electrophoresis and atomic force microscopy (five syntheses, five AFM images each), and the positions of the data strands by DNA-PAINT with averaging of many origami. An origami encoding a binary string, with orientation, index, parity and checksum bits, was then written and read.",
+   "findings": [
+    "Of 1,462 origami seen by AFM, 95.5% were correctly folded, with average dimensions of 91 x 113 nm.",
+    "Averaged DNA-PAINT images showed the full 8 x 10 grid in the expected positions.",
+    "The larger origami holds 80 sites instead of 48 (67% more), and the test message used before needs 6 origami instead of 15, about 2.5 times more efficient."
+   ],
+   "role": "George was one of the authors of this team study from Boise State University, which combined DNA scaffold engineering, DNA origami, atomic force microscopy and DNA-PAINT imaging.",
+   "techniques": [
+    "dna-paint",
+    "afm",
+    "smlm"
+   ],
+   "people": "Authors: Sarah Kobernat, Maryna Lazouskaya, Benjamin Balzer, Amanda Wolf, Golam Md Mortuza, George Dickinson, Tim Andersen, Will Hughes, Luca Piantanida, Eric Hayden; Boise State University",
+   "links": [
+    {
+     "title": "Paper (Synthetic Biology, open access)",
+     "url": "https://doi.org/10.1093/synbio/ysaf008"
+    }
+   ],
+   "why_it_matters": "Larger origami mean fewer structures to make and image for the same data, a step towards scaling up DNA data storage read by microscopy."
+  }
+ ]
+}

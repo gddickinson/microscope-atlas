@@ -1,0 +1,8 @@
+# Minimal set to test and build the static site (used by .github/workflows/pages.yml)
+fastapi==0.162.2
+httpx==0.28.1
+pytest==9.2.0
+numpy==2.5.4
+tifffile==2026.11.8
+pillow==13.0.0
+python-multipart==0.0.33

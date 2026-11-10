@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+*.log
+nohup.out
+.DS_Store
+site/
+# Local-only portfolio previews (archive-derived; publish only with George's and the lab's approval)
+data/portfolio_staging/
+scripts/portfolio_images*.py
+scripts/portfolio_manifest*.py

@@ -1,0 +1,482 @@
+[
+ {
+  "group": "Learn microscopy",
+  "links": [
+   {
+    "name": "Nikon MicroscopyU",
+    "url": "https://www.microscopyu.com",
+    "about": "Tutorials, interactive Java-free tutorials and reference on optics and techniques."
+   },
+   {
+    "name": "Molecular Expressions (FSU)",
+    "url": "https://micro.magnet.fsu.edu",
+    "about": "Classic optics primer, image galleries and microscope history."
+   },
+   {
+    "name": "ZEISS Microscopy Online Campus",
+    "url": "https://zeiss-campus.magnet.fsu.edu",
+    "about": "In-depth articles on fluorescence, confocal and super-resolution."
+   },
+   {
+    "name": "Evident Discovery Center",
+    "url": "https://evidentscientific.com/en/microscope-resource",
+    "about": "Microscopy resource centre with tutorials on optics and techniques."
+   },
+   {
+    "name": "Leica Science Lab",
+    "url": "https://www.leica-microsystems.com/science-lab/",
+    "about": "Articles and webinars on techniques and applications."
+   },
+   {
+    "name": "iBiology microscopy series",
+    "url": "https://www.ibiology.org/online-biology-courses/microscopy-series/",
+    "about": "Video lectures from leading microscopists."
+   },
+   {
+    "name": "Microcourses (Harvard)",
+    "url": "https://www.youtube.com/@Microcourses",
+    "about": "Short video courses on light microscopy and image analysis."
+   },
+   {
+    "name": "Bioimage Analysis training (NEUBIAS Academy)",
+    "url": "https://neubias.github.io/training-resources/",
+    "about": "Open training material for image analysis."
+   }
+  ]
+ },
+ {
+  "group": "Community and societies",
+  "links": [
+   {
+    "name": "image.sc forum",
+    "url": "https://forum.image.sc",
+    "about": "The main Q&A forum for scientific image software and analysis."
+   },
+   {
+    "name": "Royal Microscopical Society",
+    "url": "https://www.rms.org.uk",
+    "about": "UK society: courses, meetings (mmc) and journals."
+   },
+   {
+    "name": "Microscopy Society of America",
+    "url": "https://www.microscopy.org",
+    "about": "US society: Microscopy & Microanalysis meeting and certification."
+   },
+   {
+    "name": "Euro-BioImaging",
+    "url": "https://www.eurobioimaging.eu",
+    "about": "European research infrastructure giving open access to imaging facilities."
+   },
+   {
+    "name": "BINA (BioImaging North America)",
+    "url": "https://www.bioimagingnorthamerica.org",
+    "about": "Network of imaging scientists and core facilities in North America."
+   },
+   {
+    "name": "QUAREP-LiMi",
+    "url": "https://quarep.org",
+    "about": "Community initiative for quality assessment and reproducibility in light microscopy."
+   },
+   {
+    "name": "GloBIAS",
+    "url": "https://www.globias.org",
+    "about": "Global BioImage Analysts' Society."
+   },
+   {
+    "name": "ABRF research groups",
+    "url": "https://www.abrf.org/research-groups",
+    "about": "Core-facility research groups, including light microscopy benchmarking studies."
+   },
+   {
+    "name": "Microscopy Australia",
+    "url": "https://micro.org.au",
+    "about": "Australian national microscopy facility, with the MyScope training site."
+   }
+  ]
+ },
+ {
+  "group": "Image analysis software",
+  "links": [
+   {
+    "name": "Fiji",
+    "url": "https://fiji.sc",
+    "about": "ImageJ distribution with plugins for life sciences."
+   },
+   {
+    "name": "napari",
+    "url": "https://napari.org",
+    "about": "Fast multidimensional image viewer for Python with plugins."
+   },
+   {
+    "name": "QuPath",
+    "url": "https://qupath.github.io",
+    "about": "Open software for digital pathology and whole-slide analysis."
+   },
+   {
+    "name": "CellProfiler",
+    "url": "https://cellprofiler.org",
+    "about": "Pipelines for measuring phenotypes in thousands of images."
+   },
+   {
+    "name": "ilastik",
+    "url": "https://www.ilastik.org",
+    "about": "Interactive machine-learning segmentation and classification."
+   },
+   {
+    "name": "Icy",
+    "url": "https://icy.bioimageanalysis.org",
+    "about": "Open bioimage analysis platform from Institut Pasteur."
+   },
+   {
+    "name": "Cellpose",
+    "url": "https://www.cellpose.org",
+    "about": "Generalist deep-learning cell segmentation."
+   },
+   {
+    "name": "StarDist",
+    "url": "https://github.com/stardist/stardist",
+    "about": "Star-convex nucleus and cell detection."
+   },
+   {
+    "name": "ThunderSTORM",
+    "url": "https://github.com/zitmen/thunderstorm",
+    "about": "Fiji plugin for SMLM localization and rendering."
+   },
+   {
+    "name": "Picasso",
+    "url": "https://github.com/jungmannlab/picasso",
+    "about": "DNA-PAINT and SMLM analysis suite."
+   },
+   {
+    "name": "TrackMate",
+    "url": "https://imagej.net/plugins/trackmate/",
+    "about": "Single-particle and cell tracking in Fiji."
+   },
+   {
+    "name": "FLIKA",
+    "url": "https://flika-org.github.io",
+    "about": "Python image processing for biologists, used for Ca²⁺ puff and single-molecule analysis."
+   },
+   {
+    "name": "BioImage Model Zoo",
+    "url": "https://bioimage.io",
+    "about": "Pretrained deep-learning models for bioimage analysis."
+   }
+  ]
+ },
+ {
+  "group": "Acquisition and data management",
+  "links": [
+   {
+    "name": "µManager",
+    "url": "https://micro-manager.org",
+    "about": "Open-source microscope control."
+   },
+   {
+    "name": "pycro-manager",
+    "url": "https://pycro-manager.readthedocs.io",
+    "about": "Python control of µManager-driven microscopes."
+   },
+   {
+    "name": "Open Microscopy Environment (OME)",
+    "url": "https://www.openmicroscopy.org",
+    "about": "OME-TIFF/OME-Zarr formats, Bio-Formats and OMERO."
+   },
+   {
+    "name": "Bio-Formats",
+    "url": "https://www.openmicroscopy.org/bio-formats/",
+    "about": "Reads over 150 proprietary microscopy file formats."
+   }
+  ]
+ },
+ {
+  "group": "Data, probes and reagents",
+  "links": [
+   {
+    "name": "FPbase",
+    "url": "https://www.fpbase.org",
+    "about": "Fluorescent protein database with spectra viewer (source of this atlas's fluorophores)."
+   },
+   {
+    "name": "Addgene",
+    "url": "https://www.addgene.org",
+    "about": "Plasmid repository, including fluorescent protein and tag constructs."
+   },
+   {
+    "name": "BioImage Archive",
+    "url": "https://www.ebi.ac.uk/bioimage-archive/",
+    "about": "Public archive for biological imaging data."
+   },
+   {
+    "name": "Image Data Resource (IDR)",
+    "url": "https://idr.openmicroscopy.org",
+    "about": "Reference image datasets from published studies."
+   },
+   {
+    "name": "EMPIAR",
+    "url": "https://www.ebi.ac.uk/empiar/",
+    "about": "Raw electron microscopy image archive."
+   },
+   {
+    "name": "EMDB",
+    "url": "https://www.ebi.ac.uk/emdb/",
+    "about": "Electron Microscopy Data Bank of 3D maps."
+   },
+   {
+    "name": "Cell Image Library",
+    "url": "http://www.cellimagelibrary.org",
+    "about": "Public library of cell images and videos."
+   },
+   {
+    "name": "Allen Cell Explorer",
+    "url": "https://www.allencell.org",
+    "about": "Gene-edited cell lines and 3D cell image data."
+   },
+   {
+    "name": "Antibody Registry (RRID)",
+    "url": "https://www.antibodyregistry.org",
+    "about": "Research Resource Identifiers for antibodies."
+   },
+   {
+    "name": "Human Protein Atlas",
+    "url": "https://www.proteinatlas.org",
+    "about": "Subcellular localization images for thousands of proteins."
+   },
+   {
+    "name": "SearchLight spectra viewer (IDEX/Semrock)",
+    "url": "https://searchlight.idex-hs.com",
+    "about": "Plan filter sets against fluorophore spectra."
+   }
+  ]
+ },
+ {
+  "group": "Build your own microscope",
+  "links": [
+   {
+    "name": "Parker lab: microscopy construction",
+    "url": "https://evanescentlight.com/microscopy_construction.htm",
+    "about": "Ian Parker's guides to the home-built systems of his lab: axial line-scan, video-rate confocal and multiphoton, TIRF and multi-focal imaging."
+   },
+   {
+    "name": "Parker lab: build your own two-photon microscope",
+    "url": "https://evanescentlight.com/microscopy_construction/build_your_own_twophoton_microscope.htm",
+    "about": "Everything needed to construct a video-rate two-photon microscope, from a lab that has built many."
+   },
+   {
+    "name": "Build your own prism-based TIRF microscope",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6481079/",
+    "about": "Step-by-step guide covering light sources, filters, focusing, emission path, layout and safety (Methods and Protocols, 2018)."
+   },
+   {
+    "name": "Three-colour prism-based TIRF microscope",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8301196/",
+    "about": "Design, assembly and operation of a three-colour single-molecule TIRF from commercial parts (Biology, 2021)."
+   },
+   {
+    "name": "Light-sheet and light-field microscope protocol",
+    "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC6789549/",
+    "about": "Design and assembly of a light-sheet light-field microscope; also works as a plain light-sheet build."
+   },
+   {
+    "name": "Customizable single-objective light sheet",
+    "url": "https://arxiv.org/abs/2304.14494",
+    "about": "Design and build of a single-objective light-sheet microscope for cytoskeleton networks (also published in JoVE)."
+   },
+   {
+    "name": "OpenFlexure build documentation",
+    "url": "https://openflexure.org/projects/microscope/documentation",
+    "about": "Assemble a 3D-printed motorized microscope from printed and off-the-shelf parts, then install its software."
+   },
+   {
+    "name": "OpenSPIM and X-OpenSPIM guides",
+    "url": "https://openspim.org/x-openspim_welcome",
+    "about": "Light-sheet build instructions written for scientists without optics experience, with parts lists and alignment steps."
+   },
+   {
+    "name": "mesoSPIM hardware documentation",
+    "url": "https://github.com/mesoSPIM/mesoSPIM-hardware-documentation",
+    "about": "Parts, drawings and assembly of the open light-sheet microscope for cleared tissue; see also the Benchtop design."
+   },
+   {
+    "name": "UC2 documentation",
+    "url": "https://docs.openuc2.com",
+    "about": "Build guides for the modular UC2 open optics toolbox, from simple microscopes to light-sheet and SMLM set-ups."
+   }
+  ]
+ },
+ {
+  "group": "Optics and component suppliers",
+  "links": [
+   {
+    "name": "Thorlabs",
+    "url": "https://www.thorlabs.com",
+    "about": "Optomechanics, lenses, mirrors, filters, lasers, cameras and complete build kits; extensive tutorials."
+   },
+   {
+    "name": "Edmund Optics",
+    "url": "https://www.edmundoptics.com",
+    "about": "Lenses, objectives, filters, prisms and optical design application notes."
+   },
+   {
+    "name": "Newport (MKS)",
+    "url": "https://www.newport.com",
+    "about": "Optical tables, vibration isolation, mounts, stages and optics."
+   },
+   {
+    "name": "OptoSigma",
+    "url": "https://www.optosigma.com",
+    "about": "Optics, optomechanics and manual and motorized stages."
+   },
+   {
+    "name": "Chroma Technology",
+    "url": "https://www.chroma.com",
+    "about": "Fluorescence filters and dichroic mirrors, with spectra and handbooks."
+   },
+   {
+    "name": "Semrock (IDEX Health & Science)",
+    "url": "https://www.idex-hs.com",
+    "about": "Hard-coated fluorescence and laser filters; SearchLight spectra viewer."
+   },
+   {
+    "name": "Alluxa",
+    "url": "https://www.alluxa.com",
+    "about": "Thin-film filters and dichroics."
+   },
+   {
+    "name": "Coherent",
+    "url": "https://www.coherent.com",
+    "about": "Continuous-wave and ultrafast lasers, including Ti:sapphire for two-photon imaging."
+   },
+   {
+    "name": "Spectra-Physics (MKS)",
+    "url": "https://www.spectra-physics.com",
+    "about": "Ultrafast and continuous-wave lasers for multiphoton microscopy."
+   },
+   {
+    "name": "TOPTICA Photonics",
+    "url": "https://www.toptica.com",
+    "about": "Diode and fibre lasers, multi-line laser engines for microscopy."
+   },
+   {
+    "name": "Omicron-Laserage",
+    "url": "https://www.omicron-laser.de",
+    "about": "Diode lasers and multi-colour light engines."
+   },
+   {
+    "name": "HÜBNER Photonics (Cobolt)",
+    "url": "https://hubner-photonics.com",
+    "about": "Single-frequency DPSS and diode lasers for microscopy."
+   },
+   {
+    "name": "Oxxius",
+    "url": "https://www.oxxius.com",
+    "about": "Compact lasers and laser combiners."
+   },
+   {
+    "name": "Vortran Laser Technology",
+    "url": "https://www.vortranlaser.com",
+    "about": "Diode laser systems and combiners."
+   },
+   {
+    "name": "LASOS",
+    "url": "https://www.lasos.com",
+    "about": "Laser modules and fibre-coupled sources."
+   },
+   {
+    "name": "Lumencor",
+    "url": "https://lumencor.com",
+    "about": "Solid-state light engines for widefield fluorescence."
+   },
+   {
+    "name": "Excelitas Technologies",
+    "url": "https://www.excelitas.com",
+    "about": "Illumination, detectors (SPCMs), Qioptiq optics and pco cameras."
+   },
+   {
+    "name": "Hamamatsu Photonics",
+    "url": "https://www.hamamatsu.com",
+    "about": "Cameras, photomultipliers and photodiodes."
+   },
+   {
+    "name": "Teledyne Vision Solutions (Photometrics)",
+    "url": "https://www.teledynevisionsolutions.com",
+    "about": "Scientific CMOS and EMCCD cameras; learning centre."
+   },
+   {
+    "name": "Andor (Oxford Instruments)",
+    "url": "https://andor.oxinst.com",
+    "about": "EMCCD and sCMOS cameras, spinning-disk confocal systems."
+   },
+   {
+    "name": "Applied Scientific Instrumentation (ASI)",
+    "url": "https://www.asiimaging.com",
+    "about": "Motorized stages, modular microscope frames (RAMM) and light-sheet components."
+   },
+   {
+    "name": "Physik Instrumente (PI)",
+    "url": "https://www.physikinstrumente.com",
+    "about": "Piezo stages and nanopositioners."
+   },
+   {
+    "name": "Prior Scientific",
+    "url": "https://www.prior.com",
+    "about": "Motorized stages, focus drives and illumination."
+   },
+   {
+    "name": "Sutter Instrument",
+    "url": "https://www.sutter.com",
+    "about": "Movable objective microscopes, light sources and manipulators."
+   },
+   {
+    "name": "Novanta Photonics (Cambridge Technology)",
+    "url": "https://www.novantaphotonics.com",
+    "about": "Galvanometer and resonant scanners."
+   },
+   {
+    "name": "Meadowlark Optics",
+    "url": "https://www.meadowlark.com",
+    "about": "Spatial light modulators and liquid-crystal polarization optics."
+   },
+   {
+    "name": "HOLOEYE Photonics",
+    "url": "https://holoeye.com",
+    "about": "Spatial light modulators."
+   },
+   {
+    "name": "Boston Micromachines",
+    "url": "https://bostonmicromachines.com",
+    "about": "Deformable mirrors for adaptive optics."
+   },
+   {
+    "name": "AA Opto-Electronic",
+    "url": "https://www.aaoptoelectronic.com",
+    "about": "Acousto-optic tunable filters and modulators."
+   }
+  ]
+ },
+ {
+  "group": "Open hardware",
+  "links": [
+   {
+    "name": "OpenFlexure",
+    "url": "https://openflexure.org",
+    "about": "3D-printed, open-source motorized microscope."
+   },
+   {
+    "name": "UC2",
+    "url": "https://openuc2.com",
+    "about": "Modular open-source optics toolbox."
+   },
+   {
+    "name": "mesoSPIM",
+    "url": "https://mesospim.org",
+    "about": "Open light-sheet microscope for cleared tissue."
+   },
+   {
+    "name": "OpenSPIM",
+    "url": "https://openspim.org",
+    "about": "Open-access light-sheet microscopy platform."
+   }
+  ]
+ }
+]
