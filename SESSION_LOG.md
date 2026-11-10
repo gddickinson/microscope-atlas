@@ -402,3 +402,10 @@ the public flika_plugins; useful code exists only locally or in Dropbox (piezo1_
 locsAndTracksPlotter, Boise State DNA-PAINT/thunderSTORM/Deep-STORM scripts).
 Keratinocyte question resolved: the companion piezo1_analysis project describes the CellScope demo recordings as
 migrating keratinocytes (control vs Piezo1-cKO, as in Holt et al. 2021 eLife); local captions updated.
+
+## 2026-11-10: correction: the CellScope demo recordings are endothelial cells
+George says the "keratinocyte" label in CellScope's sidecar files is wrong; the cells are endothelial, as CellScope's
+README says. This reverses the conclusion in the previous entry, which rested on the piezo1_analysis README.
+Local-preview items relabelled ("An endothelial cell on the move", and both tracked-cell movies). Their cell_type
+tags were removed, because the Cells page has no endothelial category. `portfolio_manifest5.write()` now drops
+cell-type tags that are no longer listed.
