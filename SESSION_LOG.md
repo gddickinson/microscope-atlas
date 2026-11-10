@@ -148,3 +148,15 @@ vocabulary (objective, dichroic, pinhole, detectors, sources, scanners, prisms..
 the step's main clause only (text before the first semicolon) to avoid over-highlighting. 269 of 336 steps link to at
 least one part; the rest say the step is not drawn as a separate part. Tested in `tests/lightpath.test.mjs`. TEM
 specimen label shortened (it was clipped). TIRF/STED page figures refreshed. Next: R4 Image Lab.
+
+## 2026-11-10: Round 11 (hourly), R4 Image Lab, first half
+New page `#/imagelab` (nav: Lab tools; also in the lab hub). The object is a test specimen (bead pairs, USAF, Siemens
+star, microtubules, mitochondria, nuclear pores, single molecules) or the user's own TIFF/PNG/JPEG, read in the browser.
+It is imaged with a Gaussian PSF (FWHM 0.51 λ/NA), binned camera pixels, Poisson shot noise, background and read noise,
+then restored with Richardson-Lucy. Power spectra of object, image and restoration show the 2NA/λ cut-off as a circle.
+Readouts: PSF width, camera pixel vs Nyquist, peak SNR, and Pearson correlation with the object (0.48 camera image →
+0.75 restored for bead pairs at NA 1.4). New `sim_engine_image.js` (re-exported from `sim_engine.js`, which was near
+its line budget) with node tests; browser TIFF reader `imagelab_io.js` (8/16/32-bit int and float, strips, tiles, RGB
+chunky/planar, big-endian, multi-page, PackBits) checked against tifffile/numpy in `tests/test_imagelab.py` (PackBits
+by the Apple TN1023 example in node, since tifffile needs imagecodecs to write it). README gains an Image Lab section and
+figure. Next in R4: localize spots in a single-molecule frame and check the fits against Python.

@@ -8,6 +8,7 @@ const loaded = Promise.all(MODULES.map(m => import(m).then(x => x.TOOLS || []).c
 
 export const ALL = [
   { id: 'table', group: 'Microscope setup', title: 'Virtual optical table', blurb: 'Prototype microscope and laser set-ups on a breadboard with live ray tracing: 43 part types, 33 presets including set-ups from landmark papers.', href: '#/table' },
+  { id: 'imagelab', group: 'Analysis', title: 'Image Lab', blurb: 'Load your own image (TIFF, PNG, JPEG) or a test specimen and image it through a simulated microscope: PSF blur, pixel size, photon and read noise, Richardson-Lucy deconvolution and power spectra.', href: '#/imagelab' },
   { id: 'chooser', group: 'Planning', title: 'Technique chooser', blurb: 'Rank imaging techniques for your sample, scale, speed and depth, with reasons.', href: '#/chooser' },
   { id: 'calc', group: 'Microscope setup', title: 'Optics calculator', blurb: 'Resolution, Airy unit, Nyquist pixel, field of view, brightness and more from λ, NA and magnification.', href: '#/calc' },
   { id: 'spectra', group: 'Labelling and probes', title: 'Spectra viewer', blurb: 'Overlay dye spectra, laser lines and emission bands; see crosstalk as numbers.', href: '#/spectra' },

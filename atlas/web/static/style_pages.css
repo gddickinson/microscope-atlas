@@ -92,3 +92,5 @@ a.xl { color:inherit; border-bottom:1px dotted var(--dapi); } a.xl::after { cont
 .credit { font-size:11px; color:var(--mute); } .credit a { color:var(--mute); text-decoration:underline; }
 .sys-card img.thumb { width:calc(100% + 32px); margin:-14px -16px 10px; height:130px; object-fit:cover; display:block; background:#000; border-radius:6px 6px 0 0; }
 .vcard img.thumb { width:calc(100% + 32px); margin:-14px -16px 10px; height:150px; object-fit:cover; display:block; background:#000; border-radius:6px 6px 0 0; }
+.il-grid { grid-template-columns:repeat(3, 1fr); } .il-grid canvas { width:100%; height:auto; image-rendering:pixelated; }
+@media (max-width:860px) { .il-grid { grid-template-columns:1fr 1fr; } }

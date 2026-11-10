@@ -25,7 +25,7 @@ Microscope Atlas is an open web app for microscopists and lab scientists. It bri
 | **200** freely licensed images of instruments and micrographs, each credited | **298** systems with sourced specs and dated sources |
 
 ## Contents
-- [Techniques](#techniques) · [Simulations](#simulations) · [Virtual optical table](#virtual-optical-table) · [Lab tools](#lab-tools) · [Quiz](#quiz)
+- [Techniques](#techniques) · [Simulations](#simulations) · [Virtual optical table](#virtual-optical-table) · [Image Lab](#image-lab) · [Lab tools](#lab-tools) · [Quiz](#quiz)
 - [Databases](#databases) · [Community and papers](#community-and-papers)
 - [Static site](#static-site) · [Running the full app](#running-the-full-app) · [How the data were gathered](#how-the-data-were-gathered) · [Project layout](#project-layout)
 
@@ -123,6 +123,17 @@ scale bar, side-by-side ground truth and PNG export.
 | Objective-type TIRF | STED |
 |---|---|
 | ![Optical table: TIRF](docs/img/table_tirf.jpg) | ![Optical table: STED](docs/img/table_sted.jpg) |
+
+## Image Lab
+Load your own image (TIFF, PNG or JPEG; nothing leaves the browser) or one of the test specimens, and image it
+through a simulated widefield microscope: diffraction blur from λ and NA, camera pixel size by binning, photon shot
+noise, background and read noise, then Richardson-Lucy deconvolution. Power spectra of the object, the camera image
+and the restoration show the microscope as a low-pass filter, with the 2NA/λ cut-off drawn as a circle. The readouts
+give the PSF width, the camera pixel against Nyquist, peak SNR, and how well each image correlates with the object.
+The TIFF reader (8/16/32-bit integer and float, strips or tiles, RGB averaged, PackBits) is checked against
+tifffile/numpy in `tests/test_imagelab.py`.
+
+![Image Lab: bead pairs at NA 1.4](docs/img/imagelab.jpg)
 
 ## Lab tools
 These are calculators, planners and reference tables for people at the microscope and the bench.

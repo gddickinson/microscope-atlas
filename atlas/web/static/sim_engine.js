@@ -1,4 +1,5 @@
 // Pure optics and photophysics used by the simulations. No DOM access: tested with node (tests/sim_engine.test.mjs).
+// Image-Lab physics (resampling, binning, camera noise, power spectrum) lives in sim_engine_image.js, re-exported at the end.
 
 // Bessel J1 (Numerical Recipes polynomial approximation, |error| < 1e-7).
 export function besselJ1(x) {
@@ -445,3 +446,4 @@ export function diskSectioning(z, a, p, NA, n) {
 
 // Expansion microscopy: resolution in pre-expansion units with linear expansion E and label displacement (linkage) ℓ.
 export const expansionResolution = (d, E, linkage) => Math.sqrt((d / E) ** 2 + linkage ** 2);
+export * from './sim_engine_image.js';

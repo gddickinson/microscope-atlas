@@ -16,6 +16,7 @@ import './learn.js';
 import './quiz.js';
 import './tools.js';
 import './lab.js';
+import './imagelab.js';
 
 route('notfound', () => { app().innerHTML = '<h1>Not found</h1><p><a href="#/">Back to the start</a></p>'; });
 

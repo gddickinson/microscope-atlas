@@ -43,6 +43,7 @@ README = [
     ("history", "history", 1000, None),
     ("quiz", "quiz", 900, None),
     ("lab", "lab", 1100, None),
+    ("imagelab", "imagelab", 1050, "await new Promise(r => setTimeout(r, 1500))"),
     ("papers", "papers", 1000, None),
     ("community", "community", 1000, None),
     ("gallery", "gallery", 1100, None),
