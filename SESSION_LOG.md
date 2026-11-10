@@ -379,3 +379,12 @@ Licences were checked on the Commons API or each article's PMC open-access recor
 whole-plant luminescence (not microscopy), a starfish figure that needed cropping, and two very small clips.
 `fetch_commons.py` now accepts CC BY files from papers (`file_url`, `licence`, `licence_url`, `paper_doi`), using the
 same licence check; credits link to the article. The image test allows DOI-sourced entries.
+
+## 2026-11-10: Round 21 (hourly), R6 completed: 452 systems
+46 more systems from two research agents. `benchtop_routine.json` (24 benchtop, live-cell and routine/teaching
+microscopes; the EVOS FL Auto 2 and DM2500 are discontinued per visible page banners; the FL Auto 2 year was dropped
+because it was inferred from a flyer's copyright date; the Lionheart FX availability is noted as unconfirmed).
+`em_open_more2.json` (22: Hitachi SU7000/TM4000Plus II, TESCAN CLARA/MIRA/VEGA, Spectra 300, Talos F200X, JSM-IT510,
+JEM-F200, ZEISS EVO, Dimension XR, Park FX40, and open builds with Crossref-checked DOIs). Two camera-only studies
+were dropped, and the Holm/Sauer 2014 year was left null (Crossref and Europe PMC disagree). R6 is complete; next
+pending row: R8 technique comparison matrix.
