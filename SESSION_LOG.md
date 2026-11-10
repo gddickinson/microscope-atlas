@@ -451,3 +451,18 @@ description (correct for IC295) plus a note that IC293 is endothelial.
 - Matrix page: two new sortable columns, quotes clamped to three lines (full text on hover), live-imaging filter,
   "a cost rating" row filter. Node test: every reference resolves and its words speak to the rating.
 - pytest 54 passed, 1 skipped; smoke test 45 routes ok; docs/img/matrix.jpg refreshed. R8 completed; next R11.
+
+## 2026-11-10: "How a DNA-PAINT image is made" (local preview)
+- New local-only gallery movie `dnapaint_buildup.mp4` (script `scripts/portfolio_images14.py`, git-ignored like the
+  other gallery scripts; entry in `portfolio_manifest5.py`, group Super-resolution, project `dna-memory-2021`). It
+  follows the STORM movie: the whole 55 um field, the 1.7 um region at the diffraction limit, raw 0.3 s frames beside the
+  image built from the study's drift-corrected localisations (rings on this frame's localisations at first), then
+  a zoom on one origami at 2.5 nm per pixel.
+- Source: the team's published dNAM study (Dickinson et al. 2021 Nat Commun, doi 10.1038/s41467-021-22277-y, checked on
+  Crossref; CC BY 4.0), Zenodo 4672665 (MIT): Recording 3 (40,000 frames) and its Picasso localisations. Pixel size
+  106.7 nm from the paper's Methods (16 um EMCCD pixels, 100x plus 1.5x). Localisations registered to the raw frames by
+  cross-correlation over the first 2,000 frames (offset 0.5, -0.75 px). Published open data, so it could be made
+  public; kept local until George approves.
+- At George's request the Zenodo copies were deleted from FANTOM after the movie was made (DNA_PAINT_DATA: 45.5 GB
+  archive and the extracted 21 GB recording; the 577 MB localisation copy in MICROSCOPE_ATLAS_BACKUP/user_cache).
+  `backup_to_drive.sh` now skips public `zenodo_*` downloads.
