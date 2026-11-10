@@ -64,7 +64,7 @@ JSON by `static_api.js`; Python-only tools show a notice.
 
 ## data/
 - `technique_index.json`: the 52 technique ids (the controlled vocabulary) and families.
-- `systems/*.json`: microscope systems, one entry per line (schema in `docs/DATA_SCHEMA.md`); `light_more.json` and `em_probe_open_more.json` were added in R6.
+- `systems/*.json`: microscope systems, one entry per line (schema in `docs/DATA_SCHEMA.md`); `light_more.json`, `em_probe_open_more.json`, `research_labelfree_more.json` and `historical_more.json` were added in R6.
 - `components/detectors.json`, `objectives.json`, `light_sources.json`, `filters.json` (kinds listed in `catalog.COMPONENT_KINDS`).
 - `content/techniques/*.json`: teaching pages; `content/simulations.json`; `content/fundamentals.json`, `glossary.json`, `portfolio.json` are generated from `scripts/content/*_src.py`.
 - `fluorophores.json`, `spectra.json`: from FPbase via `scripts/fetch_fpbase.py`.

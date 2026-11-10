@@ -353,3 +353,15 @@ of 2014_07_09, every second frame of an alternating-illumination recording) and 
 of 2014_07_16, 208 Hz). `dff_movie` gained a `step` option for alternating recordings. Also tested: microtubule label
 of the shadowless comparison confirmed from Ellefsen et al. 2015 Fig. 2 (COS-7, EGFP-tubulin) and morphology; DiI and
 field-uniformity panels added under a new "Shadowless TIRF" gallery group.
+
+## 2026-11-10: Round 20 (hourly), R6 systems 358 → 406
+Two research agents targeted the thinnest technique categories and history:
+- `research_labelfree_more.json` (35): Raman (LabRAM Soleil, DXR3xi, SENTERRA II), mIRage photothermal IR, Refeyn
+  SamuxMP, CellVista SLIM, LIFA, iLas 2, MicAO 3DSR, ISS Q2, and landmark papers (OCT 1991, OCM 1994, CARS 1999,
+  SRS 2008, PAM, intrinsic SHG, SLIM, OI-DIC, light-field 2006 and Fourier LFM 2019, high-NA OPM, epi-SPIM, 4Pi,
+  isoSTED, RESOLFT, Axelrod TIRF, HILO, ISM, MSIM, FCS 1972, PAINT 2006, OS-SIM, proExM, in vivo two-photon 1997).
+- `historical_more.json` (13): Leitz Ortholux, Zeiss Ultraphot II and Universal, Nikon Model M, Olympus Vanox and
+  Provis AX70, Leitz inverted chemists' microscope, Siemens Elmiskop 51, AEI EM6B, Philips EM 75, RCA EMU-2B,
+  Metrovick EM2 and Stereoscan 600 (museum records; years only where stated).
+Three duplicates across the batches were merged, keeping the entry with more sourced detail. One DOI was
+spot-checked (isoSTED, Schmidt et al. 2008).
