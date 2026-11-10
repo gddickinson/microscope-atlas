@@ -135,6 +135,14 @@ tifffile/numpy in `tests/test_imagelab.py`.
 
 ![Image Lab: bead pairs at NA 1.4](docs/img/imagelab.jpg)
 
+Below, **Localize spots** finds isolated spots and fits each with a 2D Gaussian (Levenberg-Marquardt), reporting
+photons, background, width and position. On the *single-molecule frame* specimen, where the true positions are known,
+it reports found/missed/false spots and the error against the Thompson-Larson-Webb (2002) precision; at 100 nm pixels,
+~900 photons and 10 background photons per pixel the error is about 4 nm, as predicted. Fits agree with
+`scipy.optimize.curve_fit` to 10⁻⁴ (`tests/test_imagelab.py`).
+
+![Image Lab: localizing single molecules](docs/img/imagelab_spots.jpg)
+
 ## Lab tools
 These are calculators, planners and reference tables for people at the microscope and the bench.
 - **Microscope setup:**

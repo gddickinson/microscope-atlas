@@ -1,7 +1,7 @@
 // Helper for tests/test_imagelab.py: decode a TIFF with imagelab_io.js and print numbers for Python to compare.
 import { readFileSync } from 'node:fs';
 import { decodeTiff } from '../atlas/web/static/imagelab_io.js';
-import { imageStats, binImage, powerSpectrum, toSquare } from '../atlas/web/static/sim_engine.js';
+import { imageStats, binImage, powerSpectrum, toSquare, localize } from '../atlas/web/static/sim_engine.js';
 
 const b = readFileSync(process.argv[2]);
 const r = decodeTiff(b.buffer.slice(b.byteOffset, b.byteOffset + b.byteLength));
@@ -13,4 +13,5 @@ if (r.w === r.h && (r.w & (r.w - 1)) === 0) {
   out.peak = [k % r.w, Math.floor(k / r.w)];
   out.square = imageStats(toSquare(r.data, r.w, r.h, r.w));
 }
+if (process.argv[3] === '--loc') out.fits = localize(r.data, r.w, { sigma: +process.argv[4], k: +process.argv[5], r: +process.argv[6] });
 console.log(JSON.stringify(out));

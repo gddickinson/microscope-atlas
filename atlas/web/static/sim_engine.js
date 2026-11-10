@@ -447,3 +447,4 @@ export function diskSectioning(z, a, p, NA, n) {
 // Expansion microscopy: resolution in pre-expansion units with linear expansion E and label displacement (linkage) ℓ.
 export const expansionResolution = (d, E, linkage) => Math.sqrt((d / E) ** 2 + linkage ** 2);
 export * from './sim_engine_image.js';
+export * from './sim_engine_loc.js';

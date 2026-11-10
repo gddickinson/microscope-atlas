@@ -160,3 +160,14 @@ its line budget) with node tests; browser TIFF reader `imagelab_io.js` (8/16/32-
 chunky/planar, big-endian, multi-page, PackBits) checked against tifffile/numpy in `tests/test_imagelab.py` (PackBits
 by the Apple TN1023 example in node, since tifffile needs imagecodecs to write it). README gains an Image Lab section and
 figure. Next in R4: localize spots in a single-molecule frame and check the fits against Python.
+
+## 2026-11-10: Round 12 (hourly), R4 Image Lab completed
+Spot localization in the Image Lab. New `sim_engine_loc.js` (re-exported by `sim_engine.js`): robust noise from the
+median absolute deviation, local-maximum detection on the PSF-smoothed frame above k noise σ, a Levenberg-Marquardt
+fit of a symmetric 2D Gaussian (x, y, A, bg, σ; photons = 2πσ²A), and nearest-neighbour matching to known positions.
+New "Single-molecule frame" specimen (molecules at known positions ≥ 1 µm apart) and a `Localize spots` panel
+(`imagelab_spots.js`): overlay of fits and truth, readouts of found/missed/false, error vs truth and the Thompson,
+Larson and Webb (2002) limit (3.6 nm measured vs 4.2 nm predicted at 100 nm pixels, ~900 photons). Tests: node
+(noise-free fits exact, 300 noisy fits give 0.077 px scatter = Thompson 0.077 px) and Python (every fit equals
+scipy curve_fit on the same window to 1e-4; ≥ 90% of molecules within 0.5 px). README figure added. R4 completed;
+next: R5 microscope builder.

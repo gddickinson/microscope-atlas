@@ -6,6 +6,7 @@ import { rng, gaussBlur, blurPSF, psfSigmaPx, binImage, cameraImage, powerSpectr
 import { layout, addSlider, addSeg, addButton, setReadout, canvas, heatmap, CMAPS, div, fmt } from './sim_ui.js';
 import { makeSpecimen, SPECIMENS } from './table_specimens.js';
 import { fromImageFile } from './imagelab_io.js';
+import { spotPanel } from './imagelab_spots.js';
 
 const N = 256;
 const DEMOS = ['beadpairs', 'usaf', 'siemens', 'microtubules', 'mitochondria', 'npc', 'single'];
@@ -20,6 +21,16 @@ function demoImage(id) {
   return { data: a, px, label: s.label, note: s.note };
 }
 
+// Sparse single molecules at known positions (grid pixels of 25 nm, at least 1 µm apart), for testing localization.
+function smFrame(seed) {
+  const r = rng(seed * 101 + 7), a = new Float64Array(N * N), pts = [];
+  for (let tries = 0; pts.length < 40 && tries < 5000; tries++) {
+    const x = 16 + Math.floor(r() * (N - 32)), y = 16 + Math.floor(r() * (N - 32));
+    if (pts.every(([u, v]) => Math.hypot(u - x, v - y) >= 40)) { pts.push([x, y]); a[y * N + x] = 1; }
+  }
+  return { data: a, px: 25, pts, note: `${pts.length} single dye molecules at known positions, at least 1 µm apart, in a 6.4 µm field. Try camera pixels ×4 (100 nm), then vary photons and background and watch the localization error follow the Thompson limit.` };
+}
+
 const INTRO = 'Pick a test specimen or load your own image (TIFF, PNG or JPEG; it stays in your browser). The image is treated as the true distribution of fluorophores and imaged through a simulated widefield microscope: blurred by the diffraction-limited PSF, recorded on camera pixels of the chosen size, with photon shot noise, background and read noise. Then try to undo the blur with Richardson-Lucy deconvolution, and look at each stage in Fourier space, where the microscope acts as a low-pass filter with a cut-off at 2NA/λ.';
 
 route('imagelab', () => {
@@ -27,7 +38,7 @@ route('imagelab', () => {
   const { controls, view, readout } = layout(app().querySelector('#il'), INTRO);
   const st = { src: 'beadpairs', truth: null, px: 47, upPx: 50, lam: 520, NA: 1.4, bin: 1, photons: 200, bg: 10, read: 1.5, iters: 20, seed: 1, lut: 'gray', file: null };
   const srcBox = div(controls);
-  srcBox.innerHTML = `<label>Specimen</label><select id="il-src">${DEMOS.map(d => `<option value="${d}">${esc(SPECIMENS[d].label)}</option>`).join('')}<option value="file">Your image…</option></select>
+  srcBox.innerHTML = `<label>Specimen</label><select id="il-src">${DEMOS.map(d => `<option value="${d}">${esc(SPECIMENS[d].label)}</option>`).join('')}<option value="smframe">Single-molecule frame (known positions)</option><option value="file">Your image…</option></select>
     <input type="file" id="il-file" accept=".tif,.tiff,.png,.jpg,.jpeg,image/*" style="display:none"><p class="small mute" id="il-note"></p>`;
   const sel = srcBox.querySelector('#il-src'), fileIn = srcBox.querySelector('#il-file'), note = srcBox.querySelector('#il-note');
   const pxRow = div(controls);
@@ -48,17 +59,18 @@ route('imagelab', () => {
   const fig = cap => { const f = document.createElement('figure'); wrap.appendChild(f); const c = canvas(f, 256, 256); const fc = document.createElement('figcaption'); fc.textContent = cap; f.appendChild(fc); return [c, fc]; };
   const [cT] = fig('Object (your image or the specimen)'), [cI, capI] = fig('Camera image'), [cR, capR] = fig('Restored (Richardson-Lucy)');
   const [cFT] = fig('Power spectrum of the object'), [cFI] = fig('…of the camera image'), [cFR] = fig('…of the restored image');
+  const spots = spotPanel(div(app(), 'il-spots'));
 
   function setDemo() {
-    const d = demoImage(st.src);
-    st.truth = d.data; st.px = d.px; pxRow.style.display = 'none';
+    const d = st.src === 'smframe' ? smFrame(st.seed) : demoImage(st.src);
+    st.truth = d.data; st.px = d.px; st.pts = d.pts || null; pxRow.style.display = 'none';
     note.textContent = `${d.note} Grid pixel ${d.px.toFixed(0)} nm, field ${(d.px * N / 1000).toFixed(1)} µm.`;
     draw();
   }
   function setFile() {
     if (!st.file) return;
     const f = st.file, side = Math.min(f.w, f.h);
-    st.truth = toSquare(f.data, f.w, f.h, N); st.px = st.upPx * side / N; pxRow.style.display = '';
+    st.truth = toSquare(f.data, f.w, f.h, N); st.pts = null; st.px = st.upPx * side / N; pxRow.style.display = '';
     const lo = imageStats(st.truth).min; for (let i = 0; i < st.truth.length; i++) st.truth[i] -= lo; // offset to zero
     note.textContent = `${f.name}: ${f.w} × ${f.h} px, ${f.note}. Centre square resampled to ${N} × ${N} (grid pixel ${st.px.toFixed(0)} nm). Already-blurred images get blurred again: a sharp or synthetic image shows the effects best.`;
     draw();
@@ -105,8 +117,9 @@ route('imagelab', () => {
       ['Peak SNR (shot + background + read)', fmt(st.photons / Math.sqrt(peak + st.read ** 2))],
       ['Correlation with the object: camera image', rel(data)],
       ['…restored', st.iters ? rel(rest) : '-'],
-      ['Spectra', 'dashed circle = cut-off; beyond it only noise remains']
+      ['Spectra', 'dashed circle = cut-off; beyond it only noise remains'],
     ]);
+    spots({ cam, M, sigma: sig, camPx, truth: st.pts && st.pts.map(([x, y]) => [(x + 0.5) / st.bin - 0.5, (y + 0.5) / st.bin - 0.5]) });
   }
   setDemo();
 });
