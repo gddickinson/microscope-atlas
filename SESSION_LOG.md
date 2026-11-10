@@ -296,10 +296,10 @@ group, for about 6 more single-panel images per type. Meanwhile:
   the identifier's reference set stays Commons-only.
 
 ## 2026-11-10: Round 18 (hourly), R6 systems growth
-60 new systems (298 → 358) in  (31 light microscopes: e.g. Evident IXplore IX85 SpinSR,
+60 new systems (298 → 358) in `data/systems/light_more.json` (31 light microscopes: e.g. Evident IXplore IX85 SpinSR,
 ZEISS Lattice SIM 5, 3i AXL ctLS, Phi HoloMonitor M4, Femtonics Atlas, Akoya PhenoImager HT, ImageXpress Pico,
 Ventana DP 600, Leica M165 FC, ZEISS LSM 800, LaVision TriM Scope II, Luxendo QuVi SPIM, Tomocube HT-2H) and
- (29: JEOL CRYO ARM 200, Glacios 2, ZEISS Sigma, Phenom XL G2, Leica ARTOS 3D, five AFMs,
+`em_probe_open_more.json` (29: JEOL CRYO ARM 200, Glacios 2, ZEISS Sigma, Phenom XL G2, Leica ARTOS 3D, five AFMs,
 Xradia 630 Versa, four soft X-ray beamlines, iFLM, SECOM, mesoSPIM Benchtop, PlanktoScope, NINscope, eduSPIM, the
 2015 ASLM, and seven historical EMs). Each entry was gathered by research agents from fetched pages only. I
 spot-checked two by curl and corrected one wording (NX20 "200 mm samples"). Weak sources and unconfirmed
