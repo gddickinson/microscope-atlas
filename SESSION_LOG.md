@@ -324,3 +324,12 @@ availability are noted in the agents' reports, and the summaries say so where it
   data, verified git bundle, ~/.cache/microscope_atlas; 846 MB). Restore tested by cloning the bundle.
 - DNA-PAINT demo: downloading the 45.5 GB dNAM raw recordings (Zenodo 4672665) to FANTOM/DNA_PAINT_DATA; 7-Zip
   installed with Homebrew.
+
+## 2026-11-10: Round 19 (hourly), R6 filter sets
+17 current filter sets added (33 in total): Semrock/IDEX BrightLine BFP-A, LED-FITC-B, GFP-4050C, Cy3-4040D, TRITC-C,
+LED-TRITC-B, TxRed-4040D, Cy5-4040D, LED-Cy5-B, Cy7-B, the DA/FI/TR/Cy5-4X4M-C Sedat set and LF405/488/561/635-B;
+Chroma 49004 ET-Cy3/TRITC and 49007 ET-Cy7; Edmund 67-003 GFP, 67-008 Texas Red and 67-010 Cy5 (passbands given as
+ranges, so the builder cannot use them). Correction: the eight Semrock sets marked "discontinued" in round 14 are
+orderable. Every IDEX page carries a hidden "This product is obsolete!" block shown only for stocking type 'O';
+rendered in Chrome, all eight showed no notice and an add-to-cart button. Status reverted to current and the README
+updated. Lesson: for script-rendered stores, check what a visitor sees, not the raw page text.

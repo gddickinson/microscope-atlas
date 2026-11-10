@@ -252,8 +252,8 @@ Reference values come from cited sources (manufacturers, protocols, papers), lin
 - **Light sources (28):** single-line diode and DPSS lasers, multi-line laser engines, tunable and fixed femtosecond
   lasers for multiphoton imaging, a pulsed STED depletion laser, LED engines, white LEDs and arc lamps, each with its
   lines, power, modulation and coupling as the manufacturer states them.
-- **Filter sets (16):** Chroma ET and Semrock BrightLine sets (single-band, multiband, Pinkel and Sedat), with exciter,
-  dichroic and emitter part numbers. The Semrock sets on record are marked obsolete, as their pages say.
+- **Filter sets (33):** Chroma ET, Semrock BrightLine (including the BrightLine 2.0 and LED sets) and Edmund Optics
+  sets (single-band, multiband, Pinkel and Sedat), with exciter, dichroic and emitter part numbers.
 
 ![Light sources table](docs/img/light_sources.jpg)
 - **Fluorophores:** every fluorescent protein and dye in FPbase, with peaks, brightness, pKa, lifetime and
