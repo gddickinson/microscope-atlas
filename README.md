@@ -20,9 +20,9 @@ Microscope Atlas is an open web app for microscopists and lab scientists. It bri
 |---|---|
 | **52** techniques with teaching pages, from brightfield to MINFLUX and cryo-ET | **29** interactive simulations running the real equations |
 | **37 lab tools** for setup, labelling, bench calculations and analysis | A **quiz** with generated questions and 208 flashcards |
-| **298** microscope systems from **149** makers and labs, every entry sourced | **386** papers with Crossref metadata, incl. **142** methods and protocol papers |
+| **358** microscope systems from **175** makers and labs, every entry sourced | **386** papers with Crossref metadata, incl. **142** methods and protocol papers |
 | **1,013** fluorophores and **71** spectra from FPbase | **88** checked links to societies, forums, software and data |
-| **200** freely licensed images of instruments and micrographs, each credited | **298** systems with sourced specs and dated sources |
+| **495** freely licensed images (instruments, micrographs, 290 cell types, calcium movies), each credited | **358** systems with sourced specs and dated sources |
 
 ## Contents
 - [Techniques](#techniques) · [Simulations](#simulations) · [Virtual optical table](#virtual-optical-table) · [Cells](#cells) · [Microscope builder](#microscope-builder) · [Image Lab](#image-lab) · [Lab tools](#lab-tools) · [Quiz](#quiz)
