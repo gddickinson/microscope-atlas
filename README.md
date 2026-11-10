@@ -61,8 +61,9 @@ Technique names, glossary terms and software mentioned in the text link to their
 
 **Technique comparison matrix** (`#/matrix`): all 52 techniques in one sortable table. It shows lateral and axial
 resolution, speed and depth exactly as each technique page states them, so a cell is empty where the page gives no
-number. A log-scale bar from 0.1 nm to 100 µm marks each technique's lateral resolution. The table also counts the
-systems, simulations and papers for each technique, and filters by family.
+number. A log-scale bar from 0.1 nm to 100 µm marks each technique's lateral resolution. Live-imaging (46
+techniques) and cost (15) ratings appear only where the page makes such a statement, with its words quoted beneath. The
+table also counts the systems, simulations and papers for each technique, and filters by family and live-imaging rating.
 
 ![Technique comparison matrix](docs/img/matrix.jpg)
 

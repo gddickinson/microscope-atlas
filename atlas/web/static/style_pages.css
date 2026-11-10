@@ -108,7 +108,7 @@ details.fold { background:var(--panel); border:1px solid var(--line); border-rad
 .gallery video { width:100%; display:block; background:#000; } .gallery.compact video { height:180px; object-fit:cover; }
 
 /* technique comparison matrix */
-table.mx td { min-width:90px; } table.mx td.mx-xy { min-width:220px; }
+table.mx td { min-width:90px; } table.mx td.mx-xy { min-width:220px; } table.mx td.mx-rate { min-width:170px; }
 .mx-sort { background:none; border:0; color:inherit; font:inherit; cursor:pointer; padding:0; text-align:left; }
 .mx-sort:hover, .mx-sort:focus-visible { color:var(--ink); text-decoration:underline; }
 .mx-bar { position:relative; height:8px; background:var(--line); border-radius:4px; margin:2px 0 6px; }
@@ -116,3 +116,4 @@ table.mx td { min-width:90px; } table.mx td.mx-xy { min-width:220px; }
 .mx-scale { position:relative; height:14px; margin-top:4px; font-size:10px; color:var(--mute); }
 .mx-scale span { position:absolute; transform:translateX(-50%); white-space:nowrap; }
 .mx-scale span:first-child { transform:none; } .mx-scale span:last-child { transform:translateX(-100%); }
+.mx-q { display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }

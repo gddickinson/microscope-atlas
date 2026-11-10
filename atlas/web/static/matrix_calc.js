@@ -49,3 +49,8 @@ export function byKey(key, dir = 1) {
     return dir * (typeof x === 'number' ? x - y : String(x).localeCompare(String(y)));
   };
 }
+
+/** Sort ranks for the curated ratings (data/content/technique_matrix.json); unrated rows sort last via byKey. */
+export const LIVE_RANK = { yes: 0, limited: 1, no: 2 };
+export const COST_RANK = { low: 0, 'adds cost': 1, high: 2 };
+export const rank = (table, v) => (v in table ? table[v] : null);

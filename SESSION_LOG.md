@@ -441,3 +441,13 @@ description (correct for IC295) plus a note that IC293 is endothelial.
 - Tests: `tests/matrix.test.mjs` (parsing on all 52 pages: 51 parse, spectral has no number), API test. pytest
   54 passed, 1 skipped; smoke test 45 routes ok; README figure `docs/img/matrix.jpg`.
 - R8 stays in_progress: live-cell suitability and cost need a sourced field per technique, not inferred.
+
+## 2026-11-10: round 23, R8 completed (live imaging and cost in the matrix)
+- `data/content/technique_matrix.json`: live-imaging rating (yes / limited / no) for 46 techniques and cost (low /
+  adds cost / high) for 15, each with a reference to the technique-page statement it rests on (`limitations.0`,
+  `tagline`, `sample_prep@1` = second sentence). `content.page_statement` resolves it and the matrix API returns the
+  statement verbatim, shown beneath the rating. Techniques whose page says nothing get no rating (HILO was dropped: its
+  page implies but does not state live use; STM, stereo, iSCAT, MINFLUX unrated for live; most costs unrated).
+- Matrix page: two new sortable columns, quotes clamped to three lines (full text on hover), live-imaging filter,
+  "a cost rating" row filter. Node test: every reference resolves and its words speak to the rating.
+- pytest 54 passed, 1 skipped; smoke test 45 routes ok; docs/img/matrix.jpg refreshed. R8 completed; next R11.

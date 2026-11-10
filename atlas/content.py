@@ -82,11 +82,24 @@ _SPEED_NOT = r"speed of sound|disk speed"
 _DEPTH = r"imaging depth|penetration|depth in|usable depth|useful imaging depth|interaction depth|resolution / depth"
 
 
+def page_statement(page: dict, ref: str) -> str:
+    """Text of a technique-page field by reference: 'tagline', '<list field>.<index>', optionally '@<n>' for the n-th
+    sentence of that text (e.g. 'sample_prep@2'). Raises if the reference does not resolve."""
+    import re
+    ref, _, sent = ref.partition("@")
+    field, _, i = ref.partition(".")
+    v = page[field]
+    v = v[int(i)] if i else v
+    return re.split(r"(?<=[.!?])\s+(?=[A-Z(])", v)[int(sent)] if sent else v
+
+
 def matrix() -> list[dict]:
     """One row per technique for the comparison matrix: resolution text and the speed and depth key numbers exactly as
-    the technique page states them (each page is sourced by its papers), plus database counts."""
+    the technique page states them (each page is sourced by its papers), database counts, and the live-cell and cost
+    ratings of data/content/technique_matrix.json, each shown with the page statement it rests on (quoted verbatim)."""
     import re
     pages, counts = technique_pages(), catalog.facets()["technique"]
+    ratings = {r["id"]: r for r in named("technique_matrix")}
     sims = simulations()
     rows = []
     for t in catalog.techniques():
@@ -99,4 +112,8 @@ def matrix() -> list[dict]:
                      "speed": pick(_SPEED, _SPEED_NOT), "depth": pick(_DEPTH),
                      "systems": counts.get(t["id"], 0), "papers": len(p.get("papers", [])),
                      "sims": sum(t["id"] in s.get("techniques", []) for s in sims)})
+        r = ratings.get(t["id"], {})
+        for k in ("live", "cost"):
+            rows[-1][k] = r.get(k, "")
+            rows[-1][k + "_quote"] = page_statement(p, r[k + "_ref"]) if k in r else ""
     return rows
