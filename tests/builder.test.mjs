@@ -33,3 +33,20 @@ rel(r.photons, r.emit * r.coll * r.inBand * 0.9 * 0.1, 1e-9, 'photons per exposu
 assert.ok(r.relEx > 0.5 && r.relEx <= 1 && r.inBand > 0.4 && r.inBand < 0.9, `relEx ${r.relEx} inBand ${r.inBand}`);
 assert.ok(r.sat < 0.01, 'far from saturation at 0.13 kW/cm²'); assert.ok(r.snrPeak > 1 && r.locNm > 0);
 console.log(`builder: ${O.length} objectives, ${Cm.length} cameras usable; AF488 example ${r.photons.toFixed(0)} photons, σloc ${r.locNm.toFixed(1)} nm`);
+
+// light sources and filter sets from the database
+import { parseSource, parseBands, parseFilterSet, pickBand } from '../atlas/web/static/builder_calc.js';
+const L = load('components/light_sources.json').map(parseSource).filter(Boolean), F = load('components/filters.json').map(parseFilterSet).filter(Boolean);
+const byId = (a, id) => a.find(x => x.id === id);
+assert.deepEqual(byId(L, 'lumencor-celesta').lines, [405, 450, 477, 488, 518, 545, 577, 639, 680, 750]);
+assert.deepEqual(byId(L, 'nikon-lu-n4').lines, [405, 488, 561, 640]);
+assert.deepEqual(byId(L, 'zeiss-colibri-7').lines, [385, 423, 469, 511, 555, 590, 631, 735]);
+assert.deepEqual(byId(L, 'toptica-ibeam-smart').range, [375, 1064]);
+assert.deepEqual(byId(L, 'excelitas-x-cite-xylis-ii').lines, [365, 385, 430, 475, 545, 635, 735], 'model codes such as XT730S are not lines');
+assert.equal(byId(L, 'coherent-chameleon-discovery-nx'), undefined, 'multiphoton lasers are left out');
+assert.deepEqual(parseBands('390/40 nm, 482/18 nm, 563.5/9 nm (FF01-390/482/563/640-25)'), [[390, 40], [482, 18], [563.5, 9]]);
+assert.equal(byId(F, 'chroma-69002-et-dapi-fitc-texas-red'), undefined, 'no bandwidths given');
+const quad = byId(F, 'chroma-89000-et-sedat-quad');
+assert.deepEqual(pickBand(quad.em, 520, 488), [525, 36]); assert.deepEqual(pickBand(quad.em, 594, 561), [605, 52]);
+assert.ok(L.length >= 15 && F.length >= 14, `sources ${L.length}, filter sets ${F.length}`);
+console.log(`builder: ${L.length} light sources, ${F.length} filter sets usable`);

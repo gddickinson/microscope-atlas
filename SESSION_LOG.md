@@ -195,3 +195,12 @@ pages only, and spot-checked by curl. ZEISS filter sets were dropped (only secon
 and distributor-hosted sources are noted in the summaries. The `COMPONENT_KINDS` validator now checks ids, status and
 URLs for all four kinds; the API, static export, components page tabs and nav were updated. Server restarted (new
 PID). Next in R6: builder picks lasers and filters from the database, current Semrock sets, more systems, photos.
+
+## 2026-11-10: Round 15 (hourly), R6: builder uses the light-source and filter databases
+The microscope builder now picks a light source and a filter set from the new tables. `parseSource` reads the lines a
+source states, ignoring model codes such as XT730S and Colibri bandwidths, plus the common laser lines inside a stated
+family range. Multiphoton and STED lasers and sources with no stated lines are left out (16 usable). `parseFilterSet`/
+`parseBands` read centre/width bands (15 sets; the Chroma 69002 page gives no widths). `pickBand` chooses the set's
+emission band nearest the dye's emission above the line. The page notes the source's stated output power, warns that
+LED peaks make the budget an estimate, and says whether the line lies inside the set's exciter band. Tests extended in
+`tests/builder.test.mjs`. Builder figure refreshed. Next in R6: current Semrock sets, more systems, photos.

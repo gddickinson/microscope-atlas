@@ -61,3 +61,33 @@ export function report(cfg) {
     fpsMax: cam.fps ? Math.min(cam.fps, 1000 / exposureMs) : 1000 / exposureMs,
   };
 }
+
+// Display label: maker + name, without repeating a maker the name already starts with.
+const nameOf = x => { const m = x.manufacturer.split(' (')[0]; return x.name.toLowerCase().startsWith(m.split(' ')[0].toLowerCase()) ? x.name : `${m} ${x.name}`; };
+
+// Light source entry -> { id, label, type, lines: [nm] (discrete lines it states), range: [lo, hi] | null, power } or
+// null for sources the one-photon builder cannot use (pulsed multiphoton/STED lasers, sources with no stated lines).
+export function parseSource(s) {
+  if (/fs|ps laser/.test(s.type)) return null;
+  const w = String((s.specs || {}).Wavelengths || '');
+  const range = w.match(/(\d{3,4})\s*-\s*(\d{3,4})\s*nm/);
+  const lines = [...new Set([...w.replace(/(\d{3,4})\s*-\s*(\d{3,4})/g, ' ').matchAll(/(?<![\w./])(\d{3,4})(?:\/\d+)?(?![\d.])/g)].map(m => +m[1]).filter(v => v >= 300 && v <= 1100))].sort((a, b) => a - b);
+  if (!lines.length && !range) return null;
+  return { id: s.id, label: nameOf(s), type: s.type, lines, range: range ? [+range[1], +range[2]] : null, power: (s.specs || {})['Output power'] || '' };
+}
+
+// "470/40 nm (ET470/40x), 525/36 nm" -> [[470, 40], [525, 36]] (centre / bandwidth pairs; part numbers ignored).
+export const parseBands = text => [...String(text || '').replace(/\([^)]*\)/g, '').matchAll(/(\d{3}(?:\.\d+)?)\/(\d+(?:\.\d+)?)/g)].map(m => [+m[1], +m[2]]);
+
+// Filter-set entry -> { id, label, ex: bands, em: bands } or null when the emission bands are not given as centre/width.
+export function parseFilterSet(f) {
+  const em = parseBands((f.specs || {}).Emission);
+  return em.length ? { id: f.id, label: nameOf(f), ex: parseBands((f.specs || {}).Excitation), em, status: f.status } : null;
+}
+
+// The emission band of a set that a dye uses: the band above the laser line nearest the dye's emission peak.
+export function pickBand(bands, emPeak, laser) {
+  const above = bands.filter(([c, w]) => c - w / 2 > laser);
+  const pool = above.length ? above : bands;
+  return pool.reduce((b, x) => (Math.abs(x[0] - emPeak) < Math.abs(b[0] - emPeak) ? x : b), pool[0]);
+}

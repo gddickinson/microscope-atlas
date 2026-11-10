@@ -125,8 +125,10 @@ scale bar, side-by-side ground truth and PNG export.
 | ![Optical table: TIRF](docs/img/table_tirf.jpg) | ![Optical table: STED](docs/img/table_sted.jpg) |
 
 ## Microscope builder
-Pick an objective and a camera from the components database, one of the 71 fluorophores with measured FPbase spectra,
-a laser line and an emission band. The builder reports resolution (FWHM, Rayleigh, axial), pixel size at the sample
+Pick an objective, a camera, a light source and a filter set from the components database, one of the 71
+fluorophores with measured FPbase spectra, and a line. Choosing a laser engine or LED source offers only the lines it
+states, and choosing a filter set takes the emission band the dye would use from that set's emitter. The page also
+warns when the line falls outside the set's exciter. The builder reports resolution (FWHM, Rayleigh, axial), pixel size at the sample
 against Nyquist, field of view and frame rate. It also follows a photon budget for one molecule, in this order:
 power density, absorption cross-section (3.82×10⁻²¹ ε cm²) at the laser line, saturation from the lifetime, quantum
 yield, objective collection angle, fraction of the emission inside the filter, transmission and camera QE. It ends
