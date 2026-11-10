@@ -67,8 +67,37 @@ route('glossary', async (_a, query) => {
   draw();
 });
 
-const GROUPS = ['Calcium signals', 'Super-resolution', 'Cells'];
+const GROUPS = ['Calcium signals', 'Super-resolution', '3D super-resolution', 'Cells'];
+// Movies (.mp4) play as looping, muted videos with a poster frame (<name>_poster.jpg beside them); other files are images.
+const isVid = i => /\.mp4$/i.test(i.url);
+// Start muted looping videos that are on screen (autoplay is not reliable for markup set via innerHTML).
+function playVisible(root) {
+  const io = new IntersectionObserver(es => es.forEach(e => { const v = e.target; v.muted = true; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: 0.2 });
+  root.querySelectorAll('video').forEach(v => io.observe(v));
+}
+const still = i => (isVid(i) ? i.url.replace(/\.mp4$/i, '_poster.jpg') : i.url);
+const media = (i, lazy = true) => (isVid(i)
+  ? `<video src="${esc(i.url)}" poster="${esc(still(i))}" autoplay loop muted playsinline preload="metadata" aria-label="${esc(i.title)}"></video>`
+  : `<img src="${esc(i.url)}" alt="${esc(i.title)}"${lazy ? ' loading="lazy"' : ''}>`);
 const fold = (title, body) => (body ? `<details class="fold"><summary>${title}</summary>${body}</details>` : '');
+
+// Calcium signalling section: background (sourced, DOI-checked), how the group's projects fit, and the lab's calcium movies.
+function calciumSection(c, raw, projects, extra = []) {
+  if (!c) return '';
+  const cite = refs => (refs || []).map(r => c.papers[r] ? `<a href="${esc(c.papers[r].url)}" target="_blank" rel="noopener" title="${esc(c.papers[r].authors + ' (' + c.papers[r].year + ') ' + c.papers[r].title)}">[${r + 1}]</a>` : '').join('');
+  const [first, ...rest] = c.paragraphs;
+  const names = Object.fromEntries(projects.map(x => [x.id, x.title]));
+  const fig = i => `<figure><a href="${i.project ? '#/portfolio/' + esc(i.project) : esc(i.source_url || i.url)}" title="${esc(i.caption)}">${media(i)}</a><figcaption><b>${esc(i.title)}</b>${i.public === false ? ' <span class="tag r">local preview</span>' : ''}<br><span class="small">${esc(i.caption)}</span>${i.author ? `<br>${esc(i.author)} · ${esc(i.licence)}` : ''}</figcaption></figure>`;
+  const lab = raw.filter(i => i.group === 'Calcium signals');
+  return `<h2 id="calcium">${esc(c.title)}</h2><p class="lead">${esc(first.text)} ${cite(first.refs)}</p>
+    ${fold('The calcium toolkit, elementary events and how we see them', list(rest, q => `<h3>${esc(q.heading)}</h3><p>${esc(q.text)} ${cite(q.refs)}</p>`) +
+      `<h3>Terms</h3><dl class="small">${list(c.glossary, g => `<dt><b>${esc(g.term)}</b></dt><dd>${esc(g.def)}</dd>`)}</dl>` +
+      `<h3>References</h3><ol class="small">${list(c.papers, x => `<li>${esc(x.authors)} (${x.year}) <a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a>. <i>${esc(x.journal)}</i></li>`)}</ol>`)}
+    <h3>${esc(c.ours.heading)}</h3><p>${esc(c.ours.text)} ${cite(c.ours.refs)}</p>
+    <p>${list(c.ours.projects.filter(i => names[i]), i => `<a class="tag g" href="#/portfolio/${esc(i)}">${esc(names[i])}</a>`)}</p>
+    ${lab.length ? `<h3>Calcium events from the lab</h3><div class="gallery compact">${list(lab, fig)}</div>` : ''}
+    ${extra.length ? `<h3>Calcium signalling across biology</h3><p class="small mute">Freely licensed images from other labs, via Wikimedia Commons.</p><div class="gallery compact">${list(extra, fig)}</div>` : ''}`;
+}
 
 route('portfolio', async ([id]) => {
   const [p, imgs] = await Promise.all([api('/content/portfolio'), api('/portfolio/images').catch(() => [])]);
@@ -77,12 +106,13 @@ route('portfolio', async ([id]) => {
   if (id) return projectPage(p, projects.find(x => x.id === id), imgs.filter(i => i.project === id));
   // This page shows raw microscope images only; plots, traces, analysis maps and paper figures stay on the project pages.
   const raw = imgs.filter(i => i.kind === 'image');
-  const thumb = (pid, techs = []) => { const i = raw.find(r => r.project === pid && techs.includes(r.technique)) || raw.find(r => r.project === pid); return i ? `<img class="thumb" src="${esc(i.url)}" alt="" loading="lazy">` : ''; };
+  const thumb = (pid, techs = []) => { const i = raw.find(r => r.project === pid && techs.includes(r.technique)) || raw.find(r => r.project === pid); return i ? `<img class="thumb" src="${esc(still(i))}" alt="" loading="lazy">` : ''; };
   const local = raw.some(i => !i.public) ? ' Images marked "local preview" appear only in your local copy of the app, not on the public site.' : '';
-  const groups = [...GROUPS, ...new Set(raw.map(i => i.group).filter(g => g && !GROUPS.includes(g)))].map(g => [g, raw.filter(i => (i.group || 'Other') === g)]).filter(([, a]) => a.length);
+  const groups = [...GROUPS, ...new Set(raw.map(i => i.group).filter(g => g && !GROUPS.includes(g)))].filter(g => g !== 'Calcium signals').map(g => [g, raw.filter(i => (i.group || 'Other') === g)]).filter(([, a]) => a.length);
+  const calImgs = (await api('/images').catch(() => [])).filter(i => i.topic === 'calcium');
   const gallery = raw.length ? `<h2>From the microscope</h2>
     <p class="small mute">Raw images from the experiments behind the papers, grouped by subject. Click one for the story of that work, with the figures and analysis.${local}</p>
-    ${list(groups, ([g, a]) => `<h3>${esc(g)} <span class="mute small">(${a.length})</span></h3><div class="gallery compact">${list(a, i => `<figure><a href="#/portfolio/${esc(i.project)}" title="${esc(i.caption)}"><img src="${esc(i.url)}" alt="${esc(i.title)}" loading="lazy"></a>
+    ${list(groups, ([g, a]) => `<h3>${esc(g)} <span class="mute small">(${a.length})</span></h3><div class="gallery compact">${list(a, i => `<figure><a href="#/portfolio/${esc(i.project)}" title="${esc(i.caption)}">${media(i)}</a>
       <figcaption><b>${esc(i.title)}</b>${i.public ? '' : ' <span class="tag r">local preview</span>'}<br><a class="tag g" href="#/technique/${esc(i.technique)}">${esc(i.technique)}</a></figcaption></figure>`)}</div>`)}` : '';
   const labs = p.labs ? `<p class="small mute">The scientists I have worked with, and where to find their work.</p><div class="grid wide">${list(p.labs, b => `<div class="card"><b>${esc(b.name)}</b><small>${esc(b.pi)} · ${esc(b.where)} · ${esc(b.years)}</small>
       <span>${esc(b.work)}</span><span class="mute">${esc(b.offers)}</span><div style="margin-top:8px">${list(b.links, k => `<a class="tag b" href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.title)} ↗</a>`)}</div></div>`)}</div>` : '';
@@ -90,6 +120,7 @@ route('portfolio', async ([id]) => {
       ${p.code_papers ? `<ul>${list(p.code_papers, x => `<li>${doiLink(x)}<br><span class="small mute">${esc(x.note)}</span></li>`)}</ul>` : ''}` : '';
   app().innerHTML = `<p class="kicker">About</p><h1>${esc(p.title)}</h1><p class="lead">${esc(p.intro)}</p>
     ${gallery}
+    ${calciumSection(p.calcium, raw, projects, calImgs)}
     <h2>Research themes</h2>
     <div class="grid wide">${list(p.highlights, h => `<a class="card hl" href="${h.project ? '#/portfolio/' + esc(h.project) : 'javascript:void 0'}">${thumb(h.project, h.techniques)}<b>${esc(h.title)}</b><span>${esc(h.text)}</span>${h.techniques ? `<div style="margin-top:8px">${list(h.techniques, t => `<span class="tag g">${t}</span>`)}</div>` : ''}${h.project ? '<small>Read more →</small>' : ''}</a>`)}</div>
     ${projects.length ? `<h2>All projects (${projects.length})</h2><div class="grid">${list(projects, x => `<a class="card" href="#/portfolio/${esc(x.id)}"><b>${esc(x.title)}</b><small>${esc([x.year, x.paper?.journal].filter(Boolean).join(' · '))}</small></a>`)}</div>` : ''}
@@ -100,6 +131,7 @@ route('portfolio', async ([id]) => {
     ${fold('Selected papers', `<ul>${list(p.papers, x => `<li>${doiLink(x)}<br><span class="small mute">${esc(x.note || '')}</span></li>`)}</ul>`)}
     ${fold('Software', bullets(p.software))}
     <p class="small mute">${esc(p.footnote || '')}</p>`;
+  playVisible(app());
 });
 
 function projectPage(p, x, imgs) {
@@ -107,7 +139,7 @@ function projectPage(p, x, imgs) {
   const seen = new Set();
   app().innerHTML = `<p class="kicker"><a href="#/portfolio">My microscopy</a> / ${esc(x.year || '')}</p><h1>${esc(x.title)}</h1>
     <p class="lead">${x.paper ? doiLink(x.paper) : ''}</p>
-    ${list([['Images', imgs.filter(i => i.kind === 'image')], ['Figures and analysis', imgs.filter(i => i.kind !== 'image')]].filter(([, a]) => a.length), ([h, a], k, all) => `${all.length > 1 ? `<h2>${h}</h2>` : ''}<div class="gallery">${list(a, i => `<figure><a href="${esc(i.url)}" target="_blank" rel="noopener"><img src="${esc(i.url)}" alt="${esc(i.title)}"></a><figcaption><b>${esc(i.title)}</b>${i.public ? '' : ' <span class="tag r">local preview</span>'}<br>${esc(i.caption)}${i.licence ? `<br><span class="small mute">${esc(i.licence)}</span>` : ''}</figcaption></figure>`)}</div>`)}
+    ${list([['Images', imgs.filter(i => i.kind === 'image')], ['Figures and analysis', imgs.filter(i => i.kind !== 'image')]].filter(([, a]) => a.length), ([h, a], k, all) => `${all.length > 1 ? `<h2>${h}</h2>` : ''}<div class="gallery">${list(a, i => `<figure><a href="${esc(i.url)}" target="_blank" rel="noopener">${media(i, false)}</a><figcaption><b>${esc(i.title)}</b>${i.public ? '' : ' <span class="tag r">local preview</span>'}<br>${esc(i.caption)}${i.licence ? `<br><span class="small mute">${esc(i.licence)}</span>` : ''}</figcaption></figure>`)}</div>`)}
     <div class="two" style="margin-top:18px"><div>
       ${x.question ? `<h2>The question</h2><p>${linkify(x.question, seen)}</p>` : ''}
       ${x.approach ? `<h2>The approach</h2>${list([].concat(x.approach), a => `<p>${linkify(a, seen)}</p>`)}` : ''}
@@ -120,6 +152,7 @@ function projectPage(p, x, imgs) {
       ${x.links ? `<h3>Links</h3><ul>${list(x.links, k => `<li><a href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.title)} ↗</a></li>`)}</ul>` : ''}
     </div></div>
     <p><a href="#/portfolio">← All projects</a></p>`;
+  playVisible(app());
 }
 
 route('about', async () => {

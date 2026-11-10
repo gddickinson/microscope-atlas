@@ -105,3 +105,4 @@ details.fold { background:var(--panel); border:1px solid var(--line); border-rad
 .nobel { display:flex; flex-direction:column; gap:12px; } .card.nb { display:grid; grid-template-columns:70px 1fr; gap:14px; }
 .nb-year { font:700 22px var(--mono); color:var(--yfp); } .nb-cite { font-style:italic; color:#c6d4ee; margin:6px 0; }
 @media (max-width:600px) { .card.nb { grid-template-columns:1fr; } }
+.gallery video { width:100%; display:block; background:#000; } .gallery.compact video { height:180px; object-fit:cover; }

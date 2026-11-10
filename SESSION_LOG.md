@@ -253,3 +253,21 @@ group, for about 6 more single-panel images per type. Meanwhile:
   same as the neighbour vote.
 - `eval_cell_id.py`: compares zero-shot, neighbours, probe and blends, leave-one-out (the probe is refit without
   each image).
+
+## 2026-11-10: My Microscopy: calcium signalling section, archive movies and 3D renders (George's requests)
+- Calcium signalling section (`scripts/content/calcium_src.py` → portfolio.json "calcium"; rendered by `calciumSection`
+  in learn.js). Background in five paragraphs from 13 papers, each DOI checked on Crossref by the research agent: ER
+  [Ca2+] is "a few hundred micromolar" as its sources say. "Where our work fits" describes the group projects as team
+  work and links each one; the group's 2016 IP3-diffusion finding moved there from the background. Glossary and
+  references sit in a fold-out.
+- Movies (local preview, git-ignored like all archive material; `portfolio_images7.py`, `portfolio_images8.py`,
+  manifest `portfolio_manifest5.py`): calcium puffs at 12, 22 and 35 C from the published temperature study (dF/F
+  over the resting image, slowed 4.7-6.5x); hundreds of puffs in a Xenopus oocyte (GeorgeDisc1, 110322; unpublished,
+  display only); "How a STORM image is made", with widefield, then raw blinking N-STORM frames beside the
+  reconstruction building up from the NIS export's localisations (frame f → time point (f-1)//2). H.264 MP4 with
+  poster frames; the page plays on-screen videos (`playVisible`).
+- 3D (`portfolio_images6.py`): depth-coded 3D STORM projections from the lab's "Best examples" exports (SH-SY5Y
+  microtubules, full field and zoom; ER in SH-SY5Y and COS-7) and a tilted two-colour COS-7 view (height x1.5,
+  stated). Rotating oblique views streaked because z precision is coarser than x-y, so they were dropped. The 2011
+  MetaMorph 3D reconstruction of a brain slice from Carl Cotman's lab (file names on GeorgeDisc1) is shown as rendered.
+- George attached GeorgeDisc1; `nd2` package added to .venv for reading N-STORM movies.

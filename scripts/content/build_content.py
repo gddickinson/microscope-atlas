@@ -28,6 +28,8 @@ try:
     PORTFOLIO = {**PORTFOLIO, "projects": PROJECTS}
 except ImportError:
     pass
+from calcium_src import CALCIUM  # noqa: E402
+PORTFOLIO = {**PORTFOLIO, "calcium": CALCIUM}
 write("portfolio", PORTFOLIO)
 write("community", [{"group": g, "links": [{"name": n, "url": u, "about": a} for n, u, a in rows]} for g, rows in COMMUNITY])
 
