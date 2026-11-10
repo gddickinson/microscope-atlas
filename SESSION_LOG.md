@@ -466,3 +466,13 @@ description (correct for IC295) plus a note that IC293 is endothelial.
 - At George's request the Zenodo copies were deleted from FANTOM after the movie was made (DNA_PAINT_DATA: 45.5 GB
   archive and the extracted 21 GB recording; the 577 MB localisation copy in MICROSCOPE_ATLAS_BACKUP/user_cache).
   `backup_to_drive.sh` now skips public `zenodo_*` downloads.
+
+## 2026-11-10: DNA-PAINT build-up movie re-registered; zoom on the triangle
+- George saw the raw frames and the reconstruction misaligned. Measured: the first version shifted the localisations
+  the wrong way (the cross-correlation offset), and the study's localisations are drift-corrected while the raw frames
+  are not; stage drift was ~4 px (x) and ~6 px (y) of 107 nm over 40,000 frames. Drift was measured per segment by
+  maximising the raw intensity under the localisations of the frames the movie shows.
+- `scripts/portfolio_images14b.py` (local, git-ignored) rebuilds the movie without the deleted raw recording: the first
+  movie shows every raw frame of the 16 x 16 px crop as 30 x 30 blocks, so the raw values are read back as block
+  medians. The reconstruction is drawn where the camera saw each molecule at that moment (it drifts with the stage);
+  residual offset < 0.25 px early, mid and late. The ending zooms on the triangular cluster (225 nm window).
