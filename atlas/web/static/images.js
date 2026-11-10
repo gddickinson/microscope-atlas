@@ -2,7 +2,7 @@
 import { route, api, app, esc, list } from './core.js';
 
 export function credit(i) {
-  return `<span class="credit">${esc(i.author || 'Unknown author')} · <a href="${esc(i.licence_url || i.source_url)}" target="_blank" rel="noopener">${esc(i.licence)}</a> · <a href="${esc(i.source_url)}" target="_blank" rel="noopener">Wikimedia Commons</a></span>`;
+  return `<span class="credit">${esc(i.author || 'Unknown author')} · <a href="${esc(i.licence_url || i.source_url)}" target="_blank" rel="noopener">${esc(i.licence)}</a> · <a href="${esc(i.source_url)}" target="_blank" rel="noopener">${i.doi ? 'article' : 'Wikimedia Commons'}</a></span>`;
 }
 
 export function figure(i, { link = true } = {}) {

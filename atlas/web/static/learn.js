@@ -97,7 +97,7 @@ function calciumSection(c, raw, projects, extra = []) {
     <h3>${esc(c.ours.heading)}</h3><p>${esc(c.ours.text)} ${cite(c.ours.refs)}</p>
     <p>${list(c.ours.projects.filter(i => names[i]), i => `<a class="tag g" href="#/portfolio/${esc(i)}">${esc(names[i])}</a>`)}</p>
     ${lab.length ? `<h3>Calcium events from the lab</h3><div class="gallery compact">${list(lab, fig)}</div>` : ''}
-    ${extra.length ? `<h3>Calcium signalling across biology</h3><p class="small mute">Freely licensed images from other labs, via Wikimedia Commons.</p><div class="gallery compact">${list(extra, fig)}</div>` : ''}`;
+    ${extra.length ? `<h3>Calcium signalling across biology</h3><p class="small mute">Freely licensed images and movies from other labs, via Wikimedia Commons and CC BY open-access papers (each credited, with its licence).</p><div class="gallery compact">${list([...extra].reverse(), fig)}</div>` : ''}`;
 }
 
 route('portfolio', async ([id]) => {

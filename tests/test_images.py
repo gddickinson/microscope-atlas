@@ -40,7 +40,8 @@ def test_every_entry_has_accepted_licence_author_and_source():
         if e["licence"].lower().startswith("cc") and "cc0" not in e["licence"].lower():
             assert "creativecommons.org" in e["licence_url"], e["commons_title"]
         assert e["author"].strip(), e["commons_title"]
-        assert e["source_url"].startswith("https://commons.wikimedia.org/wiki/File:"), e["commons_title"]
+        # Commons files link to their file page; CC BY files from open-access papers link to the article (DOI)
+        assert e["source_url"].startswith("https://commons.wikimedia.org/wiki/File:") or (e.get("doi") and e["source_url"].startswith("https://")), e["commons_title"]
         assert e["kind"] in ("instrument", "micrograph")
         assert not e.get("video") or (e["file"].endswith(".mp4") and (IMAGES / e["poster"]).exists()), e["file"]
         assert e["title"].strip() and e["caption"].strip()

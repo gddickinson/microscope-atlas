@@ -169,6 +169,15 @@ def entry_record(item, page):
             "source_url": meta.get("DescriptionUrl") or info.get("descriptionurl", "")}, None
 
 
+def paper_record(item):
+    """Credit fields for a file taken from an open-access paper: the licence must pass the same check as Commons."""
+    lic = accepted_licence(item.get("licence"), item.get("licence_url", ""))
+    if not lic:
+        return None
+    return {"author": item["author"], "licence": lic, "licence_url": item.get("licence_url", ""),
+            "source_url": item["source_url"], "doi": item.get("paper_doi", "")}
+
+
 def main(force=False):
     OUT.mkdir(parents=True, exist_ok=True)
     old = {}
@@ -176,12 +185,40 @@ def main(force=False):
     if mpath.exists():
         old = {m["commons_title"]: m for m in json.loads(mpath.read_text())}
     manifest, problems, used = [], [], set()
-    titles = [i["commons_title"] for i in IMAGES]
+    titles = [i["commons_title"] for i in IMAGES if not i.get("file_url")]
     pages = {}
     for k in range(0, len(titles), 20):
         pages.update(query(titles[k:k + 20]))
     for item in IMAGES:
         t = item["commons_title"]
+        if item.get("file_url"):  # a CC BY file straight from an open-access paper (not on Commons)
+            rec = paper_record(item)
+            if not rec:
+                problems.append(f"{t}: licence not accepted: {item.get('licence')!r}")
+                continue
+            base = slug("File:" + item["title"])
+            while base in used:
+                base += "-2"
+            used.add(base)
+            prev = old.get(t)
+            vid = item["file_url"].split("?")[0].lower().rsplit(".", 1)[-1] in ("mp4", "mov", "avi", "ogv", "webm", "gif", "m4v")
+            if prev and not force and (OUT / prev["file"]).exists():
+                fname, w, h = prev["file"], prev["width"], prev["height"]
+            elif vid:
+                fname = f"{base}.mp4"
+                w, h = to_mp4(get(item["file_url"], binary=True), OUT / fname)
+                print(f"saved {fname} (paper) + poster")
+            else:
+                data, ext, w, h = to_jpeg(get(item["file_url"], binary=True), "")
+                fname = f"{base}.{ext}"
+                (OUT / fname).write_bytes(data)
+                print(f"saved {fname} (paper)")
+            manifest.append({"file": fname, "commons_title": t, "kind": item["kind"], "system": item["system"],
+                             "techniques": item["techniques"], "title": item["title"], "caption": item["caption"],
+                             **({"topic": item["topic"]} if item.get("topic") else {}),
+                             **({"video": True, "poster": fname.replace(".mp4", "_poster.jpg")} if fname.endswith(".mp4") else {}),
+                             **rec, "width": w, "height": h})
+            continue
         page = pages.get(t)
         if not page or page.get("missing") or not page.get("imageinfo"):
             problems.append(f"{t}: not found on Commons")

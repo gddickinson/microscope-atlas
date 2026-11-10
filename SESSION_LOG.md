@@ -365,3 +365,17 @@ Two research agents targeted the thinnest technique categories and history:
   Metrovick EM2 and Stereoscan 600 (museum records; years only where stated).
 Three duplicates across the batches were merged, keeping the entry with more sourced detail. One DOI was
 spot-checked (isoSTED, Schmidt et al. 2008).
+
+## 2026-11-10: more dramatic calcium events (George's request)
+George asked for more dramatic events, such as spiral waves in oocytes. A research agent found no freely licensed
+classic spiral (the famous oocyte and cardiac spirals are under restrictive licences or are simulations). Added 17
+freely licensed items to "Calcium signalling across biology" (32 now, newest first):
+- the closest to spirals: re-entrant calcium waves circling heart-cell rings (two movies, Li et al. 2020 Commun Biol)
+  and a phase map of calcium spirals in cardiac tissue (Hörning et al. 2017 Sci Rep);
+- fertilisation and egg activation (Drosophila, zebrafish, C. elegans, a mouse egg);
+- tissue-wide waves: worm spermatheca and death wave, fly wing disc, larva and fat body, embryonic mouse gut,
+  zebrafish brain, embryonic cortex, astrocytes, pulmonary-vein muscle.
+Licences were checked on the Commons API or each article's PMC open-access record, and DOIs on Crossref. Dropped:
+whole-plant luminescence (not microscopy), a starfish figure that needed cropping, and two very small clips.
+`fetch_commons.py` now accepts CC BY files from papers (`file_url`, `licence`, `licence_url`, `paper_doi`), using the
+same licence check; credits link to the article. The image test allows DOI-sourced entries.
