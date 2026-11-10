@@ -284,3 +284,13 @@ group, for about 6 more single-panel images per type. Meanwhile:
   panels.
 - Widefield z-series (GeorgeDisc1/ZStack, 2014): focus-through movies and depth-coded projections of COS-7 IP3R1 and
   SH-SY5Y ER-RFP (no x-y calibration in the files, so no rotated views yet). The gallery group is now "3D views".
+
+## 2026-11-10: more archive examples (George's request)
+- Surveyed the Parker-lab catalogue for good examples. New local-preview items: a global Ca2+ rise sweeping into a
+  cell (Calcium_STORM 150317 p003, Nikon TIRF) and shadowless-TIRF puffs with Cal-520 at 200 Hz (2014_06_27), both
+  in "Calcium events from the lab"; a transmitted-light image of SH-SY5Y cells (N-STORM). Considered and rejected:
+  noisy Patching transmitted-light frames (HeLa, SH-SY5Y; 128-px neuron frames), a sparse three-colour IP3R1/2/3
+  STORM, the 110202 strip recordings (499 x 146, mostly dark) and the BTS anchoring recording (flash-dominated).
+- Cells page image database: the lab's own cell-type recordings (`cell_type` in the local manifest: SH-SY5Y,
+  Xenopus oocyte movie, keratinocytes) appear beside the Commons images as "local preview" (`cellImages` in cells.js);
+  the identifier's reference set stays Commons-only.

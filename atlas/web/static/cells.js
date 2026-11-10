@@ -10,7 +10,13 @@ export const ALL_DIAGRAMS = { ...DIAGRAMS, ...DIAGRAMS2 };
 const TABS = [['diagrams', 'Diagrams'], ['structures', 'Structures'], ['types', 'Cell types'], ['images', 'Image database'], ['identify', 'Identify a cell']];
 const srcs = s => (s || []).length ? `Sources: ${list(s, (x, i) => `<a href="${esc(x.url)}" target="_blank" rel="noopener" title="${esc(x.title || 'source')}">[${i + 1}]</a>`, ' ')}` : '';
 
-export const cellImages = async () => (await api('/images').catch(() => [])).filter(i => i.cell_type);
+// Commons micrographs with a cell type, plus (in the full app, where they exist) the lab's own local-preview recordings.
+export const cellImages = async () => {
+  const [pub, mine] = await Promise.all([api('/images').catch(() => []), api('/portfolio/images').catch(() => [])]);
+  return [...pub.filter(i => i.cell_type && !i.video), ...mine.filter(i => i.cell_type).map(i => ({ ...i, local: true }))];
+};
+const localFig = i => `<figure class="cfig">${/\.mp4$/i.test(i.url) ? `<video src="${esc(i.url)}" autoplay loop muted playsinline></video>` : `<a href="#/portfolio/${esc(i.project || '')}"><img src="${esc(i.url)}" alt="${esc(i.title)}" loading="lazy"></a>`}
+  <figcaption><b>${esc(i.title)}</b> <span class="tag r">local preview</span><br>${esc(i.caption || '')}<br><span class="credit">Parker lab archive (UC Irvine); shown only in your local copy</span></figcaption></figure>`;
 
 route('cells', async ([tab = 'diagrams', arg], query) => {
   if (!TABS.some(t => t[0] === tab)) tab = 'diagrams';
@@ -71,15 +77,16 @@ function types(host, C, imgs) {
 function images(host, T, imgs, query = {}) {
   const typesPresent = [...new Set(imgs.map(i => i.cell_type))].sort((a, b) => (T[a]?.name || a).localeCompare(T[b]?.name || b));
   const techs = [...new Set(imgs.flatMap(i => i.techniques || []))].sort();
-  host.innerHTML = `<p class="small mute">${imgs.length} freely licensed micrographs from Wikimedia Commons, each credited to its author with its licence. They are also the reference set for the identifier.</p>
+  host.innerHTML = `<p class="small mute">${imgs.filter(i => !i.local).length} freely licensed micrographs from Wikimedia Commons, each credited to its author with its licence (the reference set for the identifier)${imgs.some(i => i.local) ? `, plus ${imgs.filter(i => i.local).length} recordings from the lab's archive marked "local preview"` : ''}.</p>
     <div class="row"><div><label for="ci-t">Cell type</label><select id="ci-t"><option value="">All types</option>${list(typesPresent, t => `<option value="${esc(t)}" ${query.type === t ? 'selected' : ''}>${esc(T[t]?.name || t)}</option>`)}</select></div>
     <div><label for="ci-m">Technique</label><select id="ci-m"><option value="">All techniques</option>${list(techs, t => `<option>${esc(t)}</option>`)}</select></div></div><div id="ci-g"></div>`;
   const draw = () => {
     const t = host.querySelector('#ci-t').value, m = host.querySelector('#ci-m').value;
     const shown = imgs.filter(i => (!t || i.cell_type === t) && (!m || (i.techniques || []).includes(m)));
-    host.querySelector('#ci-g').innerHTML = `<p class="small">${shown.length} images</p><div class="gallery compact">${list(shown, i => figure(i).replace('<figcaption>', `<figcaption><span class="tag g">${esc(T[i.cell_type]?.name || i.cell_type)}</span> `))}</div>`;
+    host.querySelector('#ci-g').innerHTML = `<p class="small">${shown.length} images</p><div class="gallery compact">${list(shown, i => (i.local ? localFig(i) : figure(i)).replace('<figcaption>', `<figcaption><span class="tag g">${esc(T[i.cell_type]?.name || i.cell_type)}</span> `))}</div>`;
   };
-  host.querySelector('#ci-t').onchange = draw; host.querySelector('#ci-m').onchange = draw;
+  const play = () => host.querySelectorAll('#ci-g video').forEach(v => { v.muted = true; v.play().catch(() => {}); });
+  host.querySelector('#ci-t').onchange = () => { draw(); play(); }; host.querySelector('#ci-m').onchange = () => { draw(); play(); };
   draw();
 }
 
