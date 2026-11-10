@@ -388,3 +388,17 @@ because it was inferred from a flyer's copyright date; the Lionheart FX availabi
 JEM-F200, ZEISS EVO, Dimension XR, Park FX40, and open builds with Crossref-checked DOIs). Two camera-only studies
 were dropped, and the Holm/Sauer 2014 year was left null (Crossref and Europe PMC disagree). R6 is complete; next
 pending row: R8 technique comparison matrix.
+
+## 2026-11-10: My Microscopy code links (George's request)
+Reviewed George's code on GitHub (161 repos; an agent read the READMEs and layouts of 45 public candidates, read-only)
+and scanned local, Dropbox and Google Drive folders by file name. "Code and data" now opens with 23 individual links in
+four groups (image viewers and FLIKA; single-particle tracking and SMLM; cell segmentation, tracking and morphology;
+simulators and teaching) instead of mainly pointing at the account. Descriptions say what each tool does. Left out:
+stubs, the unchanged pyDISC fork, off-topic repos and superseded versions (cell_edge_analysis, VolumeSlider,
+biologicalSimulator, particle_analysis, particle-tracker).
+Findings for George (not acted on): no licence on several public repos (incl. microscope-atlas); a personal email in
+five READMEs; ~60 MB of example recordings and masks in cellscope/data; the private spt_batch_analysis also sits inside
+the public flika_plugins; useful code exists only locally or in Dropbox (piezo1_analysis/analyzer, halotag_binding_sim,
+locsAndTracksPlotter, Boise State DNA-PAINT/thunderSTORM/Deep-STORM scripts).
+Keratinocyte question resolved: the companion piezo1_analysis project describes the CellScope demo recordings as
+migrating keratinocytes (control vs Piezo1-cKO, as in Holt et al. 2021 eLife); local captions updated.

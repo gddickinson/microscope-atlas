@@ -80,7 +80,7 @@ const still = i => (isVid(i) ? posterOf(i) : i.url);
 const media = (i, lazy = true) => (isVid(i)
   ? `<video src="${esc(i.url)}" poster="${esc(still(i))}" autoplay loop muted playsinline preload="metadata" aria-label="${esc(i.title)}"></video>`
   : `<img src="${esc(i.url)}" alt="${esc(i.title)}"${lazy ? ' loading="lazy"' : ''}>`);
-const fold = (title, body) => (body ? `<details class="fold"><summary>${title}</summary>${body}</details>` : '');
+const fold = (title, body, open = false) => (body ? `<details class="fold"${open ? ' open' : ''}><summary>${title}</summary>${body}</details>` : '');
 
 // Calcium signalling section: background (sourced, DOI-checked), how the group's projects fit, and the lab's calcium movies.
 function calciumSection(c, raw, projects, extra = []) {
@@ -117,7 +117,9 @@ route('portfolio', async ([id]) => {
       <figcaption><b>${esc(i.title)}</b>${i.public ? '' : ' <span class="tag r">local preview</span>'}<br><a class="tag g" href="#/technique/${esc(i.technique)}">${esc(i.technique)}</a></figcaption></figure>`)}</div>`)}` : '';
   const labs = p.labs ? `<p class="small mute">The scientists I have worked with, and where to find their work.</p><div class="grid wide">${list(p.labs, b => `<div class="card"><b>${esc(b.name)}</b><small>${esc(b.pi)} · ${esc(b.where)} · ${esc(b.years)}</small>
       <span>${esc(b.work)}</span><span class="mute">${esc(b.offers)}</span><div style="margin-top:8px">${list(b.links, k => `<a class="tag b" href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.title)} ↗</a>`)}</div></div>`)}</div>` : '';
-  const code = p.code ? `<div class="grid">${list(p.code, c => `<a class="card" href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)} ↗</b><span>${esc(c.about)}</span><small>${esc(new URL(c.url).hostname)}</small></a>`)}</div>
+  const card = c => `<a class="card" href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)} ↗</b><span>${esc(c.about)}</span><small>${esc(new URL(c.url).host + new URL(c.url).pathname.replace(/\/$/, ''))}</small></a>`;
+  const cats = [...new Set((p.code || []).map(c => c.category || 'Code'))];
+  const code = p.code ? `${list(cats, k => `<h3>${esc(k)}</h3><div class="grid">${list(p.code.filter(c => (c.category || 'Code') === k), card)}</div>`)}
       ${p.code_papers ? `<ul>${list(p.code_papers, x => `<li>${doiLink(x)}<br><span class="small mute">${esc(x.note)}</span></li>`)}</ul>` : ''}` : '';
   app().innerHTML = `<p class="kicker">About</p><h1>${esc(p.title)}</h1><p class="lead">${esc(p.intro)}</p>
     ${gallery}
@@ -127,7 +129,7 @@ route('portfolio', async ([id]) => {
     ${projects.length ? `<h2>All projects (${projects.length})</h2><div class="grid">${list(projects, x => `<a class="card" href="#/portfolio/${esc(x.id)}"><b>${esc(x.title)}</b><small>${esc([x.year, x.paper?.journal].filter(Boolean).join(' · '))}</small></a>`)}</div>` : ''}
     <h2>More about the work</h2>
     ${fold('People and labs', labs)}
-    ${fold('Code and data', code)}
+    ${fold('Code and data', code, true)}
     ${fold('Instruments used', `<div class="scroll"><table><tr><th>Technique</th><th>Instrument</th><th>Work</th></tr>${list(p.instruments, i => `<tr><td><a href="#/technique/${esc(i.technique)}">${esc(i.technique)}</a></td><td>${esc(i.instrument)}</td><td>${esc(i.work)}</td></tr>`)}</table></div>`)}
     ${fold('Selected papers', `<ul>${list(p.papers, x => `<li>${doiLink(x)}<br><span class="small mute">${esc(x.note || '')}</span></li>`)}</ul>`)}
     ${fold('Software', bullets(p.software))}
