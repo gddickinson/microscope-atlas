@@ -153,4 +153,4 @@ METHODS = [
  ("10.1364/BOE.385729", "Collins", ["open-hardware"], "Build and use guide for the OpenFlexure robotic microscope."),
 ]
 
-ALLOWED_GAPS = {}
+ALLOWED_GAPS = {"spm": "STM is mostly surface physics; no step-by-step protocol with a verified DOI was found yet (added 2026-11-10)"}

@@ -10,7 +10,7 @@ const ALIASES = {
   flim: ['FLIM'], fret: ['FRET'], fcs: ['FCS'], frap: ['FRAP'], spt: ['single-particle tracking', 'sptPALM'], spectral: ['spectral unmixing'],
   raman: ['Raman'], 'cars-srs': ['CARS', 'SRS'], shg: ['SHG', 'second-harmonic'], qpi: ['quantitative phase', 'holotomography'], iscat: ['iSCAT', 'mass photometry'],
   oct: ['OCT'], photoacoustic: ['photoacoustic'], tem: ['TEM'], sem: ['SEM'], 'cryo-em': ['cryo-EM'], 'cryo-et': ['cryo-ET', 'cryo-electron tomography'],
-  'volume-em': ['FIB-SEM', 'serial block-face'], afm: ['AFM', 'atomic force microscopy'], xray: ['micro-CT', 'X-ray microscopy'], clem: ['CLEM'],
+  'volume-em': ['FIB-SEM', 'serial block-face'], afm: ['AFM', 'atomic force microscopy'], spm: ['STM', 'scanning tunnelling microscopy', 'scanning tunneling microscopy'], xray: ['micro-CT', 'X-ray microscopy'], clem: ['CLEM'],
   'high-content': ['high-content'], 'slide-scanner': ['whole-slide'], intravital: ['intravital'], miniscope: ['miniscope'], 'adaptive-optics': ['adaptive optics'],
   'light-field': ['light-field'], 'phase-contrast': ['phase contrast'], dic: ['DIC'], darkfield: ['darkfield', 'dark-field'], polarization: ['polarized light'],
   widefield: ['widefield', 'epifluorescence'], brightfield: ['brightfield'], stereo: ['stereomicroscope'],

@@ -1,53 +1,314 @@
 [
- {"id":"brightfield","name":"Brightfield","family":"Transmitted light","short":"Contrast from absorption of transmitted light"},
- {"id":"darkfield","name":"Darkfield","family":"Transmitted light","short":"Only scattered light reaches the objective"},
- {"id":"phase-contrast","name":"Phase contrast","family":"Transmitted light","short":"Zernike phase ring turns phase shifts into intensity"},
- {"id":"dic","name":"Differential interference contrast","family":"Transmitted light","short":"Nomarski prisms image optical path gradients"},
- {"id":"polarization","name":"Polarized light","family":"Transmitted light","short":"Birefringence between crossed polarizers"},
- {"id":"stereo","name":"Stereo microscopy","family":"Transmitted light","short":"Two light paths give a 3D view at low magnification"},
- {"id":"widefield","name":"Widefield fluorescence","family":"Fluorescence","short":"Epi-illumination of the whole field with filter cubes"},
- {"id":"tirf","name":"TIRF","family":"Fluorescence","short":"Evanescent wave excites ~100 nm above the coverslip"},
- {"id":"hilo","name":"HILO / oblique","family":"Fluorescence","short":"Highly inclined thin beam for reduced background"},
- {"id":"confocal","name":"Point-scanning confocal","family":"Optical sectioning","short":"Pinhole rejects out-of-focus light"},
- {"id":"spinning-disk","name":"Spinning-disk confocal","family":"Optical sectioning","short":"Thousands of pinholes in parallel for fast live imaging"},
- {"id":"ism","name":"Image scanning (Airyscan, ISM)","family":"Optical sectioning","short":"Detector array behind the pinhole gains ~1.7x resolution"},
- {"id":"multiphoton","name":"Multiphoton","family":"Optical sectioning","short":"Nonlinear excitation only at the focus, deep in tissue"},
- {"id":"light-sheet","name":"Light-sheet (SPIM)","family":"Optical sectioning","short":"A thin sheet of light illuminates only the focal plane"},
- {"id":"lattice-light-sheet","name":"Lattice light-sheet","family":"Optical sectioning","short":"Optical lattices make thin, long, gentle sheets"},
- {"id":"oblique-plane","name":"Oblique-plane (OPM, SCAPE)","family":"Optical sectioning","short":"Light-sheet through a single objective"},
- {"id":"sim","name":"Structured illumination (SIM)","family":"Super-resolution","short":"Moire fringes bring high frequencies into the passband"},
- {"id":"sted","name":"STED","family":"Super-resolution","short":"A doughnut depletion beam shrinks the effective PSF"},
- {"id":"smlm","name":"Single-molecule localization (PALM, STORM)","family":"Super-resolution","short":"Sparse blinking molecules localized to nanometres"},
- {"id":"dna-paint","name":"DNA-PAINT","family":"Super-resolution","short":"Transient DNA hybridization produces the blinking"},
- {"id":"minflux","name":"MINFLUX / MINSTED","family":"Super-resolution","short":"Localization with a patterned beam's intensity minimum"},
- {"id":"fluctuation","name":"Fluctuation (SOFI, SRRF)","family":"Super-resolution","short":"Statistics of intensity fluctuations sharpen images"},
- {"id":"expansion","name":"Expansion microscopy","family":"Super-resolution","short":"Physically swell the sample in a hydrogel"},
- {"id":"flim","name":"FLIM","family":"Functional and spectroscopic","short":"Image the fluorescence lifetime, not just intensity"},
- {"id":"fret","name":"FRET","family":"Functional and spectroscopic","short":"Energy transfer reports distances of 1-10 nm"},
- {"id":"fcs","name":"FCS / FCCS","family":"Functional and spectroscopic","short":"Fluctuations in a tiny volume give concentration and diffusion"},
- {"id":"frap","name":"FRAP / photoactivation","family":"Functional and spectroscopic","short":"Bleach or activate a region and watch the recovery"},
- {"id":"spt","name":"Single-particle tracking","family":"Functional and spectroscopic","short":"Trajectories of single molecules give diffusion and binding"},
- {"id":"spectral","name":"Spectral imaging and unmixing","family":"Functional and spectroscopic","short":"Separate overlapping fluorophores by their spectra"},
- {"id":"raman","name":"Raman","family":"Label-free","short":"Inelastic scattering reveals molecular vibrations"},
- {"id":"cars-srs","name":"CARS / SRS","family":"Label-free","short":"Coherent Raman for fast chemical imaging"},
- {"id":"shg","name":"Harmonic generation (SHG, THG)","family":"Label-free","short":"Non-centrosymmetric structures double the frequency"},
- {"id":"qpi","name":"Quantitative phase and holotomography","family":"Label-free","short":"Measure optical path length, and refractive index in 3D"},
- {"id":"iscat","name":"Interferometric scattering (iSCAT)","family":"Label-free","short":"Interference detects single unlabelled proteins"},
- {"id":"oct","name":"Optical coherence tomography","family":"Label-free","short":"Low-coherence interferometry images depth"},
- {"id":"photoacoustic","name":"Photoacoustic","family":"Label-free","short":"Light absorbed, sound detected"},
- {"id":"tem","name":"Transmission EM (incl. STEM)","family":"Electron and probe","short":"Electrons through thin sections at sub-nanometre resolution"},
- {"id":"sem","name":"Scanning EM","family":"Electron and probe","short":"Surface imaging with secondary and backscattered electrons"},
- {"id":"cryo-em","name":"Cryo-EM (single particle)","family":"Electron and probe","short":"Averaging thousands of frozen particles to atomic resolution"},
- {"id":"cryo-et","name":"Cryo-electron tomography","family":"Electron and probe","short":"Tilt series of frozen cells reconstructed in 3D"},
- {"id":"volume-em","name":"Volume EM (FIB-SEM, SBF-SEM)","family":"Electron and probe","short":"Serial milling or cutting and imaging for 3D ultrastructure"},
- {"id":"afm","name":"Atomic force microscopy","family":"Electron and probe","short":"A sharp tip feels the surface"},
- {"id":"xray","name":"X-ray microscopy and micro-CT","family":"Electron and probe","short":"Penetrating X-rays for 3D imaging"},
- {"id":"clem","name":"Correlative light and EM","family":"Electron and probe","short":"Fluorescence finds it, EM resolves it"},
- {"id":"high-content","name":"High-content screening","family":"Systems and formats","short":"Automated imaging of multiwell plates"},
- {"id":"slide-scanner","name":"Whole-slide scanning","family":"Systems and formats","short":"Digital pathology at gigapixel scale"},
- {"id":"intravital","name":"Intravital and in vivo","family":"Systems and formats","short":"Imaging inside living animals"},
- {"id":"miniscope","name":"Miniscopes and mesoscopes","family":"Systems and formats","short":"Head-mounted and large-field brain imaging"},
- {"id":"adaptive-optics","name":"Adaptive optics","family":"Systems and formats","short":"Deformable mirrors correct sample aberrations"},
- {"id":"light-field","name":"Light-field","family":"Systems and formats","short":"Microlens arrays capture a volume in one snapshot"},
- {"id":"open-hardware","name":"Open hardware","family":"Systems and formats","short":"Build-it-yourself and open-source microscopes"}
+ {
+  "id": "brightfield",
+  "name": "Brightfield",
+  "family": "Transmitted light",
+  "short": "Contrast from absorption of transmitted light"
+ },
+ {
+  "id": "darkfield",
+  "name": "Darkfield",
+  "family": "Transmitted light",
+  "short": "Only scattered light reaches the objective"
+ },
+ {
+  "id": "phase-contrast",
+  "name": "Phase contrast",
+  "family": "Transmitted light",
+  "short": "Zernike phase ring turns phase shifts into intensity"
+ },
+ {
+  "id": "dic",
+  "name": "Differential interference contrast",
+  "family": "Transmitted light",
+  "short": "Nomarski prisms image optical path gradients"
+ },
+ {
+  "id": "polarization",
+  "name": "Polarized light",
+  "family": "Transmitted light",
+  "short": "Birefringence between crossed polarizers"
+ },
+ {
+  "id": "stereo",
+  "name": "Stereo microscopy",
+  "family": "Transmitted light",
+  "short": "Two light paths give a 3D view at low magnification"
+ },
+ {
+  "id": "widefield",
+  "name": "Widefield fluorescence",
+  "family": "Fluorescence",
+  "short": "Epi-illumination of the whole field with filter cubes"
+ },
+ {
+  "id": "tirf",
+  "name": "TIRF",
+  "family": "Fluorescence",
+  "short": "Evanescent wave excites ~100 nm above the coverslip"
+ },
+ {
+  "id": "hilo",
+  "name": "HILO / oblique",
+  "family": "Fluorescence",
+  "short": "Highly inclined thin beam for reduced background"
+ },
+ {
+  "id": "confocal",
+  "name": "Point-scanning confocal",
+  "family": "Optical sectioning",
+  "short": "Pinhole rejects out-of-focus light"
+ },
+ {
+  "id": "spinning-disk",
+  "name": "Spinning-disk confocal",
+  "family": "Optical sectioning",
+  "short": "Thousands of pinholes in parallel for fast live imaging"
+ },
+ {
+  "id": "ism",
+  "name": "Image scanning (Airyscan, ISM)",
+  "family": "Optical sectioning",
+  "short": "Detector array behind the pinhole gains ~1.7x resolution"
+ },
+ {
+  "id": "multiphoton",
+  "name": "Multiphoton",
+  "family": "Optical sectioning",
+  "short": "Nonlinear excitation only at the focus, deep in tissue"
+ },
+ {
+  "id": "light-sheet",
+  "name": "Light-sheet (SPIM)",
+  "family": "Optical sectioning",
+  "short": "A thin sheet of light illuminates only the focal plane"
+ },
+ {
+  "id": "lattice-light-sheet",
+  "name": "Lattice light-sheet",
+  "family": "Optical sectioning",
+  "short": "Optical lattices make thin, long, gentle sheets"
+ },
+ {
+  "id": "oblique-plane",
+  "name": "Oblique-plane (OPM, SCAPE)",
+  "family": "Optical sectioning",
+  "short": "Light-sheet through a single objective"
+ },
+ {
+  "id": "sim",
+  "name": "Structured illumination (SIM)",
+  "family": "Super-resolution",
+  "short": "Moire fringes bring high frequencies into the passband"
+ },
+ {
+  "id": "sted",
+  "name": "STED",
+  "family": "Super-resolution",
+  "short": "A doughnut depletion beam shrinks the effective PSF"
+ },
+ {
+  "id": "smlm",
+  "name": "Single-molecule localization (PALM, STORM)",
+  "family": "Super-resolution",
+  "short": "Sparse blinking molecules localized to nanometres"
+ },
+ {
+  "id": "dna-paint",
+  "name": "DNA-PAINT",
+  "family": "Super-resolution",
+  "short": "Transient DNA hybridization produces the blinking"
+ },
+ {
+  "id": "minflux",
+  "name": "MINFLUX / MINSTED",
+  "family": "Super-resolution",
+  "short": "Localization with a patterned beam's intensity minimum"
+ },
+ {
+  "id": "fluctuation",
+  "name": "Fluctuation (SOFI, SRRF)",
+  "family": "Super-resolution",
+  "short": "Statistics of intensity fluctuations sharpen images"
+ },
+ {
+  "id": "expansion",
+  "name": "Expansion microscopy",
+  "family": "Super-resolution",
+  "short": "Physically swell the sample in a hydrogel"
+ },
+ {
+  "id": "flim",
+  "name": "FLIM",
+  "family": "Functional and spectroscopic",
+  "short": "Image the fluorescence lifetime, not just intensity"
+ },
+ {
+  "id": "fret",
+  "name": "FRET",
+  "family": "Functional and spectroscopic",
+  "short": "Energy transfer reports distances of 1-10 nm"
+ },
+ {
+  "id": "fcs",
+  "name": "FCS / FCCS",
+  "family": "Functional and spectroscopic",
+  "short": "Fluctuations in a tiny volume give concentration and diffusion"
+ },
+ {
+  "id": "frap",
+  "name": "FRAP / photoactivation",
+  "family": "Functional and spectroscopic",
+  "short": "Bleach or activate a region and watch the recovery"
+ },
+ {
+  "id": "spt",
+  "name": "Single-particle tracking",
+  "family": "Functional and spectroscopic",
+  "short": "Trajectories of single molecules give diffusion and binding"
+ },
+ {
+  "id": "spectral",
+  "name": "Spectral imaging and unmixing",
+  "family": "Functional and spectroscopic",
+  "short": "Separate overlapping fluorophores by their spectra"
+ },
+ {
+  "id": "raman",
+  "name": "Raman",
+  "family": "Label-free",
+  "short": "Inelastic scattering reveals molecular vibrations"
+ },
+ {
+  "id": "cars-srs",
+  "name": "CARS / SRS",
+  "family": "Label-free",
+  "short": "Coherent Raman for fast chemical imaging"
+ },
+ {
+  "id": "shg",
+  "name": "Harmonic generation (SHG, THG)",
+  "family": "Label-free",
+  "short": "Non-centrosymmetric structures double the frequency"
+ },
+ {
+  "id": "qpi",
+  "name": "Quantitative phase and holotomography",
+  "family": "Label-free",
+  "short": "Measure optical path length, and refractive index in 3D"
+ },
+ {
+  "id": "iscat",
+  "name": "Interferometric scattering (iSCAT)",
+  "family": "Label-free",
+  "short": "Interference detects single unlabelled proteins"
+ },
+ {
+  "id": "oct",
+  "name": "Optical coherence tomography",
+  "family": "Label-free",
+  "short": "Low-coherence interferometry images depth"
+ },
+ {
+  "id": "photoacoustic",
+  "name": "Photoacoustic",
+  "family": "Label-free",
+  "short": "Light absorbed, sound detected"
+ },
+ {
+  "id": "tem",
+  "name": "Transmission EM (incl. STEM)",
+  "family": "Electron and probe",
+  "short": "Electrons through thin sections at sub-nanometre resolution"
+ },
+ {
+  "id": "sem",
+  "name": "Scanning EM",
+  "family": "Electron and probe",
+  "short": "Surface imaging with secondary and backscattered electrons"
+ },
+ {
+  "id": "cryo-em",
+  "name": "Cryo-EM (single particle)",
+  "family": "Electron and probe",
+  "short": "Averaging thousands of frozen particles to atomic resolution"
+ },
+ {
+  "id": "cryo-et",
+  "name": "Cryo-electron tomography",
+  "family": "Electron and probe",
+  "short": "Tilt series of frozen cells reconstructed in 3D"
+ },
+ {
+  "id": "volume-em",
+  "name": "Volume EM (FIB-SEM, SBF-SEM)",
+  "family": "Electron and probe",
+  "short": "Serial milling or cutting and imaging for 3D ultrastructure"
+ },
+ {
+  "id": "afm",
+  "name": "Atomic force microscopy",
+  "family": "Electron and probe",
+  "short": "A sharp tip feels the surface"
+ },
+ {
+  "id": "spm",
+  "name": "Scanning tunnelling microscopy (STM)",
+  "family": "Electron and probe",
+  "short": "A tunnelling current between a sharp tip and a conductor maps surfaces atom by atom"
+ },
+ {
+  "id": "xray",
+  "name": "X-ray microscopy and micro-CT",
+  "family": "Electron and probe",
+  "short": "Penetrating X-rays for 3D imaging"
+ },
+ {
+  "id": "clem",
+  "name": "Correlative light and EM",
+  "family": "Electron and probe",
+  "short": "Fluorescence finds it, EM resolves it"
+ },
+ {
+  "id": "high-content",
+  "name": "High-content screening",
+  "family": "Systems and formats",
+  "short": "Automated imaging of multiwell plates"
+ },
+ {
+  "id": "slide-scanner",
+  "name": "Whole-slide scanning",
+  "family": "Systems and formats",
+  "short": "Digital pathology at gigapixel scale"
+ },
+ {
+  "id": "intravital",
+  "name": "Intravital and in vivo",
+  "family": "Systems and formats",
+  "short": "Imaging inside living animals"
+ },
+ {
+  "id": "miniscope",
+  "name": "Miniscopes and mesoscopes",
+  "family": "Systems and formats",
+  "short": "Head-mounted and large-field brain imaging"
+ },
+ {
+  "id": "adaptive-optics",
+  "name": "Adaptive optics",
+  "family": "Systems and formats",
+  "short": "Deformable mirrors correct sample aberrations"
+ },
+ {
+  "id": "light-field",
+  "name": "Light-field",
+  "family": "Systems and formats",
+  "short": "Microlens arrays capture a volume in one snapshot"
+ },
+ {
+  "id": "open-hardware",
+  "name": "Open hardware",
+  "family": "Systems and formats",
+  "short": "Build-it-yourself and open-source microscopes"
+ }
 ]

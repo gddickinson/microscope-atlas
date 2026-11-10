@@ -3,7 +3,7 @@ import { route, api, app, esc, list } from './core.js';
 import { miniPath } from './lightpath.js';
 
 const DOORS = [
-  ['#/techniques', 'Techniques', 'Fifty-one imaging methods, from brightfield to MINFLUX and cryo-ET: principle, light path, resolution, pitfalls, landmark papers.', 'g'],
+  ['#/techniques', 'Techniques', 'Fifty-two imaging methods, from brightfield to MINFLUX and cryo-ET: principle, light path, resolution, pitfalls, landmark papers.', 'g'],
   ['#/sims', 'Simulations', 'Interactive models: PSF and NA, TIRF depth, confocal pinhole, STED, SMLM blinking, SIM in Fourier space, Nyquist, camera noise, FRET, FRAP, diffusion.', 'r'],
   ['#/systems', 'Microscope Systems', 'A sourced database of commercial, research, open-source and historical instruments, with filters and side-by-side comparison.', 'b'],
   ['#/fluorophores', 'Fluorophores and Spectra', 'Every fluorescent protein and dye in FPbase, with a spectra viewer for laser lines and filters.', 'y'],

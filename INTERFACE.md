@@ -51,7 +51,7 @@ JSON by `static_api.js`; Python-only tools show a notice.
 | `tools.js` | Technique chooser (rule table `P` + `score`), optics calculator |
 
 ## data/
-- `technique_index.json`: the 51 technique ids (the controlled vocabulary) and families.
+- `technique_index.json`: the 52 technique ids (the controlled vocabulary) and families.
 - `systems/*.json`: microscope systems, one entry per line (schema in `docs/DATA_SCHEMA.md`).
 - `components/detectors.json`, `objectives.json`.
 - `content/techniques/*.json`: teaching pages; `content/simulations.json`; `content/fundamentals.json`, `glossary.json`, `portfolio.json` are generated from `scripts/content/*_src.py`.

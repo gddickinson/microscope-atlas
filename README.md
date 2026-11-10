@@ -3,7 +3,7 @@
 **Learn how microscopes work, find the right instrument, and get the numbers right at the bench.**
 
 Microscope Atlas is an open web app for microscopists and lab scientists. It brings together:
-- teaching pages for 51 imaging techniques, with light-path diagrams and interactive physics simulations;
+- teaching pages for 52 imaging techniques, with light-path diagrams and interactive physics simulations;
 - a quiz;
 - lab tools for setting up a microscope, planning labelling and making solutions;
 - sourced databases of microscope systems, detectors, objectives, fluorophores and papers;
@@ -18,7 +18,7 @@ Microscope Atlas is an open web app for microscopists and lab scientists. It bri
 
 | | |
 |---|---|
-| **51** techniques with teaching pages, from brightfield to MINFLUX and cryo-ET | **18** interactive simulations running the real equations |
+| **52** techniques with teaching pages, from brightfield to MINFLUX and cryo-ET | **18** interactive simulations running the real equations |
 | **37 lab tools** for setup, labelling, bench calculations and analysis | A **quiz** with generated questions and 208 flashcards |
 | **298** microscope systems from **149** makers and labs, every entry sourced | **386** papers with Crossref metadata, incl. **142** methods and protocol papers |
 | **1,013** fluorophores and **71** spectra from FPbase | **88** checked links to societies, forums, software and data |
@@ -30,7 +30,7 @@ Microscope Atlas is an open web app for microscopists and lab scientists. It bri
 - [Static site](#static-site) · [Running the full app](#running-the-full-app) · [How the data were gathered](#how-the-data-were-gathered) · [Project layout](#project-layout)
 
 ## Techniques
-There are 51 methods in eight families:
+There are 52 methods in eight families:
 - transmitted light;
 - fluorescence;
 - optical sectioning;
@@ -159,7 +159,7 @@ Reference values come from cited sources (manufacturers, protocols, papers), lin
 | ![Spectra](docs/img/spectra.jpg) | ![Chooser](docs/img/chooser.jpg) |
 
 ## Video tutorials
-150 checked video lectures and how-tos (iBiology, Harvard Microcourses, NEUBIAS, EMBL, imaging facilities), covering all 51 techniques, on a filterable page and on each technique page.
+150 checked video lectures and how-tos (iBiology, Harvard Microcourses, NEUBIAS, EMBL, imaging facilities), covering the original 51 techniques, on a filterable page and on each technique page.
 
 ![Video tutorials](docs/img/videos.jpg)
 

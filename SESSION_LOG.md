@@ -100,3 +100,9 @@ re-reading snippet-sourced facts.
 - My Microscopy: 9 more project pages (17 total) with 15 more local-only figure images (42 total). All
   contributions now described as group efforts (George's rule, also in CLAUDE.md); "My role" → "Contribution".
 - History squashed into one clean commit again (force-pushed by George).
+
+## 2026-11-10: Round 5 (hourly), R1 data audit, part 3
+New technique `spm` (scanning tunnelling microscopy): teaching page (tunnelling physics, Tersoff-Hamann, modes,
+pitfalls, quiz), papers Binnig 1982/1983, Tersoff-Hamann 1985, Binnig-Rohrer 1987 (DOIs checked on Crossref), an
+STM diagram, "STM" auto-links, and the IBM 1981 STM system retagged from afm to spm. Methods gap recorded for spm.
+Not pushed: local main holds the squashed clean commit awaiting George's force-push; this round is committed on top.

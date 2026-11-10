@@ -196,6 +196,21 @@ export const DEFS = {
     P.note(20, 392, 'Force = k × deflection; the tip apex radius (~2-10 nm) limits lateral resolution.', C.part),
   ],
 };
+DEFS.spm = (P, C) => {
+  let atoms = '';
+  for (let i = 0; i < 14; i++) atoms += `<circle cx="${130 + i * 26}" cy="318" r="12" fill="#3dff8f" opacity=".55"><title>Surface atoms</title></circle>`;
+  return [
+    `<rect x="110" y="330" width="380" height="30" class="lp-specimen"><title>Conducting sample</title></rect>`, atoms,
+    `<polygon points="286,170 314,170 300,292" class="lp-cant"><title>Atomically sharp metal tip</title></polygon>`,
+    P.glow(300, 300, 14, C.e, 0.9), P.label(322, 296, 'tunnelling current'),
+    P.box(300, 120, 120, 50, 'Piezo tube xyz', 'Piezo tube scanner: sub-ångström x, y and z motion'),
+    P.box(500, 120, 110, 40, 'Feedback', 'Keeps the current constant by moving the tip in z; the z signal is the image'),
+    P.box(500, 220, 110, 40, 'Current amp', 'Current-to-voltage amplifier'),
+    P.beam([[300, 292], [300, 170]], C.e, 2, { op: 0.5 }), P.beam([[360, 120], [445, 120]], C.part, 2, { dash: false }),
+    P.beam([[500, 200], [500, 140]], C.part, 2, { dash: false }), P.box(110, 230, 90, 34, 'Bias V', 'Bias voltage between tip and sample'),
+    P.note(20, 392, 'I ∝ V·exp(−2κd): about ten times less current per ångström of extra gap.', C.part),
+  ];
+};
 DEFS['cryo-em'] = DEFS.tem;
 DEFS['cryo-et'] = (P, C) => DEFS.tem(P, C).concat([P.note(410, 145, '↻ tilt ±60°', C.e)]);
 DEFS['volume-em'] = DEFS.sem;
