@@ -22,7 +22,7 @@ route('techniques', async () => {
   const fams = [...new Set(rows.map(r => r.family))];
   app().innerHTML = `<p class="kicker">Learn</p><h1>Techniques</h1>
     <p class="lead">${rows.length} imaging methods in ${fams.length} families. Each page explains the physics, walks the light path,
-    gives the numbers worth remembering and the artefacts to watch for, and lists the instruments that use it.</p>
+    gives the numbers worth remembering and the artefacts to watch for, and lists the instruments that use it. Compare them all in the <a href="#/matrix">comparison matrix</a>.</p>
     <div class="toc">${list(fams, f => `<a href="#/techniques" data-jump="${esc(f)}">${esc(f)}</a>`)}</div>
     ${list(fams, f => `<section class="family" id="fam-${slug(f)}"><div class="fam-head"><h2>${esc(f)}</h2></div><p class="mute">${esc(FAMILY_BLURB[f] || '')}</p>
       <div class="grid">${list(rows.filter(r => r.family === f), t => `<a class="card" href="#/technique/${t.id}">

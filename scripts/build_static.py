@@ -25,7 +25,7 @@ CONTENT_NAMES = ["history", "glossary", "fundamentals", "simulations", "portfoli
 
 
 def endpoints() -> list[str]:
-    paths = ["/stats", "/techniques", "/systems", "/systems/facets", "/manufacturers", "/components/detectors",
+    paths = ["/stats", "/techniques", "/techniques/matrix", "/systems", "/systems/facets", "/manufacturers", "/components/detectors",
              "/components/objectives", "/components/light_sources", "/components/filters", "/spectra", "/papers", "/images"]
     paths += [f"/techniques/{t['id']}" for t in catalog.techniques()]
     paths += [f"/systems/{s['id']}" for s in catalog.systems()]

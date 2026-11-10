@@ -74,3 +74,29 @@ def images() -> list[dict]:
 def images_for(system: str = "", technique: str = "") -> list[dict]:
     out = [i for i in images() if (system and i.get("system") == system) or (technique and technique in i.get("techniques", []))]
     return sorted(out, key=lambda i: (i.get("kind") != "instrument", i.get("system") == ""))
+
+
+# key-number labels that state a speed or a depth (others that merely contain "rate"/"depth" are excluded)
+_SPEED = r"frame rate|volume rate|fps|scan time|a-scan|speed|time resolution"
+_SPEED_NOT = r"speed of sound|disk speed"
+_DEPTH = r"imaging depth|penetration|depth in|usable depth|useful imaging depth|interaction depth|resolution / depth"
+
+
+def matrix() -> list[dict]:
+    """One row per technique for the comparison matrix: resolution text and the speed and depth key numbers exactly as
+    the technique page states them (each page is sourced by its papers), plus database counts."""
+    import re
+    pages, counts = technique_pages(), catalog.facets()["technique"]
+    sims = simulations()
+    rows = []
+    for t in catalog.techniques():
+        p = pages.get(t["id"], {})
+        kn = p.get("key_numbers", [])
+        pick = lambda pat, notpat=None: [k for k in kn if re.search(pat, k["label"], re.I)
+                                         and not (notpat and re.search(notpat, k["label"], re.I))]
+        rows.append({"id": t["id"], "name": t["name"], "family": t["family"],
+                     "xy": p.get("resolution", {}).get("xy", ""), "z": p.get("resolution", {}).get("z", ""),
+                     "speed": pick(_SPEED, _SPEED_NOT), "depth": pick(_DEPTH),
+                     "systems": counts.get(t["id"], 0), "papers": len(p.get("papers", [])),
+                     "sims": sum(t["id"] in s.get("techniques", []) for s in sims)})
+    return rows

@@ -106,3 +106,13 @@ details.fold { background:var(--panel); border:1px solid var(--line); border-rad
 .nb-year { font:700 22px var(--mono); color:var(--yfp); } .nb-cite { font-style:italic; color:#c6d4ee; margin:6px 0; }
 @media (max-width:600px) { .card.nb { grid-template-columns:1fr; } }
 .gallery video { width:100%; display:block; background:#000; } .gallery.compact video { height:180px; object-fit:cover; }
+
+/* technique comparison matrix */
+table.mx td { min-width:90px; } table.mx td.mx-xy { min-width:220px; }
+.mx-sort { background:none; border:0; color:inherit; font:inherit; cursor:pointer; padding:0; text-align:left; }
+.mx-sort:hover, .mx-sort:focus-visible { color:var(--ink); text-decoration:underline; }
+.mx-bar { position:relative; height:8px; background:var(--line); border-radius:4px; margin:2px 0 6px; }
+.mx-bar span { position:absolute; top:0; bottom:0; background:var(--accent); border-radius:4px; min-width:3px; }
+.mx-scale { position:relative; height:14px; margin-top:4px; font-size:10px; color:var(--mute); }
+.mx-scale span { position:absolute; transform:translateX(-50%); white-space:nowrap; }
+.mx-scale span:first-child { transform:none; } .mx-scale span:last-child { transform:translateX(-100%); }

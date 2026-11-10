@@ -45,6 +45,7 @@ README = [
     ("filters", "components/filters", 1000, None),
     ("spectra", "spectra", 1000, None),
     ("fluorophores", "fluorophores", 1000, None),
+    ("matrix", "matrix", 1100, None),
     ("chooser", "chooser", 1000, None),
     ("history", "history", 1000, None),
     ("quiz", "quiz", 900, None),

@@ -59,6 +59,13 @@ Technique names, glossary terms and software mentioned in the text link to their
 |---|---|
 | ![TIRF page](docs/img/technique_tirf.jpg) | ![STED page](docs/img/technique_sted.jpg) |
 
+**Technique comparison matrix** (`#/matrix`): all 52 techniques in one sortable table. It shows lateral and axial
+resolution, speed and depth exactly as each technique page states them, so a cell is empty where the page gives no
+number. A log-scale bar from 0.1 nm to 100 µm marks each technique's lateral resolution. The table also counts the
+systems, simulations and papers for each technique, and filters by family.
+
+![Technique comparison matrix](docs/img/matrix.jpg)
+
 ## Simulations
 All the physics is in one module, `sim_engine.js`. It is tested against known values: Bessel zeros, 83.8% encircled
 energy at 1 Airy unit, relativistic electron wavelengths, MSD recovery of D, the Soumpasis half-time, Strehl ratios

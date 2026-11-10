@@ -428,3 +428,15 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   README licence lines that contradicted MIT or were placeholders were pointed at LICENSE (9 repos).
 - Not licensed: gddickinson (profile), gddickinson.github.io (personal site), textview (README says "Private"),
   sketchbook (archived, read-only).
+
+## 2026-11-10: round 22, R8 technique comparison matrix (first part)
+- New page `#/matrix` (Learn menu; linked from the technique index): all 52 techniques in one sortable table.
+  `content.matrix()` (API `/api/techniques/matrix`, exported by build_static) lifts each page's resolution xy/z and the
+  key numbers whose labels state a speed (18 pages) or a depth (9), excluding look-alikes such as speed of sound,
+  disk speed, SRS modulation depth and FRAP bleach depth. Counts of systems, sims and papers per technique.
+- `matrix_calc.js`: `firstLength` reads the first stated length (Å/nm/µm/mm) from teaching text; `lateralLength`
+  prefers a length stated right after "resolution" (slide scanners: optical 0.4-0.6 µm, not pixel size; MINFLUX:
+  structural resolution) and gives no bar for FRAP and CLEM. Log-scale bar 0.1 nm to 100 µm.
+- Tests: `tests/matrix.test.mjs` (parsing on all 52 pages: 51 parse, spectral has no number), API test. pytest
+  54 passed, 1 skipped; smoke test 45 routes ok; README figure `docs/img/matrix.jpg`.
+- R8 stays in_progress: live-cell suitability and cost need a sourced field per technique, not inferred.

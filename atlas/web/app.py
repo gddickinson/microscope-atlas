@@ -39,6 +39,11 @@ def techniques():
     return content.overview()
 
 
+@app.get("/api/techniques/matrix")
+def technique_matrix():
+    return content.matrix()
+
+
 @app.get("/api/techniques/{tid}")
 def technique(tid: str):
     page = content.technique(tid)

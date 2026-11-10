@@ -44,3 +44,14 @@ def test_content_and_fluor():
 
 def test_index_served():
     assert "Microscope Atlas" in client.get("/").text
+
+
+def test_technique_matrix():
+    rows = client.get("/api/techniques/matrix").json()
+    assert len(rows) == len(client.get("/api/techniques").json())
+    conf = next(r for r in rows if r["id"] == "confocal")
+    assert conf["xy"].startswith("~180") and conf["systems"] > 0 and conf["papers"] > 0
+    assert any(k["label"].startswith("Galvo frame rate") for k in conf["speed"])
+    # labels that only contain "speed"/"depth" but state something else are not picked
+    picked = [k["label"] for r in rows for k in r["speed"] + r["depth"]]
+    assert not any(s in p for p in picked for s in ("Speed of sound", "modulation depth", "Bleach depth", "Disk speed"))
