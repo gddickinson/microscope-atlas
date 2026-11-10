@@ -23,6 +23,7 @@ OUT = ROOT / "data" / "images"
 sys.path.insert(0, str(ROOT / "scripts" / "content"))
 from images_src import IMAGES as _IMAGES  # noqa: E402
 from cell_images_src import CELL_IMAGES  # noqa: E402
+from cell_images_src2 import CELL_IMAGES2  # noqa: E402
 
 def _merge(base, cells):
     """Instruments and micrographs, then the Cells-page database; a Commons file already listed gains a cell_type."""
@@ -37,12 +38,14 @@ def _merge(base, cells):
     return out
 
 
-IMAGES = _merge(_IMAGES, CELL_IMAGES)
+IMAGES = _merge(_IMAGES, CELL_IMAGES + [{**c, "small": True} for c in CELL_IMAGES2])
 
 API = "https://commons.wikimedia.org/w/api.php"
 UA = "microscope-atlas/0.3 (https://github.com/gddickinson/microscope-atlas)"
 MAX_W = 1000
 MAX_BYTES = 400_000
+# Cell-database images added for the identifier (flag `small`) are stored smaller: the model sees 224 px anyway.
+SMALL_W, SMALL_BYTES = 720, 160_000
 PAUSE = 0.25
 
 try:
@@ -107,16 +110,16 @@ def slug(title):
     return s[:70].rstrip("-") or "image"
 
 
-def to_jpeg(data, mime):
+def to_jpeg(data, mime, max_w=MAX_W, max_bytes=MAX_BYTES):
     """Re-encode as JPEG when the file is big or not a JPEG/PNG (needs Pillow). Returns (bytes, ext, w, h)."""
     im = Image.open(io.BytesIO(data))
     w, h = im.size
-    small_ok = mime in ("image/jpeg", "image/png") and len(data) <= MAX_BYTES and w <= MAX_W
+    small_ok = mime in ("image/jpeg", "image/png") and len(data) <= max_bytes and w <= max_w
     if small_ok:
         return data, ("jpg" if mime == "image/jpeg" else "png"), w, h
     im.seek(0)
-    if w > MAX_W:
-        im = im.resize((MAX_W, round(h * MAX_W / w)), Image.LANCZOS)
+    if w > max_w:
+        im = im.resize((max_w, round(h * max_w / w)), Image.LANCZOS)
     if im.mode in ("RGBA", "LA", "P"):
         im = im.convert("RGBA")
         bg = Image.new("RGB", im.size, "white")
@@ -127,7 +130,7 @@ def to_jpeg(data, mime):
     for q in (85, 78, 70, 62, 54, 46):
         buf = io.BytesIO()
         im.save(buf, "JPEG", quality=q, optimize=True, progressive=True)
-        if buf.tell() <= MAX_BYTES:
+        if buf.tell() <= max_bytes:
             break
     return buf.getvalue(), "jpg", im.size[0], im.size[1]
 
@@ -197,7 +200,7 @@ def main(force=False):
             data = get(url, binary=True)
             mime = info.get("thumbmime") or info.get("mime", "")
             if Image is not None:
-                data, ext, w, h = to_jpeg(data, mime)
+                data, ext, w, h = to_jpeg(data, mime, *((SMALL_W, SMALL_BYTES) if item.get("small") else ()))
             else:
                 ext = url.rsplit(".", 1)[-1].lower()
                 w, h = info.get("thumbwidth", info["width"]), info.get("thumbheight", info["height"])

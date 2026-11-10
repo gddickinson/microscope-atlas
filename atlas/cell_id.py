@@ -36,7 +36,9 @@ PROMPTS = {
     "hepatocyte": "liver cells (hepatocytes)", "sperm": "sperm cells", "oocyte": "an oocyte (egg cell)",
     "mitotic-cell": "a dividing cell in mitosis", "cancer-cell": "cancer cells",
 }
-W_TEXT = 0.7
+# Blend weights (text match, trained probe, neighbour vote), chosen by leave-one-out tests (docs/cell_id_eval.md).
+W_TEXT, W_PROBE, W_NEIGH = 0.7, 0.0, 0.3
+BLEND_NAME = "text 0.7 + neighbours 0.3"
 TEMPLATES = ["this is a micrograph of {}", "a microscopy image of {}", "{} under the microscope"]
 
 _lock = threading.Lock()
@@ -127,6 +129,38 @@ def reference():
     return refs, emb
 
 
+def fit_probe(X: np.ndarray, y: np.ndarray, n: int, lam: float = 1e-2, iters: int = 400, lr: float = 2.0):
+    """Multinomial logistic regression (softmax) on image embeddings by gradient descent with L2 penalty lam.
+    X: (m, d) unit-norm embeddings, y: class indices (m,). Returns (W, b) for logits = s·X W + b with s = 10."""
+    m, d = X.shape
+    W, b = np.zeros((d, n)), np.zeros(n)
+    Y = np.eye(n)[y]
+    for _ in range(iters):
+        z = 10 * X @ W + b
+        P = np.exp(z - z.max(1, keepdims=True))
+        P /= P.sum(1, keepdims=True)
+        G = (P - Y) / m
+        W -= lr * (10 * X.T @ G + lam * W)
+        b -= lr * G.sum(0)
+    return W, b
+
+
+def probe_proba(W, b, e):
+    z = 10 * e @ W + b
+    p = np.exp(z - z.max())
+    return p / p.sum()
+
+
+def _probe(refs, emb, ids):
+    """Probe trained on the reference images (cached with the embeddings); None if there are too few."""
+    if _state.get("probe_key") == _state.get("ref_key") and "probe" in _state:
+        return _state["probe"]
+    y = np.array([ids.index(r["cell_type"]) for r in refs if r["cell_type"] in ids])
+    probe = fit_probe(emb[[r["cell_type"] in ids for r in refs]], y, len(ids)) if len(y) >= 2 * len(set(y)) else None
+    _state.update(probe=probe, probe_key=_state.get("ref_key"))
+    return probe
+
+
 def identify_image(img, top: int = 5, neighbours: int = 6) -> dict:
     s = _load()
     e = embed([img])[0]
@@ -143,10 +177,13 @@ def identify_image(img, top: int = 5, neighbours: int = 6) -> dict:
     for j in order:
         votes[refs[j]["cell_type"]] = votes.get(refs[j]["cell_type"], 0) + max(float(sims[j]), 0)
     tot = sum(votes.values()) or 1
-    comb = {cid: W_TEXT * float(p[i]) + (1 - W_TEXT) * votes.get(cid, 0) / tot for i, cid in enumerate(s["ids"])}
+    probe = _probe(refs, emb, s["ids"]) if W_PROBE else None
+    pp = probe_proba(*probe, e) if probe else np.zeros(len(s["ids"]))
+    wt = W_TEXT + (W_PROBE if probe is None else 0)  # without a probe its weight goes to the text match
+    comb = {cid: wt * float(p[i]) + (W_PROBE if probe else 0) * float(pp[i]) + W_NEIGH * votes.get(cid, 0) / tot for i, cid in enumerate(s["ids"])}
     ranked = sorted(comb, key=comb.get, reverse=True)[:top]
     return {"model": MODEL.split(":", 1)[1], "device": s["dev"],
-            "ranking": [{"id": c, "score": round(comb[c], 3), "zero_shot": round(float(p[s["ids"].index(c)]), 3), "neighbour_votes": round(votes.get(c, 0) / tot, 3)} for c in ranked],
+            "ranking": [{"id": c, "score": round(comb[c], 3), "zero_shot": round(float(p[s["ids"].index(c)]), 3), "probe": round(float(pp[s["ids"].index(c)]), 3), "neighbour_votes": round(votes.get(c, 0) / tot, 3)} for c in ranked],
             "neighbours": near}
 
 

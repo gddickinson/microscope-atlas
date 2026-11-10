@@ -243,3 +243,13 @@ Still running: the Commons cell-image search (placeholder `scripts/content/cell_
   uploading a pollen image: pollen first at 79%.
 - Nobel page (`nobel.js`, Community menu): 19 prizes from nobelprize.org. Exclusions with reasons are in the agent's
   notes (Ross 1902, Ehrlich/Metchnikoff 1908, Svedberg 1926, lasers 1964, vesicle traffic 2013, patch clamp 1991).
+
+## 2026-11-10: Round 17, R15 more cell images (George's request), groundwork
+George asked for more cell images to improve identification. Three research agents are searching Commons, split by cell
+group, for about 6 more single-panel images per type. Meanwhile:
+- `fetch_commons.py`: a second source list, `cell_images_src2.py`, stored at 720 px / 160 kB to limit repo growth.
+- `cell_id.py`: a softmax probe trained on the reference embeddings (numpy, L2) and a three-way blend. The weights
+  stay text 0.7 + neighbours 0.3 until the new images are measured. With 97 images the probe scores 24% top-1, the
+  same as the neighbour vote.
+- `eval_cell_id.py`: compares zero-shot, neighbours, probe and blends, leave-one-out (the probe is refit without
+  each image).
