@@ -409,3 +409,11 @@ README says. This reverses the conclusion in the previous entry, which rested on
 Local-preview items relabelled ("An endothelial cell on the move", and both tracked-cell movies). Their cell_type
 tags were removed, because the Cells page has no endothelial category. `portfolio_manifest5.write()` now drops
 cell-type tags that are no longer listed.
+
+## 2026-11-10: cell types of the CellScope demo recordings settled
+CellScope's own analysis notes distinguish the experiments: IC293 = endothelial cells, IC295 = keratinocytes
+(SiR-actin). George confirmed following them. The montage (IC293) stays "An endothelial cell on the move"; both
+tracked-cell movies (IC295) are keratinocytes again and are back under keratinocytes on the Cells page. In CellScope
+(pushed 4c50526) the single_cell_phase_WT sidecar is now endothelial, Jesse's pos17/pos59 are "to be confirmed",
+and the demo README no longer calls every recording endothelial. The piezo1_analysis README keeps its keratinocyte
+description (correct for IC295) plus a note that IC293 is endothelial.
