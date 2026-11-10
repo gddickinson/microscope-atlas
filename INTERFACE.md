@@ -69,7 +69,7 @@ JSON by `static_api.js`; Python-only tools show a notice.
 - `content/videos.json`: from `scripts/content/videos_src.py` (YouTube tutorials checked via oEmbed).
 - `content/community.json`: from `scripts/content/community_src.py` (links checked by `scripts/check_links.py`).
 - `images/`: freely licensed Wikimedia Commons images + manifest.json (author, licence, source) from `scripts/fetch_commons.py` and the curated list `scripts/content/images_src.py`.
-- `portfolio/` (published images + manifest.json) and `portfolio_staging/` (git-ignored local previews).
+- `portfolio/` (published images + manifest.json) and `portfolio_staging/` (git-ignored local previews). An optional `display.json` beside each manifest marks files as raw `image` (with a gallery `group`) or `figure`; My Microscopy shows only raw images, project pages show both.
 
 ## scripts/
 `validate_data.py` (schema check, used by tests) · `build_static.py` (static export) · `build_papers.py` · `check_links.py [--systems]` (reports in docs/) · `fetch_commons.py` (images) · `fetch_fpbase.py` (fluorophores and spectra) · `content/build_content.py` (fundamentals, glossary, portfolio) · `screenshots.py` (Playwright + Chrome: README figures in `docs/img` and a smoke test of every route; needs the server running).

@@ -67,31 +67,38 @@ route('glossary', async (_a, query) => {
   draw();
 });
 
+const GROUPS = ['Calcium signals', 'Super-resolution', 'Cells'];
+const fold = (title, body) => (body ? `<details class="fold"><summary>${title}</summary>${body}</details>` : '');
+
 route('portfolio', async ([id]) => {
   const [p, imgs] = await Promise.all([api('/content/portfolio'), api('/portfolio/images').catch(() => [])]);
   // local-only projects (unpublished archive images) are hidden wherever their images are not available, e.g. the public site
   const projects = (p.projects || []).filter(x => !x.local_only || imgs.some(i => i.project === x.id));
   if (id) return projectPage(p, projects.find(x => x.id === id), imgs.filter(i => i.project === id));
-  const imgFor = (pid, techs = []) => imgs.find(i => i.project === pid && techs.includes(i.technique)) || imgs.find(i => i.project === pid);
-  const cardImg = (pid, techs) => { const i = pid && imgFor(pid, techs); return i ? `<img class="thumb" src="${esc(i.url)}" alt="" loading="lazy">` : ''; };
-  const local = imgs.some(i => !i.public) ? ' Images marked "local preview" appear only in your local copy of the app, not on the public site.' : '';
-  const gallery = imgs.length ? `<h2>From the microscope</h2>
-    <p class="small mute">Images from the experiments behind the papers. Click an image for the story of that work.${local}</p>
-    <div class="gallery">${list(imgs, i => `<figure><a href="${i.project ? '#/portfolio/' + esc(i.project) : esc(i.url)}"><img src="${esc(i.url)}" alt="${esc(i.title)}" loading="lazy"></a>
-      <figcaption><b>${esc(i.title)}</b>${i.public ? '' : ' <span class="tag r">local preview</span>'}<br>${esc(i.caption)}<br>
-      <a class="tag g" href="#/technique/${esc(i.technique)}">${esc(i.technique)}</a> ${i.project ? `<a class="small" href="#/portfolio/${esc(i.project)}">About this work →</a>` : ''}</figcaption></figure>`)}</div>` : '';
+  // This page shows raw microscope images only; plots, traces, analysis maps and paper figures stay on the project pages.
+  const raw = imgs.filter(i => i.kind === 'image');
+  const thumb = (pid, techs = []) => { const i = raw.find(r => r.project === pid && techs.includes(r.technique)) || raw.find(r => r.project === pid); return i ? `<img class="thumb" src="${esc(i.url)}" alt="" loading="lazy">` : ''; };
+  const local = raw.some(i => !i.public) ? ' Images marked "local preview" appear only in your local copy of the app, not on the public site.' : '';
+  const groups = [...GROUPS, ...new Set(raw.map(i => i.group).filter(g => g && !GROUPS.includes(g)))].map(g => [g, raw.filter(i => (i.group || 'Other') === g)]).filter(([, a]) => a.length);
+  const gallery = raw.length ? `<h2>From the microscope</h2>
+    <p class="small mute">Raw images from the experiments behind the papers, grouped by subject. Click one for the story of that work, with the figures and analysis.${local}</p>
+    ${list(groups, ([g, a]) => `<h3>${esc(g)} <span class="mute small">(${a.length})</span></h3><div class="gallery compact">${list(a, i => `<figure><a href="#/portfolio/${esc(i.project)}" title="${esc(i.caption)}"><img src="${esc(i.url)}" alt="${esc(i.title)}" loading="lazy"></a>
+      <figcaption><b>${esc(i.title)}</b>${i.public ? '' : ' <span class="tag r">local preview</span>'}<br><a class="tag g" href="#/technique/${esc(i.technique)}">${esc(i.technique)}</a></figcaption></figure>`)}</div>`)}` : '';
+  const labs = p.labs ? `<p class="small mute">The scientists I have worked with, and where to find their work.</p><div class="grid wide">${list(p.labs, b => `<div class="card"><b>${esc(b.name)}</b><small>${esc(b.pi)} · ${esc(b.where)} · ${esc(b.years)}</small>
+      <span>${esc(b.work)}</span><span class="mute">${esc(b.offers)}</span><div style="margin-top:8px">${list(b.links, k => `<a class="tag b" href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.title)} ↗</a>`)}</div></div>`)}</div>` : '';
+  const code = p.code ? `<div class="grid">${list(p.code, c => `<a class="card" href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)} ↗</b><span>${esc(c.about)}</span><small>${esc(new URL(c.url).hostname)}</small></a>`)}</div>
+      ${p.code_papers ? `<ul>${list(p.code_papers, x => `<li>${doiLink(x)}<br><span class="small mute">${esc(x.note)}</span></li>`)}</ul>` : ''}` : '';
   app().innerHTML = `<p class="kicker">About</p><h1>${esc(p.title)}</h1><p class="lead">${esc(p.intro)}</p>
-    <div class="grid wide">${list(p.highlights, h => `<a class="card hl" href="${h.project ? '#/portfolio/' + esc(h.project) : 'javascript:void 0'}">${cardImg(h.project, h.techniques)}<b>${esc(h.title)}</b><span>${esc(h.text)}</span>${h.techniques ? `<div style="margin-top:8px">${list(h.techniques, t => `<span class="tag g">${t}</span>`)}</div>` : ''}${h.project ? '<small>Read more →</small>' : ''}</a>`)}</div>
     ${gallery}
-    ${projects.length ? `<h2>Projects</h2><div class="grid">${list(projects, x => `<a class="card" href="#/portfolio/${esc(x.id)}">${cardImg(x.id)}<b>${esc(x.title)}</b><small>${esc(x.paper?.cite || '')}</small><span>${esc(x.why_it_matters || '')}</span></a>`)}</div>` : ''}
-    ${p.labs ? `<h2>People and labs</h2><p class="small mute">The scientists I have worked with, and where to find their work.</p>
-      <div class="grid wide">${list(p.labs, b => `<div class="card"><b>${esc(b.name)}</b><small>${esc(b.pi)} · ${esc(b.where)} · ${esc(b.years)}</small>
-      <span>${esc(b.work)}</span><span class="mute">${esc(b.offers)}</span><div style="margin-top:8px">${list(b.links, k => `<a class="tag b" href="${esc(k.url)}" target="_blank" rel="noopener">${esc(k.title)} ↗</a>`)}</div></div>`)}</div>` : ''}
-    ${p.code ? `<h2>Code and data</h2><div class="grid">${list(p.code, c => `<a class="card" href="${esc(c.url)}" target="_blank" rel="noopener"><b>${esc(c.title)} ↗</b><span>${esc(c.about)}</span><small>${esc(new URL(c.url).hostname)}</small></a>`)}</div>
-      ${p.code_papers ? `<ul>${list(p.code_papers, x => `<li>${doiLink(x)}<br><span class="small mute">${esc(x.note)}</span></li>`)}</ul>` : ''}` : ''}
-    <h2>Instruments used</h2><div class="scroll"><table><tr><th>Technique</th><th>Instrument</th><th>Work</th></tr>${list(p.instruments, i => `<tr><td><a href="#/technique/${esc(i.technique)}">${esc(i.technique)}</a></td><td>${esc(i.instrument)}</td><td>${esc(i.work)}</td></tr>`)}</table></div>
-    <h2>Selected papers</h2><ul>${list(p.papers, x => `<li>${doiLink(x)}<br><span class="small mute">${esc(x.note || '')}</span></li>`)}</ul>
-    <h2>Software</h2>${bullets(p.software)}
+    <h2>Research themes</h2>
+    <div class="grid wide">${list(p.highlights, h => `<a class="card hl" href="${h.project ? '#/portfolio/' + esc(h.project) : 'javascript:void 0'}">${thumb(h.project, h.techniques)}<b>${esc(h.title)}</b><span>${esc(h.text)}</span>${h.techniques ? `<div style="margin-top:8px">${list(h.techniques, t => `<span class="tag g">${t}</span>`)}</div>` : ''}${h.project ? '<small>Read more →</small>' : ''}</a>`)}</div>
+    ${projects.length ? `<h2>All projects (${projects.length})</h2><div class="grid">${list(projects, x => `<a class="card" href="#/portfolio/${esc(x.id)}"><b>${esc(x.title)}</b><small>${esc([x.year, x.paper?.journal].filter(Boolean).join(' · '))}</small></a>`)}</div>` : ''}
+    <h2>More about the work</h2>
+    ${fold('People and labs', labs)}
+    ${fold('Code and data', code)}
+    ${fold('Instruments used', `<div class="scroll"><table><tr><th>Technique</th><th>Instrument</th><th>Work</th></tr>${list(p.instruments, i => `<tr><td><a href="#/technique/${esc(i.technique)}">${esc(i.technique)}</a></td><td>${esc(i.instrument)}</td><td>${esc(i.work)}</td></tr>`)}</table></div>`)}
+    ${fold('Selected papers', `<ul>${list(p.papers, x => `<li>${doiLink(x)}<br><span class="small mute">${esc(x.note || '')}</span></li>`)}</ul>`)}
+    ${fold('Software', bullets(p.software))}
     <p class="small mute">${esc(p.footnote || '')}</p>`;
 });
 
@@ -100,7 +107,7 @@ function projectPage(p, x, imgs) {
   const seen = new Set();
   app().innerHTML = `<p class="kicker"><a href="#/portfolio">My microscopy</a> / ${esc(x.year || '')}</p><h1>${esc(x.title)}</h1>
     <p class="lead">${x.paper ? doiLink(x.paper) : ''}</p>
-    ${imgs.length ? `<div class="gallery">${list(imgs, i => `<figure><a href="${esc(i.url)}" target="_blank" rel="noopener"><img src="${esc(i.url)}" alt="${esc(i.title)}"></a><figcaption><b>${esc(i.title)}</b>${i.public ? '' : ' <span class="tag r">local preview</span>'}<br>${esc(i.caption)}${i.licence ? `<br><span class="small mute">${esc(i.licence)}</span>` : ''}</figcaption></figure>`)}</div>` : ''}
+    ${list([['Images', imgs.filter(i => i.kind === 'image')], ['Figures and analysis', imgs.filter(i => i.kind !== 'image')]].filter(([, a]) => a.length), ([h, a], k, all) => `${all.length > 1 ? `<h2>${h}</h2>` : ''}<div class="gallery">${list(a, i => `<figure><a href="${esc(i.url)}" target="_blank" rel="noopener"><img src="${esc(i.url)}" alt="${esc(i.title)}"></a><figcaption><b>${esc(i.title)}</b>${i.public ? '' : ' <span class="tag r">local preview</span>'}<br>${esc(i.caption)}${i.licence ? `<br><span class="small mute">${esc(i.licence)}</span>` : ''}</figcaption></figure>`)}</div>`)}
     <div class="two" style="margin-top:18px"><div>
       ${x.question ? `<h2>The question</h2><p>${linkify(x.question, seen)}</p>` : ''}
       ${x.approach ? `<h2>The approach</h2>${list([].concat(x.approach), a => `<p>${linkify(a, seen)}</p>`)}` : ''}

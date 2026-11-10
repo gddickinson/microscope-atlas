@@ -94,3 +94,5 @@ a.xl { color:inherit; border-bottom:1px dotted var(--dapi); } a.xl::after { cont
 .vcard img.thumb { width:calc(100% + 32px); margin:-14px -16px 10px; height:150px; object-fit:cover; display:block; background:#000; border-radius:6px 6px 0 0; }
 .il-grid { grid-template-columns:repeat(3, 1fr); } .il-grid canvas { width:100%; height:auto; image-rendering:pixelated; }
 @media (max-width:860px) { .il-grid { grid-template-columns:1fr 1fr; } }
+.gallery.compact { grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:12px; } .gallery.compact img { height:180px; object-fit:cover; } .gallery.compact figcaption { padding:8px 10px; font-size:12px; }
+details.fold { background:var(--panel); border:1px solid var(--line); border-radius:6px; padding:10px 16px; margin:8px 0; } details.fold summary { cursor:pointer; font:600 15px var(--mono); color:var(--ink); } details.fold[open] summary { color:var(--gfp); margin-bottom:10px; }

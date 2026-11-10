@@ -55,8 +55,13 @@ def portfolio_images(public_only: bool = False) -> list[dict]:
     for folder, url, public in (("portfolio", "portfolio", True), ("portfolio_staging", "portfolio-local", False)):
         if public_only and not public:
             continue
+        # display.json (next to the manifest) marks each file as a raw "image" (with a gallery group) or a "figure"
+        # (plot, trace, analysis map, paper or poster panel); unlisted files count as figures.
+        display = jsonio.load(DATA / folder / "display.json", {})
         for item in jsonio.load(DATA / folder / "manifest.json", []):
+            d = display.get(item["file"], {})
             out.append({**{k: v for k, v in item.items() if k not in ("source_path", "evidence")},
+                        "kind": d.get("kind", "figure"), "group": d.get("group", ""),
                         "url": f"{url}/{item['file']}", "public": public})
     return out
 

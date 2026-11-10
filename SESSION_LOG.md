@@ -204,3 +204,14 @@ family range. Multiphoton and STED lasers and sources with no stated lines are l
 emission band nearest the dye's emission above the line. The page notes the source's stated output power, warns that
 LED peaks make the budget an estimate, and says whether the line lies inside the set's exciter band. Tests extended in
 `tests/builder.test.mjs`. Builder figure refreshed. Next in R6: current Semrock sets, more systems, photos.
+
+## 2026-11-10: My Microscopy page regrouped (George's request)
+George asked for the page's elements to be grouped better, with graphs and figures removed and only good raw images
+shown; the linked project pages keep the figures. `content.portfolio_images` now merges an optional `display.json`
+beside each manifest that marks every file `image` (with a group) or `figure` (unlisted files count as figures). The
+local classification is in `data/portfolio_staging/display.json` (git-ignored like the images): 16 raw images in three
+groups (Calcium signals 3, Super-resolution 11, Cells 2), 34 figures. Annotated paper panels (labelled EM, confocal
+comparison grids, lettered STORM panels) count as figures. The main page now has the grouped raw-image gallery
+(compact cards, title and technique, caption on hover), research themes (thumbnails from raw images only), compact
+project cards (title and year), and labs, code, instruments, papers and software folded into collapsible sections.
+Project pages show "Images" then "Figures and analysis". Page height 5,234 → 4,054 px at 1400 px wide.
