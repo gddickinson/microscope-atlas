@@ -29,7 +29,14 @@
 
 /* technique pages */
 .tech-head { display:grid; grid-template-columns:1.15fr 1fr; gap:24px; align-items:start; }
-.tech-head .lightpath { position:sticky; top:84px; }
+.tech-head .lp-wrap { position:sticky; top:84px; }
+.lp-stepper { display:grid; grid-template-columns:auto 1fr auto; gap:8px; align-items:center; margin-top:8px; }
+.lp-stepper button { margin:0; }
+.lp-stepper .lp-step-n { text-align:center; font:12px var(--mono); color:var(--mute, #8fa3c8); }
+.lp-stepper .lp-step-text { grid-column:1 / -1; margin:0; min-height:3.2em; }
+.lightpath.lp-stepping > *:not(.lp-hi):not(defs) { opacity:.22; transition:opacity .25s; }
+.lightpath.lp-stepping .lp-hi { filter:drop-shadow(0 0 4px #ffd23f) brightness(1.3); transition:opacity .25s; }
+ol.steps li { cursor:pointer; } ol.steps li.on { color:#ffd23f; }
 .steps { counter-reset:s; list-style:none; padding:0; }
 .steps li { counter-increment:s; position:relative; padding:6px 0 6px 36px; border-bottom:1px dashed var(--line); }
 .steps li::before { content:counter(s); position:absolute; left:0; top:6px; width:24px; height:24px; border-radius:50%; background:rgba(61,255,143,.12); color:var(--gfp); font:12px/24px var(--mono); text-align:center; }
@@ -68,7 +75,7 @@
 .seg { display:inline-flex; border:1px solid var(--line); border-radius:4px; overflow:hidden; margin:8px 0; }
 .seg button { margin:0; border-radius:0; background:transparent; color:var(--mute); box-shadow:none; padding:6px 12px; }
 .seg button.on { background:var(--gfp); color:#03100a; }
-@media (max-width:860px) { .tech-head, .sim, .canvases { grid-template-columns:1fr; } .tech-head .lightpath, .sim .controls { position:static; } .filters { grid-template-columns:1fr 1fr; } .bar-row { grid-template-columns:120px 1fr 30px; } }
+@media (max-width:860px) { .tech-head, .sim, .canvases { grid-template-columns:1fr; } .tech-head .lp-wrap, .sim .controls { position:static; } .filters { grid-template-columns:1fr 1fr; } .bar-row { grid-template-columns:120px 1fr 30px; } }
 .sim .controls { display:flex; flex-direction:column; } .sim .controls .readout { order:99; } .sim .controls > button { align-self:flex-start; }
 main:focus, main:focus-visible { outline:none; }
 .sim .view canvas { max-width:560px; margin:0 auto; }

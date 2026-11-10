@@ -140,3 +140,11 @@ SHG, QPI interferometer, iSCAT, OCT Michelson, photoacoustic, X-ray zone plates,
 intravital, miniscope, adaptive optics loop, light field, open hardware). Shared helpers moved to `lightpath_kit.js`.
 All 52 techniques now have their own diagram (`tests/lightpath.test.mjs`); each was rendered and checked for overlaps
 and clipped labels. Techniques figure refreshed. Next in R3: step-through mode linking `light_path` steps to parts.
+
+## 2026-11-10: Round 10 (hourly), R3 completed
+Step-through mode for the light-path diagrams (`lightpath_steps.js`). Prev/Next under the diagram, or a click on a
+"Following the light" step, highlights the diagram parts that step names and dims the rest. Matching uses a small
+vocabulary (objective, dichroic, pinhole, detectors, sources, scanners, prisms...) plus each part's own name, taken from
+the step's main clause only (text before the first semicolon) to avoid over-highlighting. 269 of 336 steps link to at
+least one part; the rest say the step is not drawn as a separate part. Tested in `tests/lightpath.test.mjs`. TEM
+specimen label shortened (it was clipped). TIRF/STED page figures refreshed. Next: R4 Image Lab.

@@ -128,7 +128,7 @@ export const DEFS = {
   tem: (P, C) => [
     P.beam([[X, 30], [X, 370]], C.e, 5, { tip: 'Electron beam (e.g. 200-300 kV)' }),
     P.box(X, 28, 120, 26, 'Electron gun (FEG)'), P.coil(X, 80, 110, 'Condenser lenses'),
-    P.sample(X, 140, 140, 'Specimen (thin section / vitreous ice)', { cover: false }),
+    P.sample(X, 140, 140, 'Specimen', { cover: false, t: 'Specimen: a thin section or vitreous ice on a 3 mm grid' }),
     P.coil(X, 180, 110, 'Objective lens'), P.box(X, 210, 80, 14, 'Objective aperture'),
     P.coil(X, 260, 110, 'Intermediate & projector'), P.detector(X, 360, 'Direct electron detector'),
     P.note(20, 392, 'Vacuum column; λ ≈ 2.5 pm at 200 kV. Contrast from scattering and phase (defocus).', C.part),

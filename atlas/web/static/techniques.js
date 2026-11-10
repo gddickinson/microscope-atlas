@@ -1,6 +1,7 @@
 // Technique index (grouped by family) and the technique teaching page.
 import { route, api, app, esc, list, bullets, doiLink, tags } from './core.js';
 import { lightPath, miniPath } from './lightpath.js';
+import { stepper, stepperHtml } from './lightpath_steps.js';
 import { linkify } from './links.js';
 import { gallery } from './images.js';
 import { videoCard } from './videos.js';
@@ -66,8 +67,9 @@ route('technique', async ([id]) => {
         ${t.equations && t.equations.length ? `<h3>Equations</h3>${list(t.equations, e => `<div><span class="eq">${esc(e.formula)}</span><p class="small"><b>${esc(e.name)}.</b> ${esc(e.meaning)}</p></div>`)}` : ''}
         ${res.xy || res.z ? `<h3>Resolution</h3><div class="kv"><div><b>${esc(res.xy || '—')}</b><span>lateral</span></div><div><b>${esc(res.z || '—')}</b><span>axial</span></div></div><p class="small mute">${esc(res.why || '')}</p>` : ''}
       </div>
-      <div>${lightPath(t.id, { family: t.family })}
-        <p class="small mute">Hover over a component for what it does. Moving dashes show the direction light travels.</p>
+      <div><div class="lp-wrap">${lightPath(t.id, { family: t.family })}
+        ${(t.light_path || []).length ? stepperHtml() : ''}
+        <p class="small mute">Hover over a component for what it does. Moving dashes show the direction light travels.</p></div>
         ${(TABLE_PRESETS[t.id] || []).length ? `<h3>Build it on the optical table</h3><p>${list(TABLE_PRESETS[t.id], p => `<a class="tag r" href="#/table/${p}">${p.replace(/^lit-/, 'paper: ')}</a>`)}</p>` : ''}
         ${t.sims.length ? `<h3>Try it</h3>${list(t.sims, s => `<a class="card" href="#/sim/${s.id}" style="margin:6px 0"><b>${esc(s.title)}</b><span>${esc(s.blurb)}</span></a>`)}` : ''}
       </div>
@@ -95,4 +97,5 @@ route('technique', async ([id]) => {
     const el = k && document.getElementById('s-' + k);
     if (el) { e.preventDefault(); el.scrollIntoView({ behavior: 'smooth' }); }
   });
+  stepper(app(), t.light_path);
 });

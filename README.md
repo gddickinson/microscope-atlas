@@ -44,7 +44,8 @@ Each page has:
 - the physics in plain language, with the key equations;
 - an animated light-path diagram drawn for that technique (all 52, from FLIM timing electronics to OCT
   interferometers and head-mounted miniscopes); hover a component to see what it does;
-- a walk along the light path, and the numbers worth remembering;
+- a step-through walk along the light path: Prev/Next (or clicking a step) highlights the parts of the diagram
+  that step mentions and dims the rest; and the numbers worth remembering;
 - strengths, limitations, sample preparation, bench tips and the artefacts people actually hit;
 - a history timeline and landmark papers;
 - the instruments in the database that use it;
