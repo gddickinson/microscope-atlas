@@ -183,3 +183,15 @@ density, excitation and emission rates with saturation, collection efficiency, b
 peak-pixel SNR, Thompson precision. Physics in the new `sim_engine_photon.js` (re-exported; `tests/sim_engine_photon.test.mjs`);
 parsing and report checked in `tests/builder.test.mjs` (e.g. Alexa 488 on a 60×/1.49 + Prime BSI Express at 10 mW over
 100 µm, 100 ms: ~1,600 photons, 2.9 nm). README section and figure. Next: R6 database growth (lasers, filter sets).
+
+## 2026-11-10: Round 14 (hourly), R6 database growth, light sources and filter sets
+Two new component kinds. `data/components/light_sources.json` has 28 entries: 16 lasers (OBIS, iBeam smart, Cobolt
+04-01/06-01, LuxX+, FlexxRay LBX, iChrome MLE, CELESTA, L6Cc, LightHUB Ultra, Nikon LU-N4 (discontinued), Chameleon
+Discovery NX, Mai Tai, Axon, FemtoFiber ultra 920, MPB 775 nm fibre laser) and 12 LED and lamp sources (CoolLED
+pE-300ultra/pE-800/pE-4000, Lumencor SPECTRA and SOLA, X-Cite XYLIS II/NOVEM/120Q, Colibri 7, D-LEDI, Lumen 300-LED,
+HBO 100 W/2). `filters.json` has 16 entries: Chroma 49000-49008, 69002 and 89000, plus Semrock DAPI/GFP/YFP/TxRed/mCherry/Cy5,
+Pinkel and LF quad sets, all marked obsolete as their pages state. Gathered by three research agents from fetched
+pages only, and spot-checked by curl. ZEISS filter sets were dropped (only second-hand 2012 PDFs). Unconfirmed availability
+and distributor-hosted sources are noted in the summaries. The `COMPONENT_KINDS` validator now checks ids, status and
+URLs for all four kinds; the API, static export, components page tabs and nav were updated. Server restarted (new
+PID). Next in R6: builder picks lasers and filters from the database, current Semrock sets, more systems, photos.

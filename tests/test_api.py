@@ -30,6 +30,8 @@ def test_system_detail_and_components():
     assert s["sources"] and "technique_names" in s
     assert len(client.get("/api/components/detectors").json()) > 10
     assert client.get("/api/components/lasers").status_code == 404
+    assert len(client.get("/api/components/light_sources").json()) >= 15
+    assert len(client.get("/api/components/filters").json()) >= 10
 
 
 def test_content_and_fluor():

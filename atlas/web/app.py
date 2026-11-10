@@ -28,7 +28,9 @@ def stats():
             "simulations": len(content.simulations()),
             "fluorophores": len(fluorophores.all_rows()), "spectra": len(fluorophores.spectra()),
             "detectors": len(catalog.components("detectors")),
-            "objectives": len(catalog.components("objectives")), "papers": len(content.papers()),
+            "objectives": len(catalog.components("objectives")),
+            "light_sources": len(catalog.components("light_sources")), "filters": len(catalog.components("filters")),
+            "papers": len(content.papers()),
             "kind": f["kind"], "family": f["family"], "decade": f["decade"]}
 
 
@@ -73,7 +75,7 @@ def manufacturers():
 
 @app.get("/api/components/{kind}")
 def components(kind: str):
-    if kind not in ("detectors", "objectives"):
+    if kind not in catalog.COMPONENT_KINDS:
         raise HTTPException(404, "unknown component type")
     return catalog.components(kind)
 

@@ -25,7 +25,7 @@ JSON by `static_api.js`; Python-only tools show a notice.
 | `links.js` | `loadLinks`, `linkify`: technique names, glossary terms and external resources become links in teaching text |
 | `home.js` | Home page, live counts, resolution ladder |
 | `systems.js`, `systems_compare.js` | Systems browser with facets, system detail, manufacturers; comparison table and resolution chart (`picked` = compare list in localStorage) |
-| `components.js` | Detectors and objectives tables |
+| `components.js` | Components tables (`#/components/<kind>`): detectors, objectives, light sources, filter sets |
 | `techniques.js` | Technique index by family and the teaching page |
 | `lightpath.js`, `lightpath_kit.js`, `lightpath_defs.js`, `lightpath_defs2.js`, `lightpath_steps.js` | SVG light-path engine (`P` primitives, `lightPath`, `miniPath`, `hasDiagram`); shared layouts (`epi`, `transmitted`, `scanner`, `psfInset`, axis `X`/`Y`); per-technique diagrams (`DEFS`, `FAMILY_DEFAULT`; part 2 `DEFS2` merged in): one for each of the 52 techniques; step-through (`partsOf`, `matchSteps`, `stepper`) links `light_path` steps to highlighted parts |
 | `fluor.js` | Fluorophore table with Stokes plot; spectra viewer with lasers, bands and crosstalk tables |
@@ -62,7 +62,7 @@ JSON by `static_api.js`; Python-only tools show a notice.
 ## data/
 - `technique_index.json`: the 52 technique ids (the controlled vocabulary) and families.
 - `systems/*.json`: microscope systems, one entry per line (schema in `docs/DATA_SCHEMA.md`).
-- `components/detectors.json`, `objectives.json`.
+- `components/detectors.json`, `objectives.json`, `light_sources.json`, `filters.json` (kinds listed in `catalog.COMPONENT_KINDS`).
 - `content/techniques/*.json`: teaching pages; `content/simulations.json`; `content/fundamentals.json`, `glossary.json`, `portfolio.json` are generated from `scripts/content/*_src.py`.
 - `fluorophores.json`, `spectra.json`: from FPbase via `scripts/fetch_fpbase.py`.
 - `papers.json`: from `scripts/build_papers.py` (technique-page papers + `scripts/content/papers_src.py` + methods/protocol papers in `scripts/content/methods_src.py`, enriched by Crossref).

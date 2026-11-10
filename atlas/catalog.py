@@ -17,6 +17,9 @@ def systems() -> list[dict]:
     return jsonio.load_lists(SYSTEMS)
 
 
+COMPONENT_KINDS = ("detectors", "objectives", "light_sources", "filters")
+
+
 def components(kind: str) -> list[dict]:
     return jsonio.load(COMPONENTS / f"{kind}.json", [])
 

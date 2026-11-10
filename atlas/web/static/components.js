@@ -1,20 +1,28 @@
-// Detectors and objectives: sortable tables with sources.
+// Components database: detectors, objectives, light sources and filter sets as sortable tables with sources.
 import { route, api, app, esc, list } from './core.js';
 
 const KEYS = {
   detectors: ['Pixels', 'Pixel size', 'Peak QE', 'Read noise', 'Max frame rate', 'Bit depth'],
   objectives: ['Magnification', 'NA', 'Immersion', 'Working distance', 'Correction'],
+  light_sources: ['Wavelengths', 'Output power', 'Tuning range', 'Pulse width', 'Channels', 'Coupling'],
+  filters: ['Excitation', 'Dichroic', 'Emission', 'Fluorophores'],
+};
+const TITLE = { detectors: 'Detectors', objectives: 'Objective lenses', light_sources: 'Light sources', filters: 'Filter sets' };
+const TAB = { detectors: 'Detectors', objectives: 'Objectives', light_sources: 'Light sources', filters: 'Filter sets' };
+const LEAD = {
+  detectors: 'Cameras and point detectors: what limits sensitivity is quantum efficiency, read noise and (for EMCCDs) excess noise. See the <a href="#/sim/noise">camera noise simulation</a>.',
+  objectives: 'Objectives set resolution (NA), brightness (∝ NA⁴/M² in epifluorescence) and how deep you can image without aberrations. See the <a href="#/sim/psf">PSF simulation</a>.',
+  light_sources: 'Lasers, laser engines, femtosecond sources for multiphoton imaging, and LED and lamp light sources. Match the lines to your dyes in the <a href="#/spectra">spectra viewer</a> and work out the photons they give in the <a href="#/builder">microscope builder</a>.',
+  filters: 'Excitation filter, dichroic mirror and emission filter sets, written as centre wavelength / bandwidth in nm. Check them against your dyes in the <a href="#/spectra">spectra viewer</a>.',
 };
 
 route('components', async ([kind = 'detectors']) => {
   if (!KEYS[kind]) kind = 'detectors';
   const rows = await api('/components/' + kind);
   const types = [...new Set(rows.map(r => r.type))].sort();
-  app().innerHTML = `<p class="kicker">Database</p><h1>${kind === 'detectors' ? 'Detectors' : 'Objective lenses'}</h1>
-    <div class="seg"><button class="${kind === 'detectors' ? 'on' : ''}" onclick="location.hash='#/components/detectors'">Detectors</button><button class="${kind === 'objectives' ? 'on' : ''}" onclick="location.hash='#/components/objectives'">Objectives</button></div>
-    <p class="lead">${kind === 'detectors'
-      ? 'Cameras and point detectors: what limits sensitivity is quantum efficiency, read noise and (for EMCCDs) excess noise. See the <a href="#/sim/noise">camera noise simulation</a>.'
-      : 'Objectives set resolution (NA), brightness (∝ NA⁴/M² in epifluorescence) and how deep you can image without aberrations. See the <a href="#/sim/psf">PSF simulation</a>.'}</p>
+  app().innerHTML = `<p class="kicker">Database</p><h1>${TITLE[kind]}</h1>
+    <div class="seg">${list(Object.keys(KEYS), k => `<button class="${kind === k ? 'on' : ''}" onclick="location.hash='#/components/${k}'">${TAB[k]}</button>`)}</div>
+    <p class="lead">${LEAD[kind]}</p>
     <div class="row"><div><label for="ct">Type</label><select id="ct"><option value="">All (${rows.length})</option>${list(types, t => `<option>${esc(t)}</option>`)}</select></div><div><label for="cq">Search</label><input id="cq" type="search"></div></div>
     <div class="scroll"><table id="ctab"></table></div>`;
   let sortKey = 'name', dir = 1;

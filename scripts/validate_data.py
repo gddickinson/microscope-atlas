@@ -44,8 +44,18 @@ def check() -> list[str]:
             year = s.get("year")
             if year is not None and not (isinstance(year, int) and 1500 <= year <= 2027):
                 errors.append(f"{where}: odd year {year}")
-    for kind in ("detectors", "objectives"):
+    comp_ids = set()
+    for kind in ("detectors", "objectives", "light_sources", "filters"):
         for i, c in enumerate(json.loads((DATA / "components" / f"{kind}.json").read_text())):
+            if c.get("id") in comp_ids:
+                errors.append(f"{kind}[{i}]: duplicate id {c.get('id')}")
+            comp_ids.add(c.get("id"))
+            if c.get("id") and not ID.match(c["id"]):
+                errors.append(f"{kind}[{i}]: id not kebab-case")
+            if c.get("status") not in STATUS:
+                errors.append(f"{kind}[{i}]: bad status {c.get('status')}")
+            if not all(str(src.get("url", "")).startswith("http") for src in c.get("sources", [])):
+                errors.append(f"{kind}[{i}]: source without http url")
             for k in ("id", "name", "manufacturer", "type", "summary", "sources"):
                 if not c.get(k):
                     errors.append(f"{kind}[{i}]: missing {k}")

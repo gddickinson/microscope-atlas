@@ -37,6 +37,8 @@ README = [
     ("systems", "systems", 1100, None),
     ("system_detail", "system/zeiss-lsm-980", 1000, None),
     ("compare", "compare/nikon-n-sim-s,abberior-facility-line,oni-nanoimager,zeiss-elyra-7", 1000, None),
+    ("light_sources", "components/light_sources", 1000, None),
+    ("filters", "components/filters", 1000, None),
     ("spectra", "spectra", 1000, None),
     ("fluorophores", "fluorophores", 1000, None),
     ("chooser", "chooser", 1000, None),

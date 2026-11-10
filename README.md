@@ -6,7 +6,7 @@ Microscope Atlas is an open web app for microscopists and lab scientists. It bri
 - teaching pages for 52 imaging techniques, with light-path diagrams and interactive physics simulations;
 - a quiz;
 - lab tools for setting up a microscope, planning labelling and making solutions;
-- sourced databases of microscope systems, detectors, objectives, fluorophores and papers;
+- sourced databases of microscope systems, detectors, objectives, light sources, filter sets, fluorophores and papers;
 - a page of community resources.
 
 - **Use it online:** the static site is published on GitHub Pages from this repository (see
@@ -225,6 +225,13 @@ Reference values come from cited sources (manufacturers, protocols, papers), lin
   You can compare up to six systems side by side.
 - **Detectors and objectives:** sCMOS, qCMOS, EMCCD, SPAD, hybrid and electron detectors; flagship TIRF,
   silicone, water, multiphoton and cleared-tissue objectives.
+- **Light sources (28):** single-line diode and DPSS lasers, multi-line laser engines, tunable and fixed femtosecond
+  lasers for multiphoton imaging, a pulsed STED depletion laser, LED engines, white LEDs and arc lamps, each with its
+  lines, power, modulation and coupling as the manufacturer states them.
+- **Filter sets (16):** Chroma ET and Semrock BrightLine sets (single-band, multiband, Pinkel and Sedat), with exciter,
+  dichroic and emitter part numbers. The Semrock sets on record are marked obsolete, as their pages say.
+
+![Light sources table](docs/img/light_sources.jpg)
 - **Fluorophores:** every fluorescent protein and dye in FPbase, with peaks, brightness, pKa, lifetime and
   maturation.
 - **Image gallery:** 200 Wikimedia Commons images (public domain, CC0, CC BY or CC BY-SA): historical and modern instruments, and example micrographs for 42 techniques. Each shows author, licence and source, and appears on its system and technique pages.
