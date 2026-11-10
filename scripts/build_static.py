@@ -21,7 +21,7 @@ from fastapi.testclient import TestClient  # noqa: E402
 from atlas import catalog, content  # noqa: E402
 from atlas.web.app import app  # noqa: E402
 
-CONTENT_NAMES = ["history", "glossary", "fundamentals", "simulations", "portfolio", "community", "videos"]
+CONTENT_NAMES = ["history", "glossary", "fundamentals", "simulations", "portfolio", "community", "videos", "cells"]
 
 
 def endpoints() -> list[str]:

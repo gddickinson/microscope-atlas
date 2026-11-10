@@ -10,3 +10,6 @@ site/
 data/portfolio_staging/
 scripts/portfolio_images*.py
 scripts/portfolio_manifest*.py
+
+# Model caches (cell identification embeddings)
+data/cache/

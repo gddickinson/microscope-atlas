@@ -215,3 +215,19 @@ comparison grids, lettered STORM panels) count as figures. The main page now has
 (compact cards, title and technique, caption on hover), research themes (thumbnails from raw images only), compact
 project cards (title and year), and labs, code, instruments, papers and software folded into collapsible sections.
 Project pages show "Images" then "Figures and analysis". Page height 5,234 → 4,054 px at 1400 px wide.
+
+## 2026-11-10: Round 16, Cells page (George's request), first part
+George asked for a Cells page with diagrams of cell types, explanations of structure and biology, an image database
+of many cell types and an identifier for uploaded images; he chose a local deep model for identification.
+- Diagrams: 10 hand-drawn SVGs (`cell_diagrams.js`, `cell_diagrams2.js`); parts are clickable and open the structure
+  entry. Tested in `tests/cells.test.mjs`.
+- Content: `data/content/cells.json` from a research agent: 22 structures, 34 cell types, 23 numbers. Every value is
+  from a fetched page (68 BioNumbers BNIDs re-checked by the agent; two spot-checked by me). NCBI Bookshelf returned
+  CAPTCHAs; OpenStax was not used because its pages forbid use in AI training (flag for George).
+- Identifier: `atlas/cell_id.py` with BiomedCLIP (MIT, DOI checked on Crossref) on MPS. torch 2.15, open_clip 4.2.1
+  and transformers 5.22 are installed in .venv; `requirements-ml.txt` keeps them optional. The text match alone is
+  right for yeast, pollen and mitotic cells; it confuses cardiac with skeletal muscle and onion epidermis with guard
+  cells, and misses cheek cells. Nearest-neighbour votes from labelled atlas images should help once they exist.
+- Page `cells.js` with five tabs; nav entry under Learn; static export includes the content (the identifier shows a
+  notice there).
+Still running: the Commons cell-image search (placeholder `scripts/content/cell_images_src.py`).

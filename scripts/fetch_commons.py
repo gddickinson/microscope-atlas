@@ -21,7 +21,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "data" / "images"
 sys.path.insert(0, str(ROOT / "scripts" / "content"))
-from images_src import IMAGES  # noqa: E402
+from images_src import IMAGES as _IMAGES  # noqa: E402
+from cell_images_src import CELL_IMAGES  # noqa: E402
+
+IMAGES = _IMAGES + CELL_IMAGES  # instruments and micrographs, then the cell-type database for the Cells page
 
 API = "https://commons.wikimedia.org/w/api.php"
 UA = "microscope-atlas/0.3 (https://github.com/gddickinson/microscope-atlas)"
@@ -190,7 +193,7 @@ def main(force=False):
             print(f"saved {fname} ({len(data) // 1024} KB)")
         manifest.append({"file": fname, "commons_title": t, "kind": item["kind"], "system": item["system"],
                          "techniques": item["techniques"], "title": item["title"], "caption": item["caption"],
-                         **rec, "width": w, "height": h})
+                         **({"cell_type": item["cell_type"]} if item.get("cell_type") else {}), **rec, "width": w, "height": h})
     keep = {m["file"] for m in manifest} | {"manifest.json"}
     for f in OUT.iterdir():
         if f.name not in keep:

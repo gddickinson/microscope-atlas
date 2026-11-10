@@ -25,7 +25,7 @@ Microscope Atlas is an open web app for microscopists and lab scientists. It bri
 | **200** freely licensed images of instruments and micrographs, each credited | **298** systems with sourced specs and dated sources |
 
 ## Contents
-- [Techniques](#techniques) · [Simulations](#simulations) · [Virtual optical table](#virtual-optical-table) · [Microscope builder](#microscope-builder) · [Image Lab](#image-lab) · [Lab tools](#lab-tools) · [Quiz](#quiz)
+- [Techniques](#techniques) · [Simulations](#simulations) · [Virtual optical table](#virtual-optical-table) · [Cells](#cells) · [Microscope builder](#microscope-builder) · [Image Lab](#image-lab) · [Lab tools](#lab-tools) · [Quiz](#quiz)
 - [Databases](#databases) · [Community and papers](#community-and-papers)
 - [Static site](#static-site) · [Running the full app](#running-the-full-app) · [How the data were gathered](#how-the-data-were-gathered) · [Project layout](#project-layout)
 
@@ -123,6 +123,24 @@ scale bar, side-by-side ground truth and PNG export.
 | Objective-type TIRF | STED |
 |---|---|
 | ![Optical table: TIRF](docs/img/table_tirf.jpg) | ![Optical table: STED](docs/img/table_sted.jpg) |
+
+## Cells
+A page about cells themselves (`#/cells`):
+- **Diagrams:** labelled SVG diagrams of ten cell types: animal and plant cells, a bacterium, yeast, a neuron, a red
+  blood cell, a neutrophil, a skeletal muscle fibre, columnar epithelium and a sperm cell. Hover a part for its name,
+  click it for the structure's entry.
+- **Structures:** 22 organelles and structures, each with what it is, what it does, its size, and how microscopists
+  see it (dyes, markers, EM).
+- **Cell types and numbers:** 34 cell types with features to look for and typical sizes, plus 23 headline numbers.
+  Every number cites BioNumbers, Milo and Phillips' *Cell Biology by the Numbers*, the Human Protein Atlas or the
+  Molecular Probes Handbook.
+- **Image database:** freely licensed micrographs from Wikimedia Commons, filterable by cell type and technique.
+- **Identify a cell** (full app): upload an image and a local BiomedCLIP model (Zhang et al., NEJM AI 2025) ranks
+  likely cell types. It blends a text-description match with the most similar labelled images in the atlas. It is a
+  teaching aid, not a diagnostic tool. It needs the optional packages in `requirements-ml.txt`; the model (about
+  0.8 GB) downloads on first use.
+
+![Cells page](docs/img/cells.jpg)
 
 ## Microscope builder
 Pick an objective, a camera, a light source and a filter set from the components database, one of the 71
@@ -279,6 +297,7 @@ python3 -m http.server -d site 8080      # then open http://127.0.0.1:8080
 ```bash
 python3 -m venv .venv
 .venv/bin/pip install -r requirements.txt
+.venv/bin/pip install -r requirements-ml.txt   # optional: cell identification (PyTorch, open_clip)
 .venv/bin/python run.py            # then open http://127.0.0.1:8010
 .venv/bin/python -m pytest -q tests/
 ```

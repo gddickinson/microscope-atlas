@@ -3,7 +3,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 
-from .. import catalog, content, fluorophores
+from .. import catalog, cell_id, content, fluorophores
 from ..paths import DATA, STATIC
 
 app = FastAPI(title="Microscope Atlas")
@@ -107,7 +107,7 @@ def spectra():
 
 @app.get("/api/content/{name}")
 def named(name: str):
-    if name not in ("history", "glossary", "fundamentals", "simulations", "portfolio", "chooser", "community", "videos"):
+    if name not in ("history", "glossary", "fundamentals", "simulations", "portfolio", "chooser", "community", "videos", "cells"):
         raise HTTPException(404, "unknown content")
     return content.named(name)
 
@@ -116,6 +116,17 @@ def named(name: str):
 from fastapi import File, UploadFile  # noqa: E402
 
 from .. import lab_files  # noqa: E402
+
+
+@app.get("/api/cells/status")
+def cells_status():
+    return {"available": cell_id.available()}
+
+
+@app.post("/api/cells/identify")
+async def cells_identify(file: UploadFile = File(...)):
+    """Identify the cell type in an uploaded image (processed in memory, never stored)."""
+    return await cell_id.identify_upload(file)
 
 
 @app.post("/api/lab/inspect")

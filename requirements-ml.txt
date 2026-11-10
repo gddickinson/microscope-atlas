@@ -1,0 +1,4 @@
+# Optional: cell identification on the Cells page (full app only). Model downloads on first use (~0.8 GB).
+torch>=2.3
+open_clip_torch>=2.24
+transformers>=4.40
