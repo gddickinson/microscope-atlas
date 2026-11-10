@@ -1,5 +1,5 @@
 // Fluorophore table (FPbase) and an interactive spectra viewer with laser lines, emission bands and bleed-through.
-import { route, api, app, esc, list, waveColor } from './core.js';
+import { route, api, app, esc, list, waveColor, waveText } from './core.js';
 
 route('fluorophores', async (_a, query) => {
   app().innerHTML = `<p class="kicker">Database</p><h1>Fluorophores</h1>
@@ -15,7 +15,7 @@ route('fluorophores', async (_a, query) => {
     const rows = await api('/fluorophores?' + q);
     document.getElementById('fcount').textContent = `${rows.length} shown (sorted by brightness)`;
     document.getElementById('ftab').innerHTML = `<tr><th>Name</th><th>Kind</th><th>Ex (nm)</th><th>Em (nm)</th><th>EC (M⁻¹cm⁻¹)</th><th>QY</th><th>Brightness</th><th>pKa</th><th>Lifetime (ns)</th><th>Maturation (min)</th><th>Ref.</th></tr>` +
-      list(rows, r => `<tr><td><span style="color:${waveColor(r.em)}">●</span> <a href="https://www.fpbase.org/${r.kind === 'dye' ? 'dye' : 'protein'}/${esc(r.slug.replace(/-default$/, ''))}/" target="_blank" rel="noopener">${esc(r.name)}</a>${r.spectrum ? ' ◉' : ''}${r.switch && r.switch !== 'b' && r.switch !== 'B' ? ` <span class="tag r">switch ${esc(r.switch)}</span>` : ''}</td><td>${r.kind}</td><td>${r.ex}</td><td>${r.em}</td><td>${r.ec ? r.ec.toLocaleString() : ''}</td><td>${r.qy ?? ''}</td><td>${r.brightness ? r.brightness.toFixed(1) : ''}</td><td>${r.pka ?? ''}</td><td>${r.lifetime ?? ''}</td><td>${r.maturation ?? ''}</td><td>${r.doi ? `<a href="https://doi.org/${esc(r.doi)}" target="_blank" rel="noopener">${r.year || 'doi'}</a>` : ''}</td></tr>`);
+      list(rows, r => `<tr><td><span aria-hidden="true" style="color:${waveColor(r.em)}">●</span> <a href="https://www.fpbase.org/${r.kind === 'dye' ? 'dye' : 'protein'}/${esc(r.slug.replace(/-default$/, ''))}/" target="_blank" rel="noopener">${esc(r.name)}</a>${r.spectrum ? ' ◉' : ''}${r.switch && r.switch !== 'b' && r.switch !== 'B' ? ` <span class="tag r">switch ${esc(r.switch)}</span>` : ''}</td><td>${r.kind}</td><td>${r.ex}</td><td>${r.em}</td><td>${r.ec ? r.ec.toLocaleString() : ''}</td><td>${r.qy ?? ''}</td><td>${r.brightness ? r.brightness.toFixed(1) : ''}</td><td>${r.pka ?? ''}</td><td>${r.lifetime ?? ''}</td><td>${r.maturation ?? ''}</td><td>${r.doi ? `<a href="https://doi.org/${esc(r.doi)}" target="_blank" rel="noopener">${r.year || 'doi'}</a>` : ''}</td></tr>`);
     scatter(document.getElementById('fplot'), rows);
   };
   ['fq', 'fk', 'fr'].forEach(id => document.getElementById(id).addEventListener('input', draw));
@@ -54,7 +54,7 @@ route('spectra', async () => {
     <p class="lead">Choose fluorophores, laser lines and emission bands. The table shows how much each dye is excited by each laser and how much of its emission lands in each band: off-diagonal numbers are crosstalk.</p>
     <div class="sim"><div class="controls">
       <label>Presets</label><div>${list(Object.keys(PRESETS), p => `<button class="alt" data-preset="${esc(p)}">${esc(p)}</button>`)}</div>
-      <label>Lasers</label><div id="lz">${list(LASERS, l => `<label style="display:inline-flex;gap:4px;margin-right:10px"><input type="checkbox" value="${l}"> <span style="color:${waveColor(l)}">${l}</span></label>`)}</div>
+      <label>Lasers</label><div id="lz">${list(LASERS, l => `<label style="display:inline-flex;gap:4px;margin-right:10px"><input type="checkbox" value="${l}"> <span style="color:${waveText(l)}">${l}</span></label>`)}</div>
       <label for="bands">Emission bands (nm, "lo-hi" comma separated)</label><input id="bands">
       <label for="addf">Add fluorophore</label><select id="addf"><option value="">choose...</option>${list(names, n => `<option>${esc(n)}</option>`)}</select>
       <div id="chips" style="margin-top:8px"></div></div>
@@ -63,7 +63,7 @@ route('spectra', async () => {
   const sync = () => {
     $id('lz').querySelectorAll('input').forEach(i => { i.checked = state.lasers.has(+i.value); });
     $id('bands').value = state.bands.map(b => b.join('-')).join(', ');
-    $id('chips').innerHTML = list([...state.on], n => `<span class="tag" style="color:${waveColor(peak(spec[n].em))}">${esc(n)} <a href="javascript:void 0" data-rm="${esc(n)}">✕</a></span>`);
+    $id('chips').innerHTML = list([...state.on], n => `<span class="tag" style="color:${waveText(peak(spec[n].em))}">${esc(n)} <a href="javascript:void 0" data-rm="${esc(n)}">✕</a></span>`);
     plot(); table();
   };
   const plot = () => {

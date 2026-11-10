@@ -489,3 +489,15 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   its caption or the page title. Result 45/45 clean; all 21 sims pass the keyboard test. Desktop pages unchanged.
 - pytest 54 passed, 1 skipped; smoke test 45 routes ok. R11 stays in_progress (contrast, optical table and spectra by
   keyboard, performance).
+
+## 2026-11-10: round 25, R11 colour contrast and full-site audit
+- `a11y_check.py` now measures WCAG 2 text contrast (text colour x opacity over the composited background colours;
+  4.5:1, or 3:1 for large text; gradient-filled headings skipped) and has `--all` for every technique page and lab tool
+  (131 pages).
+- Found: laser-line labels drawn in the laser's own colour (405/445/730 nm at 2.5-3.4:1) in the spectra viewer, panel
+  designer and secondary planner, and coloured ● swatches beside fluorophore names; 12 unlabelled controls in the
+  secondary-antibody planner rows.
+- Fixed: `core.waveText(nm)` (same hue, mixed halfway to white) for every wavelength-coloured text; swatches are
+  `aria-hidden` (the wavelength is in the row); planner rows get ids and `label for`. 131/131 clean.
+- pytest 54 passed, 1 skipped; smoke test 45 routes ok; docs/img spectra and fluorophores refreshed. R11 continues:
+  optical table and spectra viewer by keyboard, then page weight and load time.

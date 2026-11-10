@@ -123,6 +123,14 @@ export function waveColor(nm, alpha = 1) {
   return `rgba(${c(r)},${c(g)},${c(b)},${alpha})`;
 }
 
+// Wavelength colour for TEXT on the dark theme: the same hue mixed halfway to white, so violet, blue and deep red
+// labels stay readable (at least 4.5:1 contrast on the page and panel backgrounds; checked by scripts/a11y_check.py).
+export function waveText(nm) {
+  const [r, g, b] = waveColor(nm).match(/\d+/g).map(Number);
+  const m = v => Math.round(v + (255 - v) * 0.5);
+  return `rgb(${m(r)},${m(g)},${m(b)})`;
+}
+
 // --- background: single molecules blink and slowly build a "super-resolved" image ---
 export function background(canvas) {
   const ctx = canvas.getContext('2d');

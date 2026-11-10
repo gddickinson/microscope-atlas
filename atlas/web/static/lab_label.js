@@ -1,7 +1,7 @@
 // Lab Tools, 'Labelling and probes' (part 1): multicolour panel designer, fluorescent protein picker, antibody dilution,
 // secondary antibody planner. Part 2 (DOL, reactions, A280, tags, fixation) is in lab_label2.js; TOOLS covers both.
 // Pure calculations: lab_label_calc.js (re-exported here). Reference data with sources: lab_label_data.js.
-import { api, esc, waveColor } from './core.js';
+import { api, esc, waveColor, waveText } from './core.js';
 import { num, select, row, panel, results, out, table, note, sources, fmt } from './lab_ui.js';
 import { designPanels, filterFPs, COLOUR_BANDS, antibodyDilution, totalVolume, antibodyCost, planSecondaries, assignChannels } from './lab_label_calc.js';
 import { SRC, AGG, SWITCH, PANEL_EXCLUDE, HOSTS, ISOTYPES, CONJUGATES } from './lab_label_data.js';
@@ -17,7 +17,7 @@ const fpLink = r => `<a href="https://www.fpbase.org/${r.kind === 'dye' ? 'dye' 
 // Checkbox group of laser lines; returns a getter for the checked values.
 function laserBoxes(host, id, on) {
   const d = document.createElement('div');
-  d.innerHTML = `<label>Laser lines (nm)</label><div id="${id}">${LASERS.map(l => `<label style="display:inline-flex;gap:4px;margin-right:10px"><input type="checkbox" value="${l}" ${on.includes(l) ? 'checked' : ''}> <span style="color:${waveColor(l)}">${l}</span></label>`).join('')}</div>`;
+  d.innerHTML = `<label>Laser lines (nm)</label><div id="${id}">${LASERS.map(l => `<label style="display:inline-flex;gap:4px;margin-right:10px"><input type="checkbox" value="${l}" ${on.includes(l) ? 'checked' : ''}> <span style="color:${waveText(l)}">${l}</span></label>`).join('')}</div>`;
   host.appendChild(d);
   return () => [...d.querySelectorAll('input:checked')].map(i => +i.value);
 }
@@ -54,7 +54,7 @@ async function mountPanel(host) {
     }
     res.innerHTML = top.map((pn, idx) => {
       const names = pn.members.map(m => m.f.name);
-      const tab = `<div class="scroll"><table><tr><th>Ch</th><th>Fluorophore</th><th>Laser</th><th>Excitation</th><th>Detection band</th><th>Brightness</th><th>Relative signal</th></tr>${pn.members.map((m, i) => `<tr><td>${i + 1}</td><td><span style="color:${waveColor(m.f.peak)}">●</span> ${fpLink(m.f.row)} <span class="small mute">${esc(m.f.kind)}</span></td><td style="color:${waveColor(m.laser)}">${m.laser} nm</td><td>${(100 * m.exEff).toFixed(0)}%</td><td>${pn.bands[i][0]}–${pn.bands[i][1]} nm</td><td>${m.f.guessedB ? `<span class="tag y" title="FPbase has no brightness; median of the candidates used">≈${fmt(m.f.B, 3)} (unknown)</span>` : fmt(m.f.B, 3)}</td><td>${fmt(pn.signal[i], 3)}</td></tr>`).join('')}</table></div>`;
+      const tab = `<div class="scroll"><table><tr><th>Ch</th><th>Fluorophore</th><th>Laser</th><th>Excitation</th><th>Detection band</th><th>Brightness</th><th>Relative signal</th></tr>${pn.members.map((m, i) => `<tr><td>${i + 1}</td><td><span aria-hidden="true" style="color:${waveColor(m.f.peak)}">●</span> ${fpLink(m.f.row)} <span class="small mute">${esc(m.f.kind)}</span></td><td style="color:${waveText(m.laser)}">${m.laser} nm</td><td>${(100 * m.exEff).toFixed(0)}%</td><td>${pn.bands[i][0]}–${pn.bands[i][1]} nm</td><td>${m.f.guessedB ? `<span class="tag y" title="FPbase has no brightness; median of the candidates used">≈${fmt(m.f.B, 3)} (unknown)</span>` : fmt(m.f.B, 3)}</td><td>${fmt(pn.signal[i], 3)}</td></tr>`).join('')}</table></div>`;
       const xt = `<div class="scroll"><table><tr><th>Channel ↓ / dye →</th>${names.map(nm => `<th>${esc(nm)}</th>`).join('')}</tr>${pn.X.map((rw, i) => `<tr><th>Ch ${i + 1} (${pn.members[i].laser} nm, ${pn.bands[i][0]}–${pn.bands[i][1]})</th>${rw.map((v, j) => i === j ? '<td>100%</td>' : `<td style="background:rgba(255,63,164,${Math.min(0.6, v * 3).toFixed(2)})">${(100 * v).toFixed(1)}%</td>`).join('')}</tr>`).join('')}</table></div>`;
       return `<div class="panel"><h3 style="margin-top:0">Panel ${idx + 1}: ${names.map(esc).join(' · ')}</h3>
         <p class="small">Score <b>${fmt(pn.score, 3)}</b> = signal ${fmt(pn.geo, 3)} × (1 − worst crosstalk ${(100 * pn.maxX).toFixed(1)}%)²</p>${tab}
@@ -93,7 +93,7 @@ async function mountFP(host) {
     res.innerHTML = head;
     const t = out(res);
     table(t, ['Protein', 'Ex / Em (nm)', 'Brightness', 'EC (M⁻¹cm⁻¹)', 'QY', 'pKa', 'Maturation (min)', 'Lifetime (ns)', 'Oligomer', 'Switching', 'Ref.'],
-      hits.slice(0, 200).map(r => [`<span style="color:${waveColor(r.em)}">●</span> ${fpLink(r)}`, `${r.ex} / ${r.em}`, r.brightness ? r.brightness.toFixed(1) : '', r.ec ? r.ec.toLocaleString() : '', r.qy ?? '', r.pka ?? '', r.maturation ?? '', r.lifetime ?? '',
+      hits.slice(0, 200).map(r => [`<span aria-hidden="true" style="color:${waveColor(r.em)}">●</span> ${fpLink(r)}`, `${r.ex} / ${r.em}`, r.brightness ? r.brightness.toFixed(1) : '', r.ec ? r.ec.toLocaleString() : '', r.qy ?? '', r.pka ?? '', r.maturation ?? '', r.lifetime ?? '',
         esc(AGG[String(r.agg || '').toUpperCase()] || r.agg || ''), esc(SWITCH[String(r.switch || '').toUpperCase()] || r.switch || ''), r.doi ? `<a href="https://doi.org/${esc(r.doi)}" target="_blank" rel="noopener">${esc(r.year || 'doi')}</a>` : '']));
   };
   [colour, sw, mat, pka, mono.querySelector('input')].forEach(el => onChange(el, draw));
@@ -160,13 +160,13 @@ async function mountSecondary(host) {
   const res = out(host);
   let bright = {};
   try { (await api('/fluorophores?q=alexa&kind=dye&limit=100')).forEach(f => { bright[f.name] = f.brightness; }); } catch (e) { bright = {}; }
-  const sel = (k, i, opts, v) => `<select data-k="${k}" data-i="${i}">${opts.map(([a, b]) => `<option value="${esc(a)}" ${a === v ? 'selected' : ''}>${esc(b)}</option>`).join('')}</select>`;
+  const sel = (k, i, opts, v) => `<select id="sp-${k}-${i}" data-k="${k}" data-i="${i}">${opts.map(([a, b]) => `<option value="${esc(a)}" ${a === v ? 'selected' : ''}>${esc(b)}</option>`).join('')}</select>`;
   const drawList = () => {
     list.innerHTML = state.prim.map((pr, i) => `<div class="row" style="margin-bottom:6px">
-      <div><label>Primary ${i + 1} host</label>${sel('host', i, HOSTS.map(h => [h, CAP(h)]), pr.host)}</div>
-      <div><label>Isotype</label>${sel('isotype', i, ISOTYPES.map(t => [t, t || 'not known / polyclonal']), pr.isotype)}</div>
-      <div><label>Target</label><input data-k="target" data-i="${i}" value="${esc(pr.target)}"></div>
-      <div><label>Abundance</label>${sel('abundance', i, [['low', 'low'], ['medium', 'medium'], ['high', 'high']], pr.abundance)}</div>
+      <div><label for="sp-host-${i}">Primary ${i + 1} host</label>${sel('host', i, HOSTS.map(h => [h, CAP(h)]), pr.host)}</div>
+      <div><label for="sp-isotype-${i}">Isotype</label>${sel('isotype', i, ISOTYPES.map(t => [t, t || 'not known / polyclonal']), pr.isotype)}</div>
+      <div><label for="sp-target-${i}">Target</label><input id="sp-target-${i}" data-k="target" data-i="${i}" value="${esc(pr.target)}"></div>
+      <div><label for="sp-abundance-${i}">Abundance</label>${sel('abundance', i, [['low', 'low'], ['medium', 'medium'], ['high', 'high']], pr.abundance)}</div>
       <div style="flex:0 0 auto"><button class="alt" data-rm="${i}" ${state.prim.length < 2 ? 'disabled' : ''}>remove</button></div></div>`).join('');
   };
   list.addEventListener('input', e => { const { k, i } = e.target.dataset; if (k) { state.prim[+i][k] = e.target.value; draw(); } });
@@ -186,7 +186,7 @@ async function mountSecondary(host) {
       state.prim.map((pr, i) => {
         const s = plan.secondaries[i], c = asg[i];
         return [`${esc(CAP(pr.host))}${pr.isotype ? ' ' + esc(pr.isotype) : ''}`, esc(pr.target), s.name ? esc(s.name) : '<span class="mute">—</span>', s.minX.length ? esc(s.minX.map(CAP).join(', ')) : '<span class="mute">not needed</span>',
-          c ? `<span style="color:${waveColor(c.laser)}">${esc(c.dye)}</span> <span class="small mute">(${c.laser} nm${c.brightness ? `, brightness ${c.brightness.toFixed(0)}` : ''})</span>` : '<span class="mute">no channel</span>'];
+          c ? `<span style="color:${waveText(c.laser)}">${esc(c.dye)}</span> <span class="small mute">(${c.laser} nm${c.brightness ? `, brightness ${c.brightness.toFixed(0)}` : ''})</span>` : '<span class="mute">no channel</span>'];
       }));
   }
   drawList();

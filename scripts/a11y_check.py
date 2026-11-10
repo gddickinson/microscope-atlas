@@ -9,9 +9,11 @@ At a phone viewport (390 x 844) each page is checked for:
   * images without an alt attribute, and canvases without a text alternative (aria-label, role="img" + label, or
     a fallback text);
   * duplicate element ids (break label[for] and aria references);
+  * text contrast (WCAG 2: 4.5:1, 3:1 for large text) against the composited background colours;
   * simulations: keyboard use. Tab reaches a slider, and arrow keys change it and the readout or plot.
 Writes docs/a11y_report.md and exits 1 if any page has problems. Run with the server up:
-  .venv/bin/python scripts/a11y_check.py [--out docs/a11y_report.md] [route ...]
+  .venv/bin/python scripts/a11y_check.py [--all] [--out docs/a11y_report.md] [route ...]
+(--all adds every technique page and every lab tool.)
 """
 import argparse
 import sys
@@ -48,6 +50,26 @@ AUDIT = r"""() => {
   out.canvas = [...document.querySelectorAll('canvas')].filter(c => !named(c) && !c.textContent.trim() && !c.closest('[aria-hidden=true]') && c.id !== 'bg').length;
   const ids = {}; for (const el of document.querySelectorAll('[id]')) ids[el.id] = (ids[el.id] || 0) + 1;
   out.dupids = Object.entries(ids).filter(([, n]) => n > 1).map(([k, n]) => `${k}×${n}`);
+  // WCAG 2 contrast of text against its composited background (4.5:1, or 3:1 for large text)
+  const rgba = c => { const m = c.match(/[\d.]+/g) || [0, 0, 0, 0]; return [+m[0], +m[1], +m[2], m[3] === undefined ? 1 : +m[3]]; };
+  const over = (top, bot) => [0, 1, 2].map(i => top[i] * top[3] + bot[i] * (1 - top[3])).concat(1);
+  const lum = c => { const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4; }; return 0.2126 * f(c[0]) + 0.7152 * f(c[1]) + 0.0722 * f(c[2]); };
+  const bgOf = el => { const layers = []; for (let p = el; p; p = p.parentElement) { const b = rgba(getComputedStyle(p).backgroundColor); if (b[3] > 0) layers.push(b); if (b[3] >= 1) break; }
+    let c = rgba(getComputedStyle(document.body).backgroundColor); if (c[3] < 1) c = [4, 6, 12, 1];
+    for (const l of layers.reverse()) c = over(l, c); return c; };
+  const seen = new Set(); out.contrast = [];
+  for (const el of document.querySelectorAll('#app *, header *')) {
+    if (![...el.childNodes].some(n => n.nodeType === 3 && n.textContent.trim())) continue;
+    const r = el.getBoundingClientRect(), cs = getComputedStyle(el);
+    if (!r.width || !r.height || cs.visibility === 'hidden' || el.closest('[aria-hidden=true], svg, .lp, video')) continue;
+    if (cs.backgroundClip === 'text' || cs.webkitBackgroundClip === 'text') continue;  // gradient-filled text: colour is the gradient
+    let op = 1; for (let p = el; p; p = p.parentElement) op *= +getComputedStyle(p).opacity;
+    const bg = bgOf(el), fgc = rgba(cs.color); const fg = over([fgc[0], fgc[1], fgc[2], fgc[3] * op], bg);
+    const L1 = lum(fg), L2 = lum(bg), ratio = (Math.max(L1, L2) + 0.05) / (Math.min(L1, L2) + 0.05);
+    const size = parseFloat(cs.fontSize), large = size >= 24 || (size >= 18.66 && +cs.fontWeight >= 700);
+    if (ratio < (large ? 3 : 4.5)) { const key = cs.color + '|' + bg.join(',') + '|' + size;
+      if (!seen.has(key)) { seen.add(key); out.contrast.push(`${desc(el)} ${ratio.toFixed(2)}:1 (${cs.color} on rgb(${bg.slice(0, 3).map(Math.round)}), ${size}px) "${el.textContent.trim().slice(0, 30)}"`); } }
+  }
   return out;
 }"""
 
@@ -72,9 +94,17 @@ def keyboard(page):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="docs/a11y_report.md")
+    ap.add_argument("--all", action="store_true", help="also every technique page and every lab tool")
     ap.add_argument("routes", nargs="*")
     a = ap.parse_args()
     todo = [r for r in README if not a.routes or r[0] in a.routes]
+    if a.all:
+        import json, re, urllib.request
+        techs = json.load(urllib.request.urlopen(BASE.split("#")[0] + "api/techniques"))
+        todo += [(f"technique:{t['id']}", f"technique/{t['id']}", 0, None) for t in techs]
+        static = Path(__file__).resolve().parents[1] / "atlas" / "web" / "static"
+        tools = sorted({m for f in static.glob("lab_*.js") for m in re.findall(r"\{ ?id: '([a-z0-9-]+)', group", f.read_text())})
+        todo += [(f"lab:{t}", f"lab/{t}", 0, None) for t in tools]
     rows, bad = [], 0
     with sync_playwright() as p:
         browser = p.chromium.launch(channel="chrome", headless=True)
@@ -96,6 +126,8 @@ def main():
                     probs.append(f"{len(r[k])} {lab}: " + ", ".join(sorted(set(r[k]))[:6]))
             if r["noalt"]:
                 probs.append(f"{r['noalt']} images without alt")
+            if r["contrast"]:
+                probs.append(f"{len(r['contrast'])} low-contrast text styles: " + "; ".join(r["contrast"][:4]))
             if r["canvas"]:
                 probs.append(f"{r['canvas']} canvases without a text alternative")
             print(f"{name:16} {'; '.join(probs) if probs else 'ok'}", flush=True)
