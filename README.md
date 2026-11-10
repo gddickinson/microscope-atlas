@@ -18,7 +18,7 @@ Microscope Atlas is an open web app for microscopists and lab scientists. It bri
 
 | | |
 |---|---|
-| **52** techniques with teaching pages, from brightfield to MINFLUX and cryo-ET | **23** interactive simulations running the real equations |
+| **52** techniques with teaching pages, from brightfield to MINFLUX and cryo-ET | **29** interactive simulations running the real equations |
 | **37 lab tools** for setup, labelling, bench calculations and analysis | A **quiz** with generated questions and 208 flashcards |
 | **298** microscope systems from **149** makers and labs, every entry sourced | **386** papers with Crossref metadata, incl. **142** methods and protocol papers |
 | **1,013** fluorophores and **71** spectra from FPbase | **88** checked links to societies, forums, software and data |
@@ -61,11 +61,13 @@ Technique names, glossary terms and software mentioned in the text link to their
 All the physics is in one module, `sim_engine.js`. It is tested against known values: Bessel zeros, 83.8% encircled
 energy at 1 Airy unit, relativistic electron wavelengths, MSD recovery of D, the Soumpasis half-time, Strehl ratios
 against the Maréchal approximation, Richardson-Lucy flux conservation, FLIM phasors on the universal semicircle, the
-first CTF zero at 1/√(λΔf), and the 1.55× missing-wedge elongation at ±60° (Radermacher 1988).
+first CTF zero at 1/√(λΔf), the 1.55× missing-wedge elongation at ±60° (Radermacher 1988), Abbe's λ/(NAobj + NAcond) grating limit, DIC
+extinction and bias, G(0) = 1/N and τD = w²/4D recovered from a simulated FCS trace, the 4√(Rr) apparent width of
+an AFM-imaged sphere, and the spinning-disk fill-factor floor.
 
 | Optics | Sectioning | Super-resolution | Fluorescence, detection and dynamics | Image processing and electron |
 |---|---|---|---|---|
-| PSF and the Rayleigh criterion<br>Numerical aperture and immersion<br>Infinity-corrected imaging<br>Nyquist sampling<br>Phase contrast phasors<br>Aberrations, Strehl and adaptive optics | TIRF evanescent field<br>Confocal pinhole<br>One- vs two-photon<br>Light-sheet thickness vs field | STED depletion<br>Single-molecule localization<br>SIM in Fourier space | Jablonski and lifetimes<br>FRET ruler<br>FLIM phasor plot<br>Camera noise: CCD, EMCCD, sCMOS, qCMOS<br>FRAP recovery<br>Single-particle tracking and MSD | Richardson-Lucy deconvolution<br>Electron wavelength<br>Cryo-EM CTF and Thon rings<br>Tomography missing wedge |
+| PSF and the Rayleigh criterion<br>Numerical aperture and immersion<br>Infinity-corrected imaging<br>Nyquist sampling<br>Phase contrast phasors<br>Aberrations, Strehl and adaptive optics<br>Köhler illumination and the condenser aperture<br>DIC shear and bias | TIRF evanescent field<br>Confocal pinhole<br>One- vs two-photon<br>Light-sheet thickness vs field<br>Spinning-disk pinhole crosstalk | STED depletion<br>Single-molecule localization<br>SIM in Fourier space<br>Expansion factor and label displacement | Jablonski and lifetimes<br>FRET ruler<br>FLIM phasor plot<br>Camera noise: CCD, EMCCD, sCMOS, qCMOS<br>FRAP recovery<br>Single-particle tracking and MSD<br>FCS from a simulated trace | Richardson-Lucy deconvolution<br>Electron wavelength<br>Cryo-EM CTF and Thon rings<br>Tomography missing wedge<br>AFM tip convolution |
 
 | Two points and the Rayleigh criterion | Localization microscopy building an image |
 |---|---|
@@ -82,6 +84,10 @@ first CTF zero at 1/√(λΔf), and the 1.55× missing-wedge elongation at ±60�
 | Cryo-EM contrast transfer function | Missing wedge in electron tomography |
 |---|---|
 | ![CTF simulation](docs/img/sim_ctf.jpg) | ![Missing wedge simulation](docs/img/sim_wedge.jpg) |
+
+| Köhler illumination: diffraction orders and the condenser | AFM tip convolution |
+|---|---|
+| ![Köhler simulation](docs/img/sim_kohler.jpg) | ![AFM simulation](docs/img/sim_afm.jpg) |
 
 ## Virtual optical table
 Prototype microscopes and laser set-ups on a breadboard with live 2D ray tracing. There are 43 part types:

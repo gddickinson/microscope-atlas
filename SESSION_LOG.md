@@ -124,3 +124,11 @@ Strehl vs Maréchal at λ/20, RL flux and falling error, phasor on the semicircl
 ±60°). Five new simulations in `sim_imaging.js` and `sim_tomo.js`: deconv, aberration, phasor, ctf, wedge (23 total).
 Smoke test includes them; README gains the CTF and missing-wedge figures. Next in R2: Köhler, DIC shear, FCS
 autocorrelation, AFM tip convolution, spinning-disk crosstalk, expansion factor.
+
+## 2026-11-10: Round 8 (hourly), R2 simulations II completed
+Six more simulations (29 total): Köhler illumination as Abbe partially coherent imaging of a grating (back-focal-plane
+view of the orders and condenser discs), DIC shear and bias on a phase-map cell, AFM tip dilation (sphere + cone tip),
+FCS from a simulated 2D diffusion trace (N and D recovered from the autocorrelation, not echoed), spinning-disk
+crosstalk (single pinhole (a/r)² vs the array's fill-factor floor, signal/background in thick samples), and expansion
+factor vs label displacement. Physics in `sim_engine.js` (now 447 lines; split before adding more), tested in
+`tests/sim_engine3.test.mjs`. README gains Köhler and AFM figures. Next: R3 diagrams for every technique.

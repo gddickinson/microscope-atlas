@@ -350,3 +350,98 @@ export function missingWedge(img, N, alphaDeg) {
   fft2(re, im, N, true);
   return re;
 }
+
+// ---- Simulations II, part 2: Abbe imaging with a condenser, DIC, FCS traces, AFM tips, spinning disks, expansion ----
+
+// Abbe image of an amplitude grating t(x) = 1 + m cos(2πx/P) under partially coherent illumination: each source point
+// (sin θ uniformly across the condenser NA) passes the diffraction orders the objective accepts, |s + kλ/P| ≤ NAo;
+// intensities from different source points add. Resolution limit P = λ/(NAo + NAc).
+export function abbeImage(xs, P, lambda, NAo, NAc, m = 1, nSrc = 41) {
+  const out = new Float64Array(xs.length);
+  for (let j = 0; j < nSrc; j++) {
+    const s = nSrc === 1 || NAc === 0 ? 0 : -NAc + 2 * NAc * j / (nSrc - 1);
+    const pass = k => Math.abs(s + k * lambda / P) <= NAo + 1e-12;
+    const a0 = pass(0) ? 1 : 0, a1 = pass(1), am = pass(-1);
+    for (let i = 0; i < xs.length; i++) {
+      const ph = 2 * Math.PI * xs[i] / P;
+      // orders: 0 -> a0, ±1 -> (m/2) e^{±iφ}
+      const re = a0 + (a1 ? m / 2 * Math.cos(ph) : 0) + (am ? m / 2 * Math.cos(ph) : 0);
+      const im = (a1 ? m / 2 * Math.sin(ph) : 0) - (am ? m / 2 * Math.sin(ph) : 0);
+      out[i] += (re * re + im * im) / nSrc;
+    }
+  }
+  return out;
+}
+export const partialCoherenceLimit = (lambda, NAo, NAc) => lambda / (NAo + Math.min(NAc, NAo));
+export const michelsonContrast = a => { let lo = Infinity, hi = -Infinity; for (const v of a) { if (v < lo) lo = v; if (v > hi) hi = v; } return hi + lo > 0 ? (hi - lo) / (hi + lo) : 0; };
+
+// DIC: two sheared copies of the wave interfere after a bias retardation b (radians):
+// I = I0 · sin²((Δφ + b)/2), Δφ(x) = φ(x + s/2) − φ(x − s/2) along the shear direction (dx, dy), s in pixels.
+export function dicImage(phase, N, shear, angleDeg, bias) {
+  const c = Math.cos(angleDeg * Math.PI / 180) * shear / 2, d = Math.sin(angleDeg * Math.PI / 180) * shear / 2;
+  const at = (x, y) => {
+    const xi = Math.max(0, Math.min(N - 1.001, x)), yi = Math.max(0, Math.min(N - 1.001, y));
+    const x0 = Math.floor(xi), y0 = Math.floor(yi), fx = xi - x0, fy = yi - y0;
+    const p = (u, v) => phase[v * N + u];
+    return p(x0, y0) * (1 - fx) * (1 - fy) + p(x0 + 1, y0) * fx * (1 - fy) + p(x0, y0 + 1) * (1 - fx) * fy + p(x0 + 1, y0 + 1) * fx * fy;
+  };
+  const out = new Float64Array(N * N);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) out[y * N + x] = Math.sin((at(x + c, y + d) - at(x - c, y - d) + bias) / 2) ** 2;
+  return out;
+}
+
+// FCS by simulation: n particles diffusing (D, µm²/s) in a periodic 2D box (side L, µm) seen through a Gaussian
+// spot I(r) = exp(−2r²/w²). Returns the intensity trace sampled every dt seconds.
+export function fcsTrace(n, L, w, D, dt, steps, rand) {
+  const xs = Float64Array.from({ length: n }, () => (rand() - 0.5) * L), ys = Float64Array.from({ length: n }, () => (rand() - 0.5) * L);
+  const sd = Math.sqrt(2 * D * dt), out = new Float64Array(steps), wrap = v => v - L * Math.round(v / L);
+  for (let t = 0; t < steps; t++) {
+    let I = 0;
+    for (let i = 0; i < n; i++) { xs[i] = wrap(xs[i] + sd * rand.normal()); ys[i] = wrap(ys[i] + sd * rand.normal()); I += Math.exp(-2 * (xs[i] ** 2 + ys[i] ** 2) / (w * w)); }
+    out[t] = I;
+  }
+  return out;
+}
+// Normalised autocorrelation G(τ) = ⟨δI(t)δI(t+τ)⟩/⟨I⟩² at integer lags.
+export function autocorrelation(trace, lags) {
+  const n = trace.length, mean = trace.reduce((a, b) => a + b, 0) / n;
+  return lags.map(k => { let s = 0; for (let i = 0; i + k < n; i++) s += (trace[i] - mean) * (trace[i + k] - mean); return s / (n - k) / (mean * mean); });
+}
+// 2D Gaussian spot: G(τ) = (1/N)/(1 + τ/τD), N = c·πw², τD = w²/4D.
+export const fcsG2D = (tau, N, tauD) => (1 / N) / (1 + tau / tauD);
+// Confocal (3D) volume Veff = π^{3/2} w² z (z = κw) and the concentration (nM) for N molecules in it (w in µm).
+export function fcsConcentration(N, w, kappa) {
+  const V = Math.PI ** 1.5 * w ** 3 * kappa * 1e-15; // litres (1 µm³ = 1 fL)
+  return N / (V * 6.02214076e23) * 1e9;
+}
+
+// AFM: the image is the dilation of the surface by the tip, img(x) = max_u [h(x+u) − tip(u)], tip(u) = height of the
+// tip surface above its apex: a sphere of radius R joined tangentially to a cone of half-angle θ (θ → 0: a pure sphere).
+export function tipShape(u, R, coneDeg) {
+  const th = coneDeg * Math.PI / 180, ut = R * Math.cos(th), a = Math.abs(u);
+  if (a <= ut) return R - Math.sqrt(R * R - a * a);
+  return R - R * Math.sin(th) + (a - ut) / Math.tan(th);
+}
+export function afmImage(h, dx, R, coneDeg) {
+  const n = h.length, out = new Float64Array(n), reach = Math.ceil(n / 2);
+  for (let i = 0; i < n; i++) {
+    let best = -Infinity;
+    for (let k = -reach; k <= reach; k++) { const j = i + k; if (j < 0 || j >= n) continue; const v = h[j] - tipShape(k * dx, R, coneDeg); if (v > best) best = v; }
+    out[i] = best;
+  }
+  return out;
+}
+// Apparent base width of a sphere of radius r imaged by a spherical tip of radius R: 4√(R r).
+export const afmApparentWidth = (R, r) => 4 * Math.sqrt(R * r);
+
+// Spinning disk: fraction of light from a uniform thin layer at defocus z that returns through the pinholes,
+// relative to the focal plane. Geometric blur radius r = |z| tan α (sin α = NA/n). One pinhole: (a/r)²;
+// an array of pitch p adds crosstalk through the neighbours and levels off at the fill factor π a²/p².
+export function diskSectioning(z, a, p, NA, n) {
+  const r = Math.abs(z) * Math.tan(Math.asin(Math.min(0.999, NA / n)));
+  const single = r <= a ? 1 : (a / r) ** 2, fill = Math.PI * a * a / (p * p);
+  return { single, disk: Math.min(1, Math.max(single, fill)), fill };
+}
+
+// Expansion microscopy: resolution in pre-expansion units with linear expansion E and label displacement (linkage) ℓ.
+export const expansionResolution = (d, E, linkage) => Math.sqrt((d / E) ** 2 + linkage ** 2);

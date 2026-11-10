@@ -6,8 +6,10 @@ import { SUPER } from './sim_super.js';
 import { DYNAMIC } from './sim_dynamic.js';
 import { IMAGING } from './sim_imaging.js';
 import { TOMO } from './sim_tomo.js';
+import { OPTICS2 } from './sim_optics2.js';
+import { FUNCTION } from './sim_function.js';
 
-const ALL = { ...OPTICS, ...SECTION, ...SUPER, ...DYNAMIC, ...IMAGING, ...TOMO };
+const ALL = { ...OPTICS, ...SECTION, ...SUPER, ...DYNAMIC, ...IMAGING, ...TOMO, ...OPTICS2, ...FUNCTION };
 const GROUP_COLOR = { Optics: 'g', Sectioning: 'b', 'Super-resolution': 'r', Fluorescence: 'y', Detection: 'b', Dynamics: 'g', Electron: 'y', 'Image processing': 'r' };
 
 route('sims', async () => {
