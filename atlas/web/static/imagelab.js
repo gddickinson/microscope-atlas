@@ -38,8 +38,8 @@ route('imagelab', () => {
   const { controls, view, readout } = layout(app().querySelector('#il'), INTRO);
   const st = { src: 'beadpairs', truth: null, px: 47, upPx: 50, lam: 520, NA: 1.4, bin: 1, photons: 200, bg: 10, read: 1.5, iters: 20, seed: 1, lut: 'gray', file: null };
   const srcBox = div(controls);
-  srcBox.innerHTML = `<label>Specimen</label><select id="il-src">${DEMOS.map(d => `<option value="${d}">${esc(SPECIMENS[d].label)}</option>`).join('')}<option value="smframe">Single-molecule frame (known positions)</option><option value="file">Your image…</option></select>
-    <input type="file" id="il-file" accept=".tif,.tiff,.png,.jpg,.jpeg,image/*" style="display:none"><p class="small mute" id="il-note"></p>`;
+  srcBox.innerHTML = `<label for="il-src">Specimen</label><select id="il-src">${DEMOS.map(d => `<option value="${d}">${esc(SPECIMENS[d].label)}</option>`).join('')}<option value="smframe">Single-molecule frame (known positions)</option><option value="file">Your image…</option></select>
+    <input type="file" id="il-file" aria-label="Open your own image file" accept=".tif,.tiff,.png,.jpg,.jpeg,image/*" style="display:none"><p class="small mute" id="il-note"></p>`;
   const sel = srcBox.querySelector('#il-src'), fileIn = srcBox.querySelector('#il-file'), note = srcBox.querySelector('#il-note');
   const pxRow = div(controls);
   addSlider(pxRow, { id: 'il-up', label: 'Pixel size of your image (object space)', min: 5, max: 500, step: 5, value: st.upPx, unit: ' nm' }, v => { st.upPx = v; setFile(); });
@@ -56,7 +56,7 @@ route('imagelab', () => {
   controls.appendChild(readout);
 
   const wrap = div(view, 'canvases il-grid');
-  const fig = cap => { const f = document.createElement('figure'); wrap.appendChild(f); const c = canvas(f, 256, 256); const fc = document.createElement('figcaption'); fc.textContent = cap; f.appendChild(fc); return [c, fc]; };
+  const fig = cap => { const f = document.createElement('figure'); wrap.appendChild(f); const c = canvas(f, 256, 256); c.canvas.setAttribute('aria-label', cap); const fc = document.createElement('figcaption'); fc.textContent = cap; f.appendChild(fc); return [c, fc]; };
   const [cT] = fig('Object (your image or the specimen)'), [cI, capI] = fig('Camera image'), [cR, capR] = fig('Restored (Richardson-Lucy)');
   const [cFT] = fig('Power spectrum of the object'), [cFI] = fig('…of the camera image'), [cFR] = fig('…of the restored image');
   const spots = spotPanel(div(app(), 'il-spots'));

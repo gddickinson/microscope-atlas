@@ -323,6 +323,9 @@ python3 -m venv .venv
 - Node is optional; it runs the JavaScript tests.
 - Google Chrome is optional; with Playwright it powers `scripts/screenshots.py`, the README figures and a smoke
   test of every page.
+- `scripts/a11y_check.py` audits every page at phone width (390 px): no sideways scrolling, every control and
+  link named, alt text, canvases described, and keyboard control of each simulation. The latest result is in
+  [docs/a11y_report.md](docs/a11y_report.md).
 
 ## How the data were gathered
 - **Instruments:** researched from manufacturer pages, datasheets, imaging-facility pages, papers and museum

@@ -44,6 +44,9 @@ export function canvas(host, w, h, caption = '') {
   fig.style.margin = '0 0 12px';
   const c = document.createElement('canvas');
   c.width = w; c.height = h;
+  // screen readers: a named image (values are in the readout beside it)
+  c.setAttribute('role', 'img');
+  c.setAttribute('aria-label', caption || `${document.querySelector('#app h1')?.textContent || 'Simulation'}: plot (values in the readout)`);
   fig.appendChild(c);
   if (caption) { const f = document.createElement('figcaption'); f.className = 'small mute'; f.textContent = caption; fig.appendChild(f); }
   host.appendChild(fig);

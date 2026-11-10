@@ -23,7 +23,7 @@ route('lab', async ([id]) => {
     const groups = [...GROUPS, ...new Set(ALL.map(t => t.group).filter(g => !GROUPS.includes(g)))];
     app().innerHTML = `<p class="kicker">Lab tools</p><h1>Lab tools</h1>
       <p class="lead">${ALL.length} calculators, planners and references for people at the microscope and the bench: setting up the scope, choosing dyes and antibodies, making solutions and checking numbers.</p>
-      <input id="lq" type="search" placeholder="Find a tool (e.g. antibody, Nyquist, PBS, laser power)">
+      <input id="lq" type="search" aria-label="Find a tool" placeholder="Find a tool (e.g. antibody, Nyquist, PBS, laser power)">
       <div id="lhub"></div>`;
     const draw = () => {
       const q = document.getElementById('lq').value.toLowerCase();

@@ -69,5 +69,8 @@ tr.click { cursor:pointer; } tr.click:hover td { background:rgba(61,255,143,.05)
 @media (max-width:760px) {
   main { padding:20px 16px; } .top { padding:12px 16px; gap:10px; } .search { margin-left:0; width:100%; } .search input { width:100%; }
   .two, .three { grid-template-columns:1fr; } h1 { font-size:29px; } .menu { position:fixed; left:16px; right:16px; top:auto; }
+  /* phone: the five menu groups wrap instead of pushing the page sideways; tab bars wrap; long words break */
+  .top { position:static; } nav.groups { flex-wrap:wrap; gap:2px; } nav summary { padding:6px 8px; font-size:12px; letter-spacing:.05em; }
+  .seg { flex-wrap:wrap; } main { overflow-wrap:anywhere; } main table { overflow-wrap:normal; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition:none !important; animation:none !important; } }

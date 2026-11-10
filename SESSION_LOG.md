@@ -476,3 +476,16 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   movie shows every raw frame of the 16 x 16 px crop as 30 x 30 blocks, so the raw values are read back as block
   medians. The reconstruction is drawn where the camera saw each molecule at that moment (it drifts with the stage);
   residual offset < 0.25 px early, mid and late. The ending zooms on the triangular cluster (225 nm window).
+
+## 2026-11-10: round 24, R11 accessibility and phone layout (first pass)
+- New `scripts/a11y_check.py` (Playwright, 390 x 844): sideways overflow and the elements causing it, unnamed form
+  controls/buttons/links, images without alt, canvases without a text alternative, duplicate ids, and for every sim a
+  keyboard test (Tab reaches a slider; ArrowRight changes the plot or readout). Report: docs/a11y_report.md.
+- Found: all 45 routes scrolled sideways on a phone (header menu 452 px; Cells tab bars up to 701 px; long words in
+  credits and text), 7 visual labels not tied to their selects, unnamed lab search and Image Lab file input, 34 unnamed
+  cell-type thumbnail links, 2-7 unlabelled canvases on most sims and Image Lab.
+- Fixed: phone header wraps (and scrolls away rather than staying fixed), `.seg` tab bars wrap, `overflow-wrap` in main
+  (not tables), `<label for>` on 7 controls, aria-labels, and `sim_ui.canvas()` gives every canvas `role="img"` with
+  its caption or the page title. Result 45/45 clean; all 21 sims pass the keyboard test. Desktop pages unchanged.
+- pytest 54 passed, 1 skipped; smoke test 45 routes ok. R11 stays in_progress (contrast, optical table and spectra by
+  keyboard, performance).

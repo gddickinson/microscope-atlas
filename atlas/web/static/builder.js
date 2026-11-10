@@ -19,12 +19,12 @@ route('builder', async () => {
     src: '', flt: '', laser: 488, power: 10, field: 100, lo: 500, hi: 550, T: 90, exp: 100, bg: 10, qe: 80, read: 1.5, fluor: null };
   const opt = (rows, cur, lab) => rows.map(r => `<option value="${esc(r.id ?? r)}" ${(r.id ?? r) === cur ? 'selected' : ''}>${esc(lab(r))}</option>`).join('');
   const pick = div(controls);
-  pick.innerHTML = `<label>Objective</label><select id="mb-obj">${opt(O, st.obj, o => `${o.label} (${o.M}×/${o.NA})`)}</select>
-    <label>Camera</label><select id="mb-cam">${opt(C, st.cam, c => `${c.label} (${c.type})`)}</select>
-    <label>Fluorophore (with a measured spectrum)</label><select id="mb-fl">${opt(names, st.fl, n => n)}</select>
-    <label>Light source</label><select id="mb-src"><option value="">Any laser line (generic)</option>${opt(L, st.src, x => `${x.label} (${x.type})`)}</select>
-    <label>Line (laser line or LED peak)</label><select id="mb-laser"></select>
-    <label>Filter set</label><select id="mb-flt"><option value="">Custom band (sliders below)</option>${opt(F, st.flt, x => x.label + (x.status === 'discontinued' ? ' (obsolete)' : ''))}</select>`;
+  pick.innerHTML = `<label for="mb-obj">Objective</label><select id="mb-obj">${opt(O, st.obj, o => `${o.label} (${o.M}×/${o.NA})`)}</select>
+    <label for="mb-cam">Camera</label><select id="mb-cam">${opt(C, st.cam, c => `${c.label} (${c.type})`)}</select>
+    <label for="mb-fl">Fluorophore (with a measured spectrum)</label><select id="mb-fl">${opt(names, st.fl, n => n)}</select>
+    <label for="mb-src">Light source</label><select id="mb-src"><option value="">Any laser line (generic)</option>${opt(L, st.src, x => `${x.label} (${x.type})`)}</select>
+    <label for="mb-laser">Line (laser line or LED peak)</label><select id="mb-laser"></select>
+    <label for="mb-flt">Filter set</label><select id="mb-flt"><option value="">Custom band (sliders below)</option>${opt(F, st.flt, x => x.label + (x.status === 'discontinued' ? ' (obsolete)' : ''))}</select>`;
   const lineSel = pick.querySelector('#mb-laser');
   function mountLines() {
     const ls = linesFor(L.find(x => x.id === st.src));

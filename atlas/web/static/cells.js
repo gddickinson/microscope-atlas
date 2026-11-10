@@ -67,7 +67,7 @@ function types(host, C, imgs) {
   const groups = [...new Set((C.cell_types || []).map(t => t.group))];
   host.innerHTML = list(groups, g => `<h2>${esc(g)}</h2><div class="grid wide">${list(C.cell_types.filter(t => t.group === g), t => {
     const im = imgs.filter(i => i.cell_type === t.id);
-    return `<div class="card" id="t-${esc(t.id)}">${im[0] ? `<a href="#/cells/images?type=${esc(t.id)}"><img class="thumb" src="${esc(im[0].url)}" alt="" loading="lazy"></a>` : ''}<b>${esc(t.name)}</b>
+    return `<div class="card" id="t-${esc(t.id)}">${im[0] ? `<a href="#/cells/images?type=${esc(t.id)}" aria-label="Images of ${esc(t.name)}"><img class="thumb" src="${esc(im[0].url)}" alt="" loading="lazy"></a>` : ''}<b>${esc(t.name)}</b>
       ${t.size ? `<small>${esc(t.size)}</small>` : ''}<span>${esc(t.summary || '')}</span>
       ${(t.features || []).length ? `<ul class="small">${list(t.features, f => `<li>${esc(f)}</li>`)}</ul>` : ''}
       <small>${ALL_DIAGRAMS[t.id] ? `<a href="#/cells/diagrams/${esc(t.id)}">Diagram</a> · ` : ''}${im.length ? `<a href="#/cells/images?type=${esc(t.id)}">${im.length} image${im.length > 1 ? 's' : ''}</a> · ` : ''}${srcs(t.sources)}</small></div>`;
