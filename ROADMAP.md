@@ -10,7 +10,7 @@ Rules: sourced data only (see CLAUDE.md); new physics goes in `sim_engine.js` wi
 | ID | Task | Completion criteria | Status | Results |
 |---|---|---|---|---|
 | R0 | First build: app, 51 technique pages, 18 simulations, systems database, FPbase fluorophores, README | Tests pass; every route renders without console errors | completed 2026-11-09 | 293 systems, 149 makers, 56 components, 1,013 fluorophores, 71 spectra, 208 self-test Q&As |
-| R1 | Data audit: re-check entries whose facts came from search-result summaries; fill null years; add Revvity Operetta CLS / Opera Phenix Plus, 3DHISTECH, Gatan K3, Zeiss Axiovert 200M, Siemens Elmiskop; add an `spm` technique id for STM; `scripts/check_links.py` for dead source URLs | Every doubtful item from the R0 agent reports resolved or marked; link check report committed | in_progress | 2026-11-10: link checker fixed (URL encoding); 10 dead sources replaced by Wayback snapshots of the same pages, 5 dropped where other sources remain; remaining failures are publisher 403s to scripts. Added Opera Phenix Plus, Operetta CLS, Gatan K3, then 3DHISTECH Pannoramic 1000, Axiovert 200M, Siemens Elmiskop I (298 systems). Added the `spm` (STM) technique: index entry, teaching page with 4 Crossref-checked papers, diagram, IBM STM entry retagged (52 techniques). Next: re-read snippet-sourced facts |
+| R1 | Data audit: re-check entries whose facts came from search-result summaries; fill null years; add Revvity Operetta CLS / Opera Phenix Plus, 3DHISTECH, Gatan K3, Zeiss Axiovert 200M, Siemens Elmiskop; add an `spm` technique id for STM; `scripts/check_links.py` for dead source URLs | Every doubtful item from the R0 agent reports resolved or marked; link check report committed | completed 2026-11-10 | 2026-11-10: link checker fixed (URL encoding); 10 dead sources replaced by Wayback snapshots of the same pages, 5 dropped where other sources remain; remaining failures are publisher 403s to scripts. Added Opera Phenix Plus, Operetta CLS, Gatan K3, then 3DHISTECH Pannoramic 1000, Axiovert 200M, Siemens Elmiskop I (298 systems). Added the `spm` (STM) technique: index entry, teaching page with 4 Crossref-checked papers, diagram, IBM STM entry retagged (52 techniques). Inferred statuses in confocal.json now sourced (FV3000, FVMPE-RS, LSM 7 MP; Cell Observer SD hardware status marked unconfirmed). Systematic re-reading moved to R12 |
 | R2 | Simulations II: deconvolution (Richardson-Lucy), aberrations and adaptive optics (Zernike modes, Strehl), Köhler illumination, DIC shear, FLIM phasor, FCS autocorrelation, cryo-EM CTF, tomography missing wedge, AFM tip convolution, spinning-disk crosstalk, expansion factor | 10 new sims, each with engine tests | pending | |
 | R3 | A dedicated light-path diagram for every technique (now 29 of 51), plus step-through mode tying `light_path` steps to highlighted components | 51 of 51 diagrams | pending | |
 | R4 | Image Lab: load your own image; PSF blur, noise, FFT, sampling, deconvolution; localize spots in a single-molecule frame | Works on a test TIFF/PNG; numbers checked against Python | pending | |
@@ -21,6 +21,7 @@ Rules: sourced data only (see CLAUDE.md); new physics goes in `sim_engine.js` wi
 | R9 | Portfolio polish: links to George's public tools (FLIKA plugins etc.), case studies of his imaging work, only with his approval | George has reviewed the page | pending (needs George) | |
 | R10 | Static export (e.g. GitHub Pages) so the atlas can be shown without running Python | Decision from George on making it public | pending (needs George) | |
 | R11 | Accessibility, phone layout and performance pass | Lighthouse-style checks; keyboard navigation of sims | pending | |
+| R12 | Re-verify facts that came from search-result summaries, one systems file per round (statuses, years, specs), against the full source pages; record each check | Every entry re-read or marked 'snippet-sourced'; years filled where sources give them | pending | Statuses in confocal.json done 2026-11-10 |
 
 ## Upgrade rounds
 A scheduled loop runs one round at a time while the session is open: read SESSION_LOG tail, take the next
@@ -29,7 +30,7 @@ ledger row, build, test, screenshot smoke test, log, commit, push.
 | Round | Focus | Status |
 |---|---|---|
 | 1 | R0 foundation | completed 2026-11-09 |
-| 2 | R1 data audit | in_progress |
+| 2 | R1 data audit | completed 2026-11-10 |
 | 3 | R2 simulations II (first half) | pending |
 | 4 | R3 diagrams for every technique | pending |
 | 5 | R2 second half; R8 comparison matrix | pending |

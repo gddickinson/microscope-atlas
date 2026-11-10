@@ -109,3 +109,9 @@ Not pushed: local main holds the squashed clean commit awaiting George's force-p
 - 2026-11-10: 8 unpublished, analysis-free archive images added LOCALLY (3D STORM of mitochondria, two-colour
   dSTORM of tubulin/IP3R1 and ER/IP3R1, widefield vs STORM, a raw Ca2+ rise montage, a migrating keratinocyte); 50
   local images in all. New "From the archive" project flagged local_only, hidden wherever its images are absent.
+
+## 2026-11-10: Round 6 (hourly), R1 closed
+Sourced the inferred statuses in confocal.json: FV3000 discontinued March 2024 and FVMPE-RS discontinued (Evident
+obsolete-product pages; FV5000/FV5000MPE named as replacements), ZEISS LSM 7 MP end of support 1 Oct 2024; Cell
+Observer SD only has its ZEN bundles listed as end of support, so the entry says hardware status is unconfirmed.
+R1 completed; systematic re-reading of snippet-sourced facts is the new row R12. Next: R2 simulations II.
