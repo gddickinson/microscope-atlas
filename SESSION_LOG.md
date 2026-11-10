@@ -304,3 +304,23 @@ Xradia 630 Versa, four soft X-ray beamlines, iFLM, SECOM, mesoSPIM Benchtop, Pla
 2015 ASLM, and seven historical EMs). Each entry was gathered by research agents from fetched pages only. I
 spot-checked two by curl and corrected one wording (NX20 "200 mm samples"). Weak sources and unconfirmed
 availability are noted in the agents' reports, and the summaries say so where it applies.
+
+## 2026-11-10: 3D views, tracked cells, FANTOM copy and backup (George's requests)
+- 3D (local preview): rocking 3D STORM views of microtubules, ER, mitochondria (TOM20) and IP3R1. The localisations
+  go into a 3D density grid blurred more in z, the view rocks ±30°, and height is stretched 2.5× (stated in the
+  captions). The turning widefield z-series movies were withdrawn after George said the depth looked wrong: the
+  COS-7 file records no z step (the ER file gives 0.1 µm on its first plane only), and widefield stacks smear along
+  z. The x-y pixel of 167 nm is estimated from the lab's 2014 EMCCD set-up (Smith et al. 2014). Focus-through captions
+  corrected.
+- Tracked cells (local preview, Cells group): CellScope's saved results rendered as a single cell tracked for 13 h
+  and a multi-cell field with coloured trails. The masks match the far-red channel, not DIC (edge test). The cell
+  type conflicts between CellScope's sidecar ("keratinocyte") and its README ("endothelial"), so captions say it is
+  to be confirmed.
+- FANTOM: GeorgeDisc1's ZStack, Carls slice and Xeno ooctes folders (43 GB) were completed under
+  CASTLE_DATA/real/archive_drive1 (copy only, verified by file count and per-file size) and recorded as a note in
+  FANTOM/INVENTORY. A first sources.json entry clashed with the existing archive_drive1 prefix; it was replaced by
+  the note, and the inventory was rescanned and committed.
+- Backup: `scripts/backup_to_drive.sh` → /Volumes/FANTOM/MICROSCOPE_ATLAS_BACKUP (project incl. git-ignored local
+  data, verified git bundle, ~/.cache/microscope_atlas; 846 MB). Restore tested by cloning the bundle.
+- DNA-PAINT demo: downloading the 45.5 GB dNAM raw recordings (Zenodo 4672665) to FANTOM/DNA_PAINT_DATA; 7-Zip
+  installed with Homebrew.
