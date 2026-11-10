@@ -343,3 +343,13 @@ updated. Lesson: for script-rendered stores, check what a visitor sees, not the 
   the flash leaves no step) and conventional vs shadowless TIRF of the same three cells. Both cite Ellefsen, Dynes &
   Parker 2015 PLOS ONE (DOI checked on Crossref). The astrocyte movie also appears in the Cells image database under
   glial cells.
+
+## 2026-11-10: more puff recordings from drive 4 (George's request)
+Sampled 36 drive-4 recordings with a scratch score (local transient events per frame after the IP3 rise, against
+pre-flash noise; used only for choosing). Then previewed all 15 recordings the lab had flagged "NICE" or
+"GIANTpuff" in their file names (2014 shadowless-TIRF sessions). Three new local-preview movies in "Calcium events
+from the lab" (13 items now): a giant puff becoming a wave (T21, 100 Hz), discrete puffs under spinning TIRF (trial 12
+of 2014_07_09, every second frame of an alternating-illumination recording) and puffs held local by high EGTA (trial 7
+of 2014_07_16, 208 Hz). `dff_movie` gained a `step` option for alternating recordings. Also tested: microtubule label
+of the shadowless comparison confirmed from Ellefsen et al. 2015 Fig. 2 (COS-7, EGFP-tubulin) and morphology; DiI and
+field-uniformity panels added under a new "Shadowless TIRF" gallery group.
