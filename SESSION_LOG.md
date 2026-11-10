@@ -426,8 +426,9 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   THIRD_PARTY.md notes bundled third-party code in Synapse (BioDocks, tifffile), robot_code (iRobot, Pi Robot GPL-2),
   Arduino (libraries/), soundTest (audio samples), Shadealator_TNC. microview's truncated LICENSE.md completed.
   README licence lines that contradicted MIT or were placeholders were pointed at LICENSE (9 repos).
-- Not licensed: gddickinson (profile), gddickinson.github.io (personal site), textview (README says "Private"),
-  sketchbook (archived, read-only).
+- Not licensed: gddickinson (profile), gddickinson.github.io (personal site),
+  sketchbook (archived, read-only). textview: George confirmed it is public; MIT added and its README "Private" line
+  replaced.
 
 ## 2026-11-10: round 22, R8 technique comparison matrix (first part)
 - New page `#/matrix` (Learn menu; linked from the technique index): all 52 techniques in one sortable table.
