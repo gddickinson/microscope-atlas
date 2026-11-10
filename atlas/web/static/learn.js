@@ -67,15 +67,16 @@ route('glossary', async (_a, query) => {
   draw();
 });
 
-const GROUPS = ['Calcium signals', 'Super-resolution', '3D super-resolution', 'Cells'];
+const GROUPS = ['Calcium signals', 'Super-resolution', '3D views', 'Cells'];
 // Movies (.mp4) play as looping, muted videos with a poster frame (<name>_poster.jpg beside them); other files are images.
 const isVid = i => /\.mp4$/i.test(i.url);
+const posterOf = i => (i.poster ? i.url.replace(/[^/]+$/, i.poster) : i.url.replace(/\.mp4$/i, '_poster.jpg'));
 // Start muted looping videos that are on screen (autoplay is not reliable for markup set via innerHTML).
 function playVisible(root) {
   const io = new IntersectionObserver(es => es.forEach(e => { const v = e.target; v.muted = true; if (e.isIntersecting) v.play().catch(() => {}); else v.pause(); }), { threshold: 0.2 });
   root.querySelectorAll('video').forEach(v => io.observe(v));
 }
-const still = i => (isVid(i) ? i.url.replace(/\.mp4$/i, '_poster.jpg') : i.url);
+const still = i => (isVid(i) ? posterOf(i) : i.url);
 const media = (i, lazy = true) => (isVid(i)
   ? `<video src="${esc(i.url)}" poster="${esc(still(i))}" autoplay loop muted playsinline preload="metadata" aria-label="${esc(i.title)}"></video>`
   : `<img src="${esc(i.url)}" alt="${esc(i.title)}"${lazy ? ' loading="lazy"' : ''}>`);

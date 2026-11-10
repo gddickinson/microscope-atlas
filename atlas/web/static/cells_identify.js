@@ -39,10 +39,10 @@ function render(j, T) {
   const name = id => T[id]?.name || id;
   const best = j.ranking[0];
   return `<h3>Best matches</h3>
-    <table class="small"><tr><th>Cell type</th><th>Score</th><th>Text match</th><th>Similar images</th></tr>${list(j.ranking, r => `<tr><td><a href="#/cells/types">${esc(name(r.id))}</a></td>
-      <td><div class="bar" style="width:${Math.round(r.score * 100)}%;min-width:2px"></div>${(r.score * 100).toFixed(0)}%</td><td>${(r.zero_shot * 100).toFixed(0)}%</td><td>${(r.neighbour_votes * 100).toFixed(0)}%</td></tr>`)}</table>
+    <table class="small"><tr><th>Cell type</th><th>Score</th><th>Text match</th><th>Classifier</th><th>Similar images</th></tr>${list(j.ranking, r => `<tr><td><a href="#/cells/types">${esc(name(r.id))}</a></td>
+      <td><div class="bar" style="width:${Math.round(r.score * 100)}%;min-width:2px"></div>${(r.score * 100).toFixed(0)}%</td><td>${(r.zero_shot * 100).toFixed(0)}%</td><td>${((r.probe || 0) * 100).toFixed(0)}%</td><td>${(r.neighbour_votes * 100).toFixed(0)}%</td></tr>`)}</table>
     ${T[best.id]?.features ? `<p class="small"><b>Check for ${esc(name(best.id))}:</b> ${esc(T[best.id].features.join('; '))}</p>` : ''}
     <h3>Most similar images in the atlas</h3><div class="gallery compact">${list(j.neighbours, n => `<figure><a href="${esc(n.source_url)}" target="_blank" rel="noopener"><img src="${esc(n.url)}" alt="${esc(n.title)}" loading="lazy"></a>
       <figcaption><span class="tag g">${esc(name(n.cell_type))}</span> similarity ${n.similarity}<br>${esc(n.title)}<br>${credit(n)}</figcaption></figure>`)}</div>
-    <p class="small mute">Score = 70% text-description match (zero-shot) + 30% similarity-weighted vote of the 6 nearest atlas images. In leave-one-out tests on the atlas's own images the right type is first about a third of the time and in the top three about half the time (<a href="https://github.com/gddickinson/microscope-atlas/blob/main/docs/cell_id_eval.md" target="_blank" rel="noopener">details</a>). Model ${esc(j.model)} on ${esc(j.device)}.</p>`;
+    <p class="small mute">Score = 40% text-description match (zero-shot) + 40% a classifier trained on the atlas's labelled images + 20% similarity-weighted vote of the 6 nearest atlas images. In leave-one-out tests on 290 atlas images the right type is first about a third of the time and in the top three about 60% of the time (<a href="https://github.com/gddickinson/microscope-atlas/blob/main/docs/cell_id_eval.md" target="_blank" rel="noopener">details</a>). Model ${esc(j.model)} on ${esc(j.device)}.</p>`;
 }

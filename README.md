@@ -134,13 +134,14 @@ A page about cells themselves (`#/cells`):
 - **Cell types and numbers:** 34 cell types with features to look for and typical sizes, plus 23 headline numbers.
   Every number cites BioNumbers, Milo and Phillips' *Cell Biology by the Numbers*, the Human Protein Atlas or the
   Molecular Probes Handbook.
-- **Image database:** 97 freely licensed micrographs of 33 cell types from Wikimedia Commons, each credited to its
+- **Image database:** 290 freely licensed micrographs of 34 cell types from Wikimedia Commons, each credited to its
   author with its licence and filterable by cell type and technique. Techniques range from stained histology to
   phase contrast, confocal, SEM and TEM.
 - **Identify a cell** (full app): upload an image and a local BiomedCLIP model (Zhang et al., NEJM AI 2025) ranks
   likely cell types. It blends a text-description match with the most similar labelled images in the atlas. It is a
-  teaching aid, not a diagnostic tool. Measured leave-one-out on the atlas's own images, the right type is ranked
-  first 32% of the time and in the top three 56% of the time; chance is 3% ([details](docs/cell_id_eval.md)). It needs the optional packages in `requirements-ml.txt`; the model (about
+  teaching aid, not a diagnostic tool. The score blends the text match, a classifier trained on
+  the atlas's labelled images and the nearest neighbours. Measured leave-one-out on the 290 images, the right type is
+  ranked first 33% of the time and in the top three 59% of the time; chance is 3% ([details](docs/cell_id_eval.md)). It needs the optional packages in `requirements-ml.txt`; the model (about
   0.8 GB) downloads on first use.
 
 ![Cells page](docs/img/cells.jpg)

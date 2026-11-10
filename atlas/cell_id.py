@@ -37,8 +37,8 @@ PROMPTS = {
     "mitotic-cell": "a dividing cell in mitosis", "cancer-cell": "cancer cells",
 }
 # Blend weights (text match, trained probe, neighbour vote), chosen by leave-one-out tests (docs/cell_id_eval.md).
-W_TEXT, W_PROBE, W_NEIGH = 0.7, 0.0, 0.3
-BLEND_NAME = "text 0.7 + neighbours 0.3"
+W_TEXT, W_PROBE, W_NEIGH = 0.4, 0.4, 0.2
+BLEND_NAME = "text 0.4 + probe 0.4 + neighbours 0.2"
 TEMPLATES = ["this is a micrograph of {}", "a microscopy image of {}", "{} under the microscope"]
 
 _lock = threading.Lock()

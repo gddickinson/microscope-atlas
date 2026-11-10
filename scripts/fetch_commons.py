@@ -24,6 +24,9 @@ sys.path.insert(0, str(ROOT / "scripts" / "content"))
 from images_src import IMAGES as _IMAGES  # noqa: E402
 from cell_images_src import CELL_IMAGES  # noqa: E402
 from cell_images_src2 import CELL_IMAGES2  # noqa: E402
+from calcium_images_src import CALCIUM_IMAGES  # noqa: E402
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from commons_video import to_mp4  # noqa: E402
 
 def _merge(base, cells):
     """Instruments and micrographs, then the Cells-page database; a Commons file already listed gains a cell_type."""
@@ -38,7 +41,7 @@ def _merge(base, cells):
     return out
 
 
-IMAGES = _merge(_IMAGES, CELL_IMAGES + [{**c, "small": True} for c in CELL_IMAGES2])
+IMAGES = _merge(_IMAGES, CELL_IMAGES + [{**c, "small": True} for c in CELL_IMAGES2]) + [{**c, "topic": "calcium"} for c in CALCIUM_IMAGES]
 
 API = "https://commons.wikimedia.org/w/api.php"
 UA = "microscope-atlas/0.3 (https://github.com/gddickinson/microscope-atlas)"
@@ -193,8 +196,14 @@ def main(force=False):
             base += "-2"
         used.add(base)
         prev = old.get(t)
-        if prev and not force and (OUT / prev["file"]).exists() and prev["file"].rsplit(".", 1)[0] == base:
+        want_video = bool(item.get("topic")) and (info.get("mime", "").startswith("video/") or info.get("mime") in ("application/ogg", "image/gif"))
+        if prev and not force and (OUT / prev["file"]).exists() and prev["file"].rsplit(".", 1)[0] == base \
+                and prev["file"].endswith(".mp4") == want_video:
             fname, w, h = prev["file"], prev["width"], prev["height"]
+        elif want_video:
+            fname = f"{base}.mp4"
+            w, h = to_mp4(get(info["url"], binary=True), OUT / fname)
+            print(f"saved {fname} ({(OUT / fname).stat().st_size // 1024} KB) + poster")
         else:
             url = info.get("thumburl") or info["url"]
             data = get(url, binary=True)
@@ -209,8 +218,11 @@ def main(force=False):
             print(f"saved {fname} ({len(data) // 1024} KB)")
         manifest.append({"file": fname, "commons_title": t, "kind": item["kind"], "system": item["system"],
                          "techniques": item["techniques"], "title": item["title"], "caption": item["caption"],
-                         **({"cell_type": item["cell_type"]} if item.get("cell_type") else {}), **rec, "width": w, "height": h})
-    keep = {m["file"] for m in manifest} | {"manifest.json"}
+                         **({"cell_type": item["cell_type"]} if item.get("cell_type") else {}),
+                         **({"topic": item["topic"]} if item.get("topic") else {}),
+                         **({"video": True, "poster": fname.replace(".mp4", "_poster.jpg")} if fname.endswith(".mp4") else {}),
+                         **rec, "width": w, "height": h})
+    keep = {m["file"] for m in manifest} | {m["poster"] for m in manifest if m.get("poster")} | {"manifest.json"}
     for f in OUT.iterdir():
         if f.name not in keep:
             f.unlink()

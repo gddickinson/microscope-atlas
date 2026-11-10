@@ -271,3 +271,16 @@ group, for about 6 more single-panel images per type. Meanwhile:
   stated). Rotating oblique views streaked because z precision is coarser than x-y, so they were dropped. The 2011
   MetaMorph 3D reconstruction of a brain slice from Carl Cotman's lab (file names on GeorgeDisc1) is shown as rendered.
 - George attached GeorgeDisc1; `nd2` package added to .venv for reading N-STORM movies.
+
+## 2026-11-10: more cell images (R15 completed), calcium movies from Commons, STORM movie fixed, z-series views
+- R15: 193 more Commons cell images; identifier blend now text 0.4 + trained probe 0.4 + neighbours 0.2
+  (33% top-1, 59% top-3 on 290 images; docs/cell_id_eval.md). Image tests: total-size cap 45 → 70 MB, videos need
+  posters, calcium movies may lack a technique id.
+- 15 Commons calcium images (12 .ogv movies and 2 GIFs from open-access papers, converted to MP4 ≤ 590 kB by
+  `scripts/commons_video.py`) under "Calcium signalling across biology". Kept out of the general galleries.
+- "How a STORM image is made": George noticed blinks and reconstruction did not line up. The NIS export sat 1.75 px
+  (ATTO 488) and 2.5 px (Alexa 647) off the raw frames; measured by cross-correlation in the script and removed.
+  The movie now opens on the whole field with the zoom box, and rings mark each frame's localisations on both
+  panels.
+- Widefield z-series (GeorgeDisc1/ZStack, 2014): focus-through movies and depth-coded projections of COS-7 IP3R1 and
+  SH-SY5Y ER-RFP (no x-y calibration in the files, so no rotated views yet). The gallery group is now "3D views".

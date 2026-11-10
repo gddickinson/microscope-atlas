@@ -42,6 +42,7 @@ def test_every_entry_has_accepted_licence_author_and_source():
         assert e["author"].strip(), e["commons_title"]
         assert e["source_url"].startswith("https://commons.wikimedia.org/wiki/File:"), e["commons_title"]
         assert e["kind"] in ("instrument", "micrograph")
+        assert not e.get("video") or (e["file"].endswith(".mp4") and (IMAGES / e["poster"]).exists()), e["file"]
         assert e["title"].strip() and e["caption"].strip()
 
 
@@ -58,15 +59,16 @@ def test_system_and_technique_ids_exist():
     techs = {t["id"] for t in json.loads((ROOT / "data" / "technique_index.json").read_text())}
     for e in manifest():
         assert e["system"] == "" or e["system"] in systems, (e["file"], e["system"])
-        assert e["techniques"], e["file"]
+        # calcium-section movies from papers often do not name the microscope, so they may carry no technique
+        assert e["techniques"] or e.get("topic") == "calcium", e["file"]
         assert set(e["techniques"]) <= techs, (e["file"], e["techniques"])
 
 
 def test_total_size_under_limit():
     total = sum(f.stat().st_size for f in IMAGES.iterdir())
-    assert total < 45 * 1024 * 1024, total
+    assert total < 70 * 1024 * 1024, total  # raised from 45 MB for the cell-image database (Cells page)
 
 
 def test_no_stray_files():
-    names = {e["file"] for e in manifest()} | {"manifest.json"}
+    names = {e["file"] for e in manifest()} | {e["poster"] for e in manifest() if e.get("poster")} | {"manifest.json"}
     assert {f.name for f in IMAGES.iterdir()} == names

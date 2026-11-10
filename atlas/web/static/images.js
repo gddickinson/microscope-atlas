@@ -17,7 +17,7 @@ export function gallery(imgs, max = 12) {
 let byTech = null, bySys = null;
 export async function imageIndex() {
   if (!byTech) {
-    const all = await api('/images').catch(() => []);
+    const all = (await api('/images').catch(() => [])).filter(i => !i.video); // movies live in the calcium section
     byTech = {}; bySys = {};
     for (const i of all) {
       if (i.system) (bySys[i.system] ||= []).push(i);
@@ -28,7 +28,8 @@ export async function imageIndex() {
 }
 
 route('gallery', async (_a, query) => {
-  const [imgs, techs] = await Promise.all([api('/images').catch(() => []), api('/techniques')]);
+  const [all, techs] = await Promise.all([api('/images').catch(() => []), api('/techniques')]);
+  const imgs = all.filter(i => !i.video);
   const tname = Object.fromEntries(techs.map(t => [t.id, t.name]));
   app().innerHTML = `<p class="kicker">Database</p><h1>Image gallery</h1>
     <p class="lead">${imgs.length} freely licensed images from Wikimedia Commons: instruments and example micrographs, each credited to its author under its licence. Click an image for its source page.</p>
