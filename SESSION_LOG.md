@@ -417,3 +417,14 @@ tracked-cell movies (IC295) are keratinocytes again and are back under keratinoc
 (pushed 4c50526) the single_cell_phase_WT sidecar is now endothelial, Jesse's pos17/pos59 are "to be confirmed",
 and the demo README no longer calls every recording endothelial. The piezo1_analysis README keeps its keratinocyte
 description (correct for IC295) plus a note that IC293 is endothelial.
+
+## 2026-11-10: licences for the public repositories
+- Atlas: `LICENSE` (MIT), `THIRD_PARTY.md` (Commons/paper images keep their licences per manifest; FPbase data under
+  FPbase's terms) and a README Licence section.
+- Other gddickinson public repos without a licence (via the GitHub contents API, default branches): MIT added to 87
+  (George's usual choice); Shadealator_TNC is GPL-3.0 because its Step 1-5 scripts are TTools (GPL-3.0).
+  THIRD_PARTY.md notes bundled third-party code in Synapse (BioDocks, tifffile), robot_code (iRobot, Pi Robot GPL-2),
+  Arduino (libraries/), soundTest (audio samples), Shadealator_TNC. microview's truncated LICENSE.md completed.
+  README licence lines that contradicted MIT or were placeholders were pointed at LICENSE (9 repos).
+- Not licensed: gddickinson (profile), gddickinson.github.io (personal site), textview (README says "Private"),
+  sketchbook (archived, read-only).

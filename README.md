@@ -343,3 +343,6 @@ See [INTERFACE.md](INTERFACE.md) for a file-by-file map and [ROADMAP.md](ROADMAP
 Built by George Dickinson, a cell biologist who has been part of quantitative-imaging research teams for twenty years
 (TIRF Ca²⁺ imaging, STORM, sptPALM and DNA-PAINT) and now builds analysis software for imaging labs.
 Developed with Claude Code. Content is for education; check instrument specifications with their makers.
+## Licence
+Code and the atlas's own text are under the [MIT licence](LICENSE). Images, FPbase data and other third-party material
+keep their own licences: see [THIRD_PARTY.md](THIRD_PARTY.md).
