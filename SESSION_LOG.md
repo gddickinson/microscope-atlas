@@ -231,3 +231,15 @@ of many cell types and an identifier for uploaded images; he chose a local deep 
 - Page `cells.js` with five tabs; nav entry under Learn; static export includes the content (the identifier shows a
   notice there).
 Still running: the Commons cell-image search (placeholder `scripts/content/cell_images_src.py`).
+
+## 2026-11-10: Cells page completed; Nobel Prizes page (George's requests)
+- Cell images: the research agent verified 99 Commons files through the API (licence, size, description). Two
+  with loosely supported fluorescence tags were dropped; 97 were fetched through `fetch_commons.py` (TIFFs re-encoded
+  as JPEG). Two were already atlas images, so `_merge` gives the existing entries a `cell_type` instead of
+  duplicating them (295 images in total, 33 cell types).
+- Identifier accuracy (`scripts/eval_cell_id.py`, leave-one-out, 97 images): zero-shot 32% top-1 / 55% top-3,
+  neighbours alone 25% / 42%, blend 32% / 56% at text weight 0.7 (0.5 gave 31% / 54%). With 2-4 reference images
+  per type the neighbour vote is weak. Archaea added to the prompts (34 candidates). Tested in the browser by
+  uploading a pollen image: pollen first at 79%.
+- Nobel page (`nobel.js`, Community menu): 19 prizes from nobelprize.org. Exclusions with reasons are in the agent's
+  notes (Ross 1902, Ehrlich/Metchnikoff 1908, Svedberg 1926, lasers 1964, vesicle traffic 2013, patch clamp 1991).

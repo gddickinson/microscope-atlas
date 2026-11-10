@@ -19,7 +19,7 @@ export async function mountIdentify(host, T) {
     input.disabled = true; return;
   }
   const st = await api('/cells/status', { fresh: true }).catch(() => ({ available: false }));
-  state.textContent = st.available ? 'Model available. The first identification loads it (about 15 s); later ones take about a second.' : 'The ML packages are not installed on this server: pip install -r requirements-ml.txt';
+  state.textContent = st.available ? 'Model available. The first identification loads it (up to a minute); later ones take about a second.' : 'The ML packages are not installed on this server: pip install -r requirements-ml.txt';
   input.disabled = !st.available;
   input.onchange = async () => {
     const f = input.files[0]; if (!f) return;
@@ -44,5 +44,5 @@ function render(j, T) {
     ${T[best.id]?.features ? `<p class="small"><b>Check for ${esc(name(best.id))}:</b> ${esc(T[best.id].features.join('; '))}</p>` : ''}
     <h3>Most similar images in the atlas</h3><div class="gallery compact">${list(j.neighbours, n => `<figure><a href="${esc(n.source_url)}" target="_blank" rel="noopener"><img src="${esc(n.url)}" alt="${esc(n.title)}" loading="lazy"></a>
       <figcaption><span class="tag g">${esc(name(n.cell_type))}</span> similarity ${n.similarity}<br>${esc(n.title)}<br>${credit(n)}</figcaption></figure>`)}</div>
-    <p class="small mute">Score = half the text-description match (zero-shot) and half the similarity-weighted vote of the 6 nearest atlas images. Model ${esc(j.model)} on ${esc(j.device)}.</p>`;
+    <p class="small mute">Score = 70% text-description match (zero-shot) + 30% similarity-weighted vote of the 6 nearest atlas images. In leave-one-out tests on the atlas's own images the right type is first about a third of the time and in the top three about half the time (<a href="https://github.com/gddickinson/microscope-atlas/blob/main/docs/cell_id_eval.md" target="_blank" rel="noopener">details</a>). Model ${esc(j.model)} on ${esc(j.device)}.</p>`;
 }

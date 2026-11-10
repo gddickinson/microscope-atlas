@@ -19,6 +19,7 @@ import './lab.js';
 import './imagelab.js';
 import './builder.js';
 import './cells.js';
+import './nobel.js';
 
 route('notfound', () => { app().innerHTML = '<h1>Not found</h1><p><a href="#/">Back to the start</a></p>'; });
 

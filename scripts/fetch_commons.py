@@ -24,7 +24,20 @@ sys.path.insert(0, str(ROOT / "scripts" / "content"))
 from images_src import IMAGES as _IMAGES  # noqa: E402
 from cell_images_src import CELL_IMAGES  # noqa: E402
 
-IMAGES = _IMAGES + CELL_IMAGES  # instruments and micrographs, then the cell-type database for the Cells page
+def _merge(base, cells):
+    """Instruments and micrographs, then the Cells-page database; a Commons file already listed gains a cell_type."""
+    by = {i["commons_title"]: i for i in base}
+    out = [dict(i) for i in base]
+    idx = {i["commons_title"]: k for k, i in enumerate(out)}
+    for c in cells:
+        if c["commons_title"] in by:
+            out[idx[c["commons_title"]]].setdefault("cell_type", c["cell_type"])
+        else:
+            out.append(c)
+    return out
+
+
+IMAGES = _merge(_IMAGES, CELL_IMAGES)
 
 API = "https://commons.wikimedia.org/w/api.php"
 UA = "microscope-atlas/0.3 (https://github.com/gddickinson/microscope-atlas)"

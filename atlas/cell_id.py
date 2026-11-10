@@ -23,7 +23,7 @@ CACHE = DATA / "cache" / "cell_embeddings.npz"
 
 # Cell type id -> phrase used in the text prompts (ids as in data/content/cells.json).
 PROMPTS = {
-    "bacterium": "bacteria", "cyanobacterium": "cyanobacteria", "yeast": "yeast cells", "diatom": "diatoms",
+    "bacterium": "bacteria", "cyanobacterium": "cyanobacteria", "archaeon": "archaea", "yeast": "yeast cells", "diatom": "diatoms",
     "ciliate": "a ciliate protist such as Paramecium", "amoeba": "an amoeba", "plant-cell": "plant cells with cell walls",
     "guard-cell": "stomatal guard cells", "pollen": "pollen grains", "erythrocyte": "red blood cells",
     "neutrophil": "a neutrophil in a blood smear", "lymphocyte": "a lymphocyte in a blood smear",
@@ -36,6 +36,7 @@ PROMPTS = {
     "hepatocyte": "liver cells (hepatocytes)", "sperm": "sperm cells", "oocyte": "an oocyte (egg cell)",
     "mitotic-cell": "a dividing cell in mitosis", "cancer-cell": "cancer cells",
 }
+W_TEXT = 0.7
 TEMPLATES = ["this is a micrograph of {}", "a microscopy image of {}", "{} under the microscope"]
 
 _lock = threading.Lock()
@@ -136,12 +137,13 @@ def identify_image(img, top: int = 5, neighbours: int = 6) -> dict:
     sims = emb @ e if len(refs) else np.zeros(0)
     order = np.argsort(-sims)[:neighbours]
     near = [{**{k: refs[j][k] for k in ("file", "title", "cell_type", "author", "licence", "source_url")}, "url": f"images/{refs[j]['file']}", "similarity": round(float(sims[j]), 3)} for j in order]
-    # vote share of the nearest neighbours (similarity-weighted), blended 50:50 with the zero-shot probability
+    # vote share of the nearest neighbours (similarity-weighted), blended with the zero-shot probability at W_TEXT
+    # (0.7 was marginally best in leave-one-out tests on the atlas images, docs/cell_id_eval.md)
     votes = {}
     for j in order:
         votes[refs[j]["cell_type"]] = votes.get(refs[j]["cell_type"], 0) + max(float(sims[j]), 0)
     tot = sum(votes.values()) or 1
-    comb = {cid: 0.5 * float(p[i]) + 0.5 * votes.get(cid, 0) / tot for i, cid in enumerate(s["ids"])}
+    comb = {cid: W_TEXT * float(p[i]) + (1 - W_TEXT) * votes.get(cid, 0) / tot for i, cid in enumerate(s["ids"])}
     ranked = sorted(comb, key=comb.get, reverse=True)[:top]
     return {"model": MODEL.split(":", 1)[1], "device": s["dev"],
             "ranking": [{"id": c, "score": round(comb[c], 3), "zero_shot": round(float(p[s["ids"].index(c)]), 3), "neighbour_votes": round(votes.get(c, 0) / tot, 3)} for c in ranked],

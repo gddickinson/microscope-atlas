@@ -107,7 +107,7 @@ def spectra():
 
 @app.get("/api/content/{name}")
 def named(name: str):
-    if name not in ("history", "glossary", "fundamentals", "simulations", "portfolio", "chooser", "community", "videos", "cells"):
+    if name not in ("history", "glossary", "fundamentals", "simulations", "portfolio", "chooser", "community", "videos", "cells", "nobel"):
         raise HTTPException(404, "unknown content")
     return content.named(name)
 

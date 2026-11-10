@@ -102,3 +102,6 @@ details.fold { background:var(--panel); border:1px solid var(--line); border-rad
 .cd-label { fill:#c6d4ee; font:12px var(--mono); paint-order:stroke; stroke:#04070e; stroke-width:3px; pointer-events:none; } .cd-lead { stroke:#8fa3c8; stroke-width:1; stroke-opacity:.7; pointer-events:none; }
 .cell-dia { align-items:start; } .card.cell-s span { margin-top:6px; } .seg.small button { font-size:11px; padding:5px 9px; }
 .bar { display:inline-block; height:8px; background:var(--gfp); border-radius:2px; margin-right:6px; vertical-align:middle; max-width:120px; }
+.nobel { display:flex; flex-direction:column; gap:12px; } .card.nb { display:grid; grid-template-columns:70px 1fr; gap:14px; }
+.nb-year { font:700 22px var(--mono); color:var(--yfp); } .nb-cite { font-style:italic; color:#c6d4ee; margin:6px 0; }
+@media (max-width:600px) { .card.nb { grid-template-columns:1fr; } }

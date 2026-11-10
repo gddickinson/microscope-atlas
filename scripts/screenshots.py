@@ -37,6 +37,7 @@ README = [
     ("cells", "cells/diagrams/animal", 1050, None),
     ("cells_types", "cells/types", 1000, None),
     ("cells_structures", "cells/structures", 1000, None),
+    ("cells_images", "cells/images", 1000, None),
     ("systems", "systems", 1100, None),
     ("system_detail", "system/zeiss-lsm-980", 1000, None),
     ("compare", "compare/nikon-n-sim-s,abberior-facility-line,oni-nanoimager,zeiss-elyra-7", 1000, None),
@@ -53,6 +54,7 @@ README = [
     ("imagelab_spots", "imagelab", 900, "const s = document.querySelector('#il-src'); s.value = 'smframe'; s.dispatchEvent(new Event('change')); document.querySelector(\".seg button[data-v='4']\").click(); await new Promise(r => setTimeout(r, 1500)); document.querySelector('.il-spots').scrollIntoView()"),
     ("papers", "papers", 1000, None),
     ("community", "community", 1000, None),
+    ("nobel", "nobel", 1100, None),
     ("gallery", "gallery", 1100, None),
 ]
 
