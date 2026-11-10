@@ -69,7 +69,8 @@ route('glossary', async (_a, query) => {
 
 route('portfolio', async ([id]) => {
   const [p, imgs] = await Promise.all([api('/content/portfolio'), api('/portfolio/images').catch(() => [])]);
-  const projects = p.projects || [];
+  // local-only projects (unpublished archive images) are hidden wherever their images are not available, e.g. the public site
+  const projects = (p.projects || []).filter(x => !x.local_only || imgs.some(i => i.project === x.id));
   if (id) return projectPage(p, projects.find(x => x.id === id), imgs.filter(i => i.project === id));
   const imgFor = (pid, techs = []) => imgs.find(i => i.project === pid && techs.includes(i.technique)) || imgs.find(i => i.project === pid);
   const cardImg = (pid, techs) => { const i = pid && imgFor(pid, techs); return i ? `<img class="thumb" src="${esc(i.url)}" alt="" loading="lazy">` : ''; };

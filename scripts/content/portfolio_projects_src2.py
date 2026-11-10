@@ -175,4 +175,16 @@ PROJECTS2 = [
   "people": "Authors: Sarah Kobernat, Maryna Lazouskaya, Benjamin Balzer, Amanda Wolf, Golam Md Mortuza, George Dickinson, Tim Andersen, Will Hughes, Luca Piantanida, Eric Hayden; Boise State University",
   "links": [{"title": "Paper (Synthetic Biology, open access)", "url": "https://doi.org/10.1093/synbio/ysaf008"}],
   "why_it_matters": "Larger origami mean fewer structures to make and image for the same data, a step towards scaling up DNA data storage read by microscopy."},
+
+ {"local_only": True, "id": "gallery-unpublished",
+  "title": "From the archive: unpublished images",
+  "year": 2013,
+  "paper": {"cite": "Unpublished images from the Parker lab and Pathak lab, UC Irvine", "doi": None},
+  "licence": "Unpublished; images are local previews only",
+  "question": "Not every recording ends up in a paper. This page collects plain images from lab experiments that were never published: STORM renderings of cell structures and raw frames from live-cell recordings, shown for what they look like rather than for any result.",
+  "approach": "The STORM images were taken on a Nikon N-STORM (Apo TIRF 100x/1.49 objective, Andor iXon3 EMCCD) in fixed SH-SY5Y neuroblastoma cells immunostained with dye-labelled antibodies, and are drawn directly from the localisation lists exported by the acquisition software; one is 3D, with z position shown as colour. The keratinocyte frames are from a transmitted-light time-lapse recording, shown as raw frames.",
+  "role": "These images come from team work in the Parker lab and the Pathak lab at UC Irvine. They are shown as images only; no analysis of them is presented here.",
+  "techniques": ["smlm", "phase-contrast"],
+  "people": "Parker lab and Pathak lab, UC Irvine",
+  "why_it_matters": "Raw images from the archive show what these techniques see before any analysis."},
 ]

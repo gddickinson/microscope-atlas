@@ -106,3 +106,6 @@ New technique `spm` (scanning tunnelling microscopy): teaching page (tunnelling 
 pitfalls, quiz), papers Binnig 1982/1983, Tersoff-Hamann 1985, Binnig-Rohrer 1987 (DOIs checked on Crossref), an
 STM diagram, "STM" auto-links, and the IBM 1981 STM system retagged from afm to spm. Methods gap recorded for spm.
 Not pushed: local main holds the squashed clean commit awaiting George's force-push; this round is committed on top.
+- 2026-11-10: 8 unpublished, analysis-free archive images added LOCALLY (3D STORM of mitochondria, two-colour
+  dSTORM of tubulin/IP3R1 and ER/IP3R1, widefield vs STORM, a raw Ca2+ rise montage, a migrating keratinocyte); 50
+  local images in all. New "From the archive" project flagged local_only, hidden wherever its images are absent.
