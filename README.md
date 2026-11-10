@@ -25,7 +25,7 @@ Microscope Atlas is an open web app for microscopists and lab scientists. It bri
 | **200** freely licensed images of instruments and micrographs, each credited | **298** systems with sourced specs and dated sources |
 
 ## Contents
-- [Techniques](#techniques) · [Simulations](#simulations) · [Virtual optical table](#virtual-optical-table) · [Image Lab](#image-lab) · [Lab tools](#lab-tools) · [Quiz](#quiz)
+- [Techniques](#techniques) · [Simulations](#simulations) · [Virtual optical table](#virtual-optical-table) · [Microscope builder](#microscope-builder) · [Image Lab](#image-lab) · [Lab tools](#lab-tools) · [Quiz](#quiz)
 - [Databases](#databases) · [Community and papers](#community-and-papers)
 - [Static site](#static-site) · [Running the full app](#running-the-full-app) · [How the data were gathered](#how-the-data-were-gathered) · [Project layout](#project-layout)
 
@@ -123,6 +123,18 @@ scale bar, side-by-side ground truth and PNG export.
 | Objective-type TIRF | STED |
 |---|---|
 | ![Optical table: TIRF](docs/img/table_tirf.jpg) | ![Optical table: STED](docs/img/table_sted.jpg) |
+
+## Microscope builder
+Pick an objective and a camera from the components database, one of the 71 fluorophores with measured FPbase spectra,
+a laser line and an emission band. The builder reports resolution (FWHM, Rayleigh, axial), pixel size at the sample
+against Nyquist, field of view and frame rate. It also follows a photon budget for one molecule, in this order:
+power density, absorption cross-section (3.82×10⁻²¹ ε cm²) at the laser line, saturation from the lifetime, quantum
+yield, objective collection angle, fraction of the emission inside the filter, transmission and camera QE. It ends
+with the brightest-pixel SNR and Thompson localization precision. Specs are read from the database's own text; where a
+source gives no QE or read noise, the page asks for the user's value instead of inventing one
+(`tests/builder.test.mjs`).
+
+![Microscope builder](docs/img/builder.jpg)
 
 ## Image Lab
 Load your own image (TIFF, PNG or JPEG; nothing leaves the browser) or one of the test specimens, and image it

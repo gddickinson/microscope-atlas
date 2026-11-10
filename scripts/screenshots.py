@@ -43,6 +43,7 @@ README = [
     ("history", "history", 1000, None),
     ("quiz", "quiz", 900, None),
     ("lab", "lab", 1100, None),
+    ("builder", "builder", 1150, None),
     ("imagelab", "imagelab", 1050, "await new Promise(r => setTimeout(r, 1500))"),
     ("imagelab_spots", "imagelab", 900, "const s = document.querySelector('#il-src'); s.value = 'smframe'; s.dispatchEvent(new Event('change')); document.querySelector(\".seg button[data-v='4']\").click(); await new Promise(r => setTimeout(r, 1500)); document.querySelector('.il-spots').scrollIntoView()"),
     ("papers", "papers", 1000, None),

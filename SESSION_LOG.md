@@ -171,3 +171,15 @@ Larson and Webb (2002) limit (3.6 nm measured vs 4.2 nm predicted at 100 nm pixe
 (noise-free fits exact, 300 noisy fits give 0.077 px scatter = Thompson 0.077 px) and Python (every fit equals
 scipy curve_fit on the same window to 1e-4; ≥ 90% of molecules within 0.5 px). README figure added. R4 completed;
 next: R5 microscope builder.
+
+## 2026-11-10: Round 13 (hourly), R5 microscope builder completed
+New `#/builder` page (Lab tools nav and hub). Objective and camera come from the components database: `builder_calc.js`
+reads magnification, NA, immersion index (via the sourced immersion table in `lab_setup2.js`), pixel size, sensor
+format, QE, read noise and frame rate from the entries' spec text. That gives 23 usable objectives and 18 cameras;
+those whose medium or format the source leaves open are skipped, and a missing QE or read noise becomes a labelled
+user input. The fluorophore is one of the 71 with FPbase spectra (ε, QY, τ from FPbase), with a laser line and an
+emission band. Reports: FWHM/Rayleigh/axial, pixel vs Nyquist, field of view vs illuminated field, frame rate, power
+density, excitation and emission rates with saturation, collection efficiency, band fraction, photons per exposure,
+peak-pixel SNR, Thompson precision. Physics in the new `sim_engine_photon.js` (re-exported; `tests/sim_engine_photon.test.mjs`);
+parsing and report checked in `tests/builder.test.mjs` (e.g. Alexa 488 on a 60×/1.49 + Prime BSI Express at 10 mW over
+100 µm, 100 ms: ~1,600 photons, 2.9 nm). README section and figure. Next: R6 database growth (lasers, filter sets).
