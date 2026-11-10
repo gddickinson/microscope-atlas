@@ -115,3 +115,12 @@ Sourced the inferred statuses in confocal.json: FV3000 discontinued March 2024 a
 obsolete-product pages; FV5000/FV5000MPE named as replacements), ZEISS LSM 7 MP end of support 1 Oct 2024; Cell
 Observer SD only has its ZEN bundles listed as end of support, so the entry says hardware status is unconfirmed.
 R1 completed; systematic re-reading of snippet-sourced facts is the new row R12. Next: R2 simulations II.
+
+## 2026-11-09: Round 7 (hourly), R2 simulations II, first half
+New physics in `sim_engine.js` (radix-2 FFT and 2D FFT, Noll-normalised Zernike pupil PSF with Strehl ratio,
+Maréchal approximation, separable Gaussian blur, Richardson-Lucy, FLIM phasors, weak-phase CTF with Scherzer values,
+missing-wedge reconstruction and Radermacher elongation), tested in `tests/sim_engine2.test.mjs` (FFT round trip,
+Strehl vs Maréchal at λ/20, RL flux and falling error, phasor on the semicircle, first CTF zero at 1/√(λΔf), 1.55× at
+±60°). Five new simulations in `sim_imaging.js` and `sim_tomo.js`: deconv, aberration, phasor, ctf, wedge (23 total).
+Smoke test includes them; README gains the CTF and missing-wedge figures. Next in R2: Köhler, DIC shear, FCS
+autocorrelation, AFM tip convolution, spinning-disk crosstalk, expansion factor.

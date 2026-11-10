@@ -183,3 +183,170 @@ export function encircledEnergy(pinholeAU) {
   const v = Math.PI * 1.2197 * pinholeAU; // first zero of J1 at v = 3.8317 when AU = 1
   return 1 - besselJ0(v) ** 2 - besselJ1(v) ** 2;
 }
+
+// ---- Simulations II: Fourier optics, deconvolution, aberrations, FLIM phasors, electron CTF, tomography ----
+
+// In-place radix-2 FFT of complex arrays (re, im) of length 2^k; inverse divides by n.
+export function fft(re, im, inverse = false) {
+  const n = re.length;
+  for (let i = 1, j = 0; i < n; i++) {
+    let bit = n >> 1;
+    for (; j & bit; bit >>= 1) j ^= bit;
+    j ^= bit;
+    if (i < j) { [re[i], re[j]] = [re[j], re[i]]; [im[i], im[j]] = [im[j], im[i]]; }
+  }
+  for (let len = 2; len <= n; len <<= 1) {
+    const ang = (inverse ? 2 : -2) * Math.PI / len, wr = Math.cos(ang), wi = Math.sin(ang);
+    for (let i = 0; i < n; i += len) {
+      let cr = 1, ci = 0;
+      for (let k = 0; k < len / 2; k++) {
+        const a = i + k, b = a + len / 2;
+        const tr = re[b] * cr - im[b] * ci, ti = re[b] * ci + im[b] * cr;
+        re[b] = re[a] - tr; im[b] = im[a] - ti; re[a] += tr; im[a] += ti;
+        const nr = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = nr;
+      }
+    }
+  }
+  if (inverse) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+}
+
+// 2D FFT (row-major N x N, N a power of 2).
+export function fft2(re, im, N, inverse = false) {
+  const r = new Float64Array(N), m = new Float64Array(N);
+  for (let y = 0; y < N; y++) {
+    for (let x = 0; x < N; x++) { r[x] = re[y * N + x]; m[x] = im[y * N + x]; }
+    fft(r, m, inverse);
+    for (let x = 0; x < N; x++) { re[y * N + x] = r[x]; im[y * N + x] = m[x]; }
+  }
+  for (let x = 0; x < N; x++) {
+    for (let y = 0; y < N; y++) { r[y] = re[y * N + x]; m[y] = im[y * N + x]; }
+    fft(r, m, inverse);
+    for (let y = 0; y < N; y++) { re[y * N + x] = r[y]; im[y * N + x] = m[y]; }
+  }
+}
+
+// Swap quadrants so the zero frequency (or the PSF centre) sits in the middle.
+export function fftshift(a, N) {
+  const out = new a.constructor(N * N), h = N / 2;
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) out[((y + h) % N) * N + (x + h) % N] = a[y * N + x];
+  return out;
+}
+
+// Zernike modes with Noll normalisation (rms over the unit pupil = 1, so a coefficient is the rms in waves).
+export const ZERNIKE = {
+  defocus: (r, t) => Math.sqrt(3) * (2 * r * r - 1),
+  astigmatism: (r, t) => Math.sqrt(6) * r * r * Math.cos(2 * t),
+  coma: (r, t) => Math.sqrt(8) * (3 * r ** 3 - 2 * r) * Math.cos(t),
+  trefoil: (r, t) => Math.sqrt(8) * r ** 3 * Math.cos(3 * t),
+  spherical: (r, t) => Math.sqrt(5) * (6 * r ** 4 - 6 * r * r + 1),
+};
+
+// Pupil-function PSF: circular pupil of radius `pupil` grid units with phase 2π Σ a_j Z_j (a in waves rms).
+// Returns {psf (centred, N x N), strehl (peak relative to the unaberrated pupil), rms (waves)}.
+export function aberratedPSF(N, coeffs = {}, pupil = N / 8) {
+  const peakOf = withPhase => {
+    const re = new Float64Array(N * N), im = new Float64Array(N * N);
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const dx = (x - N / 2) / pupil, dy = (y - N / 2) / pupil, r = Math.hypot(dx, dy);
+      if (r > 1) continue;
+      let ph = 0;
+      if (withPhase) for (const [k, a] of Object.entries(coeffs)) if (a) ph += 2 * Math.PI * a * ZERNIKE[k](r, Math.atan2(dy, dx));
+      re[y * N + x] = Math.cos(ph); im[y * N + x] = Math.sin(ph);
+    }
+    fft2(re, im, N);
+    const I = new Float64Array(N * N);
+    let peak = 0;
+    for (let i = 0; i < N * N; i++) { I[i] = re[i] * re[i] + im[i] * im[i]; if (I[i] > peak) peak = I[i]; }
+    return { I, peak, atZero: I[0] };
+  };
+  const ideal = peakOf(false), ab = peakOf(true);
+  const rms = Math.sqrt(Object.values(coeffs).reduce((s, a) => s + a * a, 0)); // Noll modes are orthonormal
+  return { psf: fftshift(ab.I, N).map(v => v / ideal.peak), strehl: ab.peak / ideal.peak, rms };
+}
+
+// Maréchal approximation: Strehl ≈ exp(−(2π σ)²), σ = rms wavefront error in waves. Diffraction-limited when S ≥ 0.8.
+export const marechal = rmsWaves => Math.exp(-((2 * Math.PI * rmsWaves) ** 2));
+
+// Separable Gaussian blur (σ in pixels, edges clamped) of an N x N image; the Gaussian is symmetric so it is also its own adjoint.
+export function gaussBlur(img, N, sigma) {
+  const R = Math.ceil(3 * sigma), k = [];
+  let sum = 0;
+  for (let i = -R; i <= R; i++) { const v = Math.exp(-i * i / (2 * sigma * sigma)); k.push(v); sum += v; }
+  for (let i = 0; i < k.length; i++) k[i] /= sum;
+  const tmp = new Float64Array(N * N), out = new Float64Array(N * N);
+  const cl = v => (v < 0 ? 0 : v >= N ? N - 1 : v);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { let s = 0; for (let i = -R; i <= R; i++) s += k[i + R] * img[y * N + cl(x + i)]; tmp[y * N + x] = s; }
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { let s = 0; for (let i = -R; i <= R; i++) s += k[i + R] * tmp[cl(y + i) * N + x]; out[y * N + x] = s; }
+  return out;
+}
+
+// Richardson-Lucy deconvolution (Richardson 1972, Lucy 1974) with a Gaussian PSF:
+// u_{k+1} = u_k · H^T( d / H u_k ). Starts from a flat estimate with the data's mean.
+export function richardsonLucy(data, N, sigma, iters, start = null) {
+  const mean = data.reduce((a, b) => a + b, 0) / data.length;
+  let u = start ? Float64Array.from(start) : new Float64Array(N * N).fill(mean);
+  for (let it = 0; it < iters; it++) {
+    const Hu = gaussBlur(u, N, sigma), ratio = new Float64Array(N * N);
+    for (let i = 0; i < N * N; i++) ratio[i] = Hu[i] > 1e-12 ? data[i] / Hu[i] : 0;
+    const c = gaussBlur(ratio, N, sigma);
+    for (let i = 0; i < N * N; i++) u[i] *= c[i];
+  }
+  return u;
+}
+
+// FLIM phasor of a single exponential at angular modulation frequency ω (rad/ns, τ in ns): on the universal semicircle.
+export function phasorOf(tau, omega) {
+  const wt = omega * tau;
+  return { g: 1 / (1 + wt * wt), s: wt / (1 + wt * wt) };
+}
+// Phasor of a sampled decay over one laser period T (ns): g = Σ I cos ωt / Σ I, s = Σ I sin ωt / Σ I, ω = 2π/T.
+export function phasorFromDecay(I, T) {
+  const n = I.length, w = 2 * Math.PI / T;
+  let g = 0, s = 0, tot = 0;
+  for (let i = 0; i < n; i++) { const t = (i + 0.5) * T / n; g += I[i] * Math.cos(w * t); s += I[i] * Math.sin(w * t); tot += I[i]; }
+  return { g: g / tot, s: s / tot };
+}
+// Single-exponential decay of lifetime τ, periodically excited (period T), sampled in n bins.
+export function periodicDecay(tau, T, n) {
+  const out = new Float64Array(n);
+  for (let i = 0; i < n; i++) { const t = (i + 0.5) * T / n; out[i] = Math.exp(-t / tau) / (1 - Math.exp(-T / tau)); }
+  return out;
+}
+// Phase and modulation lifetimes from a phasor: τφ = s/(ωg), τm = sqrt(1/m² − 1)/ω with m² = g² + s².
+export function phasorLifetimes({ g, s }, omega) {
+  const m2 = g * g + s * s;
+  return { tauPhase: s / (omega * g), tauMod: Math.sqrt(Math.max(0, 1 / m2 - 1)) / omega };
+}
+
+// Weak-phase-object contrast transfer function (units: Å, Å⁻¹; defocus > 0 = underfocus).
+// χ(k) = π λ Δf k² − (π/2) Cs λ³ k⁴;  CTF = −[√(1−A²) sin χ + A cos χ] · exp(−B k²/4).
+export function ctf(k, { kV = 300, defocusUm = 1.5, csMm = 2.7, amp = 0.07, bfactor = 0 } = {}) {
+  const lam = electronWavelength(kV) / 100; // pm -> Å
+  const df = defocusUm * 1e4, cs = csMm * 1e7;
+  const chi = Math.PI * lam * df * k * k - 0.5 * Math.PI * cs * lam ** 3 * k ** 4;
+  return -(Math.sqrt(1 - amp * amp) * Math.sin(chi) + amp * Math.cos(chi)) * Math.exp(-bfactor * k * k / 4);
+}
+// Scherzer defocus √(1.5 Cs λ) and point resolution 0.66 Cs^¼ λ^¾ (Å).
+export function scherzer(kV, csMm) {
+  const lam = electronWavelength(kV) / 100, cs = csMm * 1e7;
+  return { defocusUm: Math.sqrt(1.5 * cs * lam) / 1e4, resolution: 0.66 * cs ** 0.25 * lam ** 0.75 };
+}
+
+// Missing-wedge elongation along the beam for a ±α tilt series (Radermacher 1988): e = √[(α + sinα cosα)/(α − sinα cosα)].
+export function wedgeElongation(alphaDeg) {
+  const a = alphaDeg * Math.PI / 180, sc = Math.sin(a) * Math.cos(a);
+  return Math.sqrt((a + sc) / (a - sc));
+}
+// Reconstruct an N x N (x across, z down) slice from only the Fourier components inside a ±α tilt range
+// (central-slice theorem; tilt axis perpendicular to the slice). Returns the real part.
+export function missingWedge(img, N, alphaDeg) {
+  if (alphaDeg >= 90) return Float64Array.from(img);
+  const re = Float64Array.from(img), im = new Float64Array(N * N), t = Math.tan(alphaDeg * Math.PI / 180);
+  fft2(re, im, N);
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    const kx = x < N / 2 ? x : x - N, kz = y < N / 2 ? y : y - N;
+    if ((kx || kz) && Math.abs(kz) > t * Math.abs(kx) + 1e-9) { re[y * N + x] = 0; im[y * N + x] = 0; }
+  }
+  fft2(re, im, N, true);
+  return re;
+}

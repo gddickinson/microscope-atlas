@@ -30,12 +30,14 @@ JSON by `static_api.js`; Python-only tools show a notice.
 | `lightpath.js`, `lightpath_defs.js` | SVG light-path engine (`P` primitives, `lightPath`, `miniPath`) and per-technique diagrams (`DEFS`, `FAMILY_DEFAULT`) |
 | `fluor.js` | Fluorophore table with Stokes plot; spectra viewer with lasers, bands and crosstalk tables |
 | `sims.js` | Simulation index and `#/sim/<id>` router; merges the sim modules below |
-| `sim_engine.js` | Pure physics (Airy, Bessel, TIRF depth, STED, localization precision, FRET, Soumpasis, random walks, MSD, FCS, electron λ, camera SNR, seeded RNG). Node-tested |
+| `sim_engine.js` | Pure physics (Airy, Bessel, TIRF depth, STED, localization precision, FRET, Soumpasis, random walks, MSD, FCS, electron λ, camera SNR, seeded RNG; FFT/`fft2`/`fftshift`, Zernike `aberratedPSF` + `marechal`, `gaussBlur`, `richardsonLucy`, FLIM `phasorOf`/`phasorFromDecay`/`phasorLifetimes`, `ctf`/`scherzer`, `missingWedge`/`wedgeElongation`). Node-tested |
 | `sim_ui.js` | Layout, sliders, segmented buttons, canvases, `heatmap`, `linePlot`, `animate` |
 | `sim_optics.js` | psf, na, lens, nyquist, phase |
 | `sim_section.js` | tirf, pinhole, twophoton, lightsheet |
 | `sim_super.js` | sted, smlm, simk |
 | `sim_dynamic.js` | jablonski, fret, noise, frap, spt, electron |
+| `sim_imaging.js` | deconv (Richardson-Lucy), aberration (Zernike modes, Strehl, AO), phasor (FLIM) |
+| `sim_tomo.js` | ctf (cryo-EM CTF and Thon rings), wedge (tomography missing wedge) |
 | `learn.js` | Fundamentals, history (built from page histories + historical systems), glossary, My Microscopy (with image gallery), about |
 | `quiz.js` | Quiz: generated multiple choice (diagrams, taglines, equations, key numbers, glossary, fluorophores), Leitner flashcards, browse |
 | `papers.js` | Papers database page and the Community resources page |
@@ -66,6 +68,6 @@ JSON by `static_api.js`; Python-only tools show a notice.
 `validate_data.py` (schema check, used by tests) · `build_static.py` (static export) · `build_papers.py` · `check_links.py [--systems]` (reports in docs/) · `fetch_commons.py` (images) · `fetch_fpbase.py` (fluorophores and spectra) · `content/build_content.py` (fundamentals, glossary, portfolio) · `screenshots.py` (Playwright + Chrome: README figures in `docs/img` and a smoke test of every route; needs the server running).
 
 ## tests/
-`test_data.py` (validator, counts, every sim id has code) · `test_api.py` (routes) · `test_lab_files.py` (inspector endpoint) · `test_images.py` (licences, credits, ids, size) · `test_methods_videos.py` (methods coverage, video rows) · `table_engine.test.mjs` (ray-tracer physics and every preset) · `table_imaging.test.mjs` (PSF width, photon conservation, noise statistics, TIRF weighting, binning, modes per preset) · `test_js.py` runs every `tests/*.test.mjs` with node (sim engine, lab setup, labelling, bench).
+`test_data.py` (validator, counts, every sim id has code) · `test_api.py` (routes) · `test_lab_files.py` (inspector endpoint) · `test_images.py` (licences, credits, ids, size) · `test_methods_videos.py` (methods coverage, video rows) · `table_engine.test.mjs` (ray-tracer physics and every preset) · `table_imaging.test.mjs` (PSF width, photon conservation, noise statistics, TIRF weighting, binning, modes per preset) · `test_js.py` runs every `tests/*.test.mjs` with node (sim engine incl. `sim_engine2.test.mjs` for Simulations II, lab setup, labelling, bench).
 
 Flow: `web/app.py` → `catalog` / `content` / `fluorophores` → `jsonio` → `data/`. Front end: `main.js` → page modules → `core.api` → `/api/...`.

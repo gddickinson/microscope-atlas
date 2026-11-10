@@ -4,9 +4,11 @@ import { OPTICS } from './sim_optics.js';
 import { SECTION } from './sim_section.js';
 import { SUPER } from './sim_super.js';
 import { DYNAMIC } from './sim_dynamic.js';
+import { IMAGING } from './sim_imaging.js';
+import { TOMO } from './sim_tomo.js';
 
-const ALL = { ...OPTICS, ...SECTION, ...SUPER, ...DYNAMIC };
-const GROUP_COLOR = { Optics: 'g', Sectioning: 'b', 'Super-resolution': 'r', Fluorescence: 'y', Detection: 'b', Dynamics: 'g', Electron: 'y' };
+const ALL = { ...OPTICS, ...SECTION, ...SUPER, ...DYNAMIC, ...IMAGING, ...TOMO };
+const GROUP_COLOR = { Optics: 'g', Sectioning: 'b', 'Super-resolution': 'r', Fluorescence: 'y', Detection: 'b', Dynamics: 'g', Electron: 'y', 'Image processing': 'r' };
 
 route('sims', async () => {
   const sims = await api('/content/simulations');
