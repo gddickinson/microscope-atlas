@@ -333,3 +333,13 @@ ranges, so the builder cannot use them). Correction: the eight Semrock sets mark
 orderable. Every IDEX page carries a hidden "This product is obsolete!" block shown only for stocking type 'O';
 rendered in Chrome, all eight showed no notice and an add-to-cart button. Status reverted to current and the README
 updated. Lesson: for script-rendered stores, check what a visitor sees, not the raw page text.
+
+## 2026-11-10: drive 4 attached (George)
+- George chose to copy everything missing from drive 4 ('Internal Drive') to FANTOM: about 1.04 TB (George/ 291 GB,
+  ScienceSignalling/ 123 GB, Work/ 629 GB) into CASTLE_DATA/real/archive_drive4, with rsync --ignore-existing, running
+  in the background. To be verified and recorded in FANTOM/INVENTORY when done.
+- Local-preview additions from drive 4 (`portfolio_images13.py`): astrocyte Ca2+ rises (2014_07_17, Cal-520, caged
+  IP3, shadowless TIRF at 100 Hz; the release is found as the steepest sustained rise after the shutter opening, since
+  the flash leaves no step) and conventional vs shadowless TIRF of the same three cells. Both cite Ellefsen, Dynes &
+  Parker 2015 PLOS ONE (DOI checked on Crossref). The astrocyte movie also appears in the Cells image database under
+  glial cells.
