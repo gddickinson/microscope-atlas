@@ -650,3 +650,13 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   rendered maker pages. Snippet-sourced: Nikon ECLIPSE Ei camera port "built-in 0.55x zoom lens" (spec page lists the
   trinocular tube 50/50 only) and Leica DM500 wireless camera and eyepiece pointer options (not on the maker page).
   Report docs/verify_benchtop_routine.md. Next: em_open_more2.json, the last R12 file.
+
+## 2026-11-11: R12 round, em_open_more2.json re-verified; R12 first pass complete
+- 19/22 verified. Snippet-sourced: TESCAN CLARA, MIRA and VEGA (the product pages render without numeric specifications;
+  a second browser pass with a custom user agent was refused by the auto-mode classifier as bot-check circumvention, so
+  these wait for the datasheets). Hand checks: openSIM cost "around 10.000 €" in the open-access full text; OpenFlexure's
+  "3" was "3D-printed". Holm et al. (ChemPhysChem 15:651-654) year filled as 2014 from Crossref's print date.
+  Report docs/verify_em_open_more2.md.
+- R12 completed: all 452 systems carry a `verified` note, 395 verified, 57 snippet-sourced. New row R24 (above R17): the
+  second pass over the 57 snippet-sourced entries against maker datasheets and papers. Next: R24, starting with confocal.json
+  (16 entries).
