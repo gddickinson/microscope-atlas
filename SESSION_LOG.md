@@ -620,3 +620,8 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   Tomocube HT-X1, ImageXpress HCS.ai, Cytation 7, Opera Phenix Plus (maker figures not on the cited pages; Revvity pages
   refuse scripts), Pannoramic 1000 (SSL error on the maker site, other sources refused). No values changed.
   Report docs/verify_widefield_screening.md. Next: the six files added on 2026-11-10.
+
+## 2026-11-11: R12 round, light_more.json re-verified
+- 27/31 verified; 4 snippet-sourced because their maker pages were redesigned and no longer list the specs (3i AxL CTLS,
+  Akoya PhenoImager HT now on the Quanterix site, Roche VENTANA DP 600, ImageXpress Micro Confocal). No values changed.
+  Report docs/verify_light_more.md. Next: em_probe_open_more.json.
