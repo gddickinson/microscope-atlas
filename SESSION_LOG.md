@@ -638,3 +638,9 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   MicAO 3DSR) read on the rendered pages; the OCT 1991 sensitivity (1e-10) found in the Europe PMC abstract (PubMed refuses
   scripts); Levoy 2006's flagged "3" was "3D". Snippet-sourced: ISS Q2 excitation ranges (375-1000 nm, 400-950 nm), not on
   the maker page or its Q2 datasheet. Report docs/verify_research_labelfree_more.md. Next: historical_more.json.
+
+## 2026-11-11: R12 round, historical_more.json re-verified
+- 13/13 verified. Leitz Ortholux: the RCSEd collections source was dropped (domain no longer resolves, no Wayback copy) and
+  the summary no longer names RCSEd; the Deutsches Museum source pointed at a development host that times out, now the
+  archive permalink (digital.deutsches-museum.de/item/FA-005-1861), whose record dates the Ortholux II catalogue (list
+  512-40) to May 1958. Report docs/verify_historical_more.md. Next: benchtop_routine.json.
