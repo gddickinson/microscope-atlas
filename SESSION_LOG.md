@@ -613,3 +613,9 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   forms (SiMView, IsoView, Bessel plane illumination, diSPIM, ctASLM, OPFOS, DSLM, SCAPE 2015, the whole-brain 2013 rate)
   and maker figures not on the cited pages (UltraMicroscope Blaze objectives, Doric, TruLive3D, SP8 DLS, mesoSPIM count,
   Siedentopf 90° illumination). No values changed. Report docs/verify_lightsheet_invivo.md. Next: widefield_screening.json.
+
+## 2026-11-11: R12 round, widefield_screening.json re-verified
+- 44/52 verified (two flags were formatting: "225K wells per day"; the "3" of "3D grid"); 8 snippet-sourced: Aperio GT 450,
+  Tomocube HT-X1, ImageXpress HCS.ai, Cytation 7, Opera Phenix Plus (maker figures not on the cited pages; Revvity pages
+  refuse scripts), Pannoramic 1000 (SSL error on the maker site, other sources refused). No values changed.
+  Report docs/verify_widefield_screening.md. Next: the six files added on 2026-11-10.
