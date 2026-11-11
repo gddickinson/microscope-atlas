@@ -578,3 +578,12 @@ description (correct for IC295) plus a note that IC293 is endothelial.
 - Checked on the server and on a static export: shown and playing on My Microscopy and the dna-memory-2021 project page.
 - New test: every published portfolio item has its file (and poster), published_data, a licence, a DOI or source URL
   and a display entry. README (Author section) and THIRD_PARTY.md note the movie. pytest 56 passed, 1 skipped; smoke ok.
+
+## 2026-11-10: R12 round, confocal.json re-verified
+- `verify_sources.py` now downloads PDF sources and reads them with pdftotext (Chrome only downloads them), which
+  cleared 8 of the 29 flagged entries. Source texts of the rest were saved and searched by hand.
+- Results: 32/48 entries verified; 16 marked `snippet-sourced:` with the exact values their readable sources do not
+  show (mostly maker figures quoted by facilities, launch years of commercial models, and two entries whose sources
+  could not be read: Leica TCS SP2 AOBS, Thorlabs Bergamo). ZEISS LSM 980: unsourced 2018 year and 350 nm axial value
+  removed. Denk 1990 year checked on Crossref. FVMPE-RS's flagged "5000" was the FV5000MPE model name.
+- Report docs/verify_confocal.md. Next R12 file: electron_probe.json.

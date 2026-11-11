@@ -1,6 +1,7 @@
 """R12 re-verification, step 1 (automatic): does each number an entry states appear in its own sources?
 
-For every entry of a systems file, each source URL is rendered in headless Chrome (Playwright; many maker pages are
+For every entry of a systems file, each source URL is rendered in headless Chrome (PDFs are downloaded and read with
+pdftotext) (Playwright; many maker pages are
 built by script, and hidden template text must not count, so only the rendered innerText is used) and every number in
 the entry's year, resolution and specs is looked for in the combined text. Numbers that are not found are listed for a
 person to re-read (step 2); nothing is changed here.
@@ -46,12 +47,34 @@ def present(n: str, text: str) -> bool:
     return any(re.search(rf"(?<![\d.]){re.escape(p)}(?![\d])", text) for p in pats)
 
 
+def pdf_text(url: str) -> str:
+    """Download a PDF source and return its text (pdftotext), for sources Chrome downloads instead of showing."""
+    import subprocess, tempfile, urllib.request
+    req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"})
+    with urllib.request.urlopen(req, timeout=60) as r, tempfile.NamedTemporaryFile(suffix=".pdf") as f:
+        data = r.read()
+        if not data.startswith(b"%PDF"):
+            return "__ERROR__ not a PDF"
+        f.write(data); f.flush()
+        return subprocess.run(["pdftotext", "-layout", f.name, "-"], capture_output=True, text=True, timeout=120).stdout
+
+
 def render(page, url: str) -> str:
+    if url.lower().split("?")[0].endswith(".pdf") or "asset-downloads" in url:
+        try:
+            return pdf_text(url)
+        except Exception as e:  # noqa: BLE001 - fall back to the browser
+            pass
     try:
         page.goto(url, timeout=45000, wait_until="domcontentloaded")
         page.wait_for_timeout(2500)
         return page.evaluate("document.body ? document.body.innerText : ''")
-    except Exception as e:  # noqa: BLE001 - report and continue
+    except Exception as e:  # noqa: BLE001 - a download (PDF) is read directly; anything else is reported
+        if "Download is starting" in str(e):
+            try:
+                return pdf_text(url)
+            except Exception as e2:  # noqa: BLE001
+                return f"__ERROR__ {type(e2).__name__}: {str(e2)[:120]}"
         return f"__ERROR__ {type(e).__name__}: {str(e)[:120]}"
 
 
