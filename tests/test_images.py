@@ -73,3 +73,21 @@ def test_total_size_under_limit():
 def test_no_stray_files():
     names = {e["file"] for e in manifest()} | {e["poster"] for e in manifest() if e.get("poster")} | {"manifest.json"}
     assert {f.name for f in IMAGES.iterdir()} == names
+
+
+def test_published_portfolio():
+    """Everything in data/portfolio (the public part of My Microscopy) is published work with a licence and a source,
+    and its files exist; previews that are not cleared for publishing stay in the git-ignored data/portfolio_staging."""
+    import json
+    from pathlib import Path
+    root = Path(__file__).resolve().parents[1] / "data" / "portfolio"
+    if not (root / "manifest.json").exists():
+        return
+    items = json.loads((root / "manifest.json").read_text())
+    display = json.loads((root / "display.json").read_text()) if (root / "display.json").exists() else {}
+    for i in items:
+        assert (root / i["file"]).exists(), i["file"]
+        if i["file"].endswith(".mp4"):
+            assert (root / i["file"].replace(".mp4", "_poster.jpg")).exists(), f"{i['file']}: poster"
+        assert i.get("published_data") is True and i.get("licence") and (i.get("doi") or i.get("source_url")), i["file"]
+        assert i["file"] in display, f"{i['file']}: display kind/group"

@@ -569,3 +569,12 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   - Abberior Facility Line: all numbers confirmed (Emory specifications tab, Maryland panel); detector set varies by site.
 - All 47 entries carry `verified` (schema updated); report docs/verify_superres.md. Validator 0 problems; pytest 55
   passed, 1 skipped; smoke 45 ok. Next R12 file: confocal.json (specs and years).
+
+## 2026-11-10: "How a DNA-PAINT image is made" published (George's approval)
+- Moved dnapaint_buildup.mp4 and its poster from the git-ignored data/portfolio_staging to data/portfolio (the public
+  part of My Microscopy, first item there) with manifest.json (caption, paper, DOI, Zenodo source, licence: made from
+  the study's open data, Zenodo 4672665 MIT, paper CC BY 4.0) and display.json (raw image, Super-resolution). The local
+  manifest script no longer lists it. The other DNA-PAINT stills stay local.
+- Checked on the server and on a static export: shown and playing on My Microscopy and the dna-memory-2021 project page.
+- New test: every published portfolio item has its file (and poster), published_data, a licence, a DOI or source URL
+  and a display entry. README (Author section) and THIRD_PARTY.md note the movie. pytest 56 passed, 1 skipped; smoke ok.

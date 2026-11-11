@@ -7,5 +7,7 @@ The Microscope Atlas code and its own written content are under the MIT licence 
   and shown beside the image in the app.
 - `data/fluorophores.json`, `data/spectra.json`: fluorophore data and spectra from FPbase (https://www.fpbase.org),
   under FPbase's terms.
+- `data/portfolio/`: published work shown on My Microscopy. `dnapaint_buildup.mp4` (and its poster) was made from the
+  open data of Dickinson et al. 2021, Nat Commun 12:2371 (Zenodo 4672665, MIT licence; the paper is CC BY 4.0).
 - System, component and paper entries are facts with a source URL or DOI on each entry; the linked pages and papers
   belong to their publishers.

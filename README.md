@@ -363,6 +363,11 @@ See [INTERFACE.md](INTERFACE.md) for a file-by-file map and [ROADMAP.md](ROADMAP
 Built by George Dickinson, a cell biologist who has been part of quantitative-imaging research teams for twenty years
 (TIRF Ca²⁺ imaging, STORM, sptPALM and DNA-PAINT) and now builds analysis software for imaging labs.
 Developed with Claude Code. Content is for education; check instrument specifications with their makers.
+**My Microscopy** (About menu) shows published work from the projects George was part of. On the public site it
+includes "How a DNA-PAINT image is made", a movie built from the open data of the team's digital nucleic acid memory
+study (Dickinson et al. 2021, *Nat Commun* 12:2371; Zenodo 4672665): raw DNA-PAINT frames beside the image building up
+from their localisations, corrected for stage drift, ending on one of the study's fiducial origami.
+
 ## Licence
 Code and the atlas's own text are under the [MIT licence](LICENSE). Images, FPbase data and other third-party material
 keep their own licences: see [THIRD_PARTY.md](THIRD_PARTY.md).

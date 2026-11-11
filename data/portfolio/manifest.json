@@ -1,0 +1,19 @@
+[
+  {
+    "file": "dnapaint_buildup.mp4",
+    "title": "How a DNA-PAINT image is made",
+    "caption": "First the whole 55 um field (the average of early raw frames) with the region that follows boxed; then that 1.7 um region at the diffraction limit, where each DNA origami is a single blurred spot. Next, raw frames (0.3 s each) in which dye-labelled imager strands bind briefly to docking strands on the origami, beside the image building up from the localisations of every frame so far; in the first frames cyan rings mark the binding events localised in the frame shown. After 40,000 frames each origami (about 90 x 70 nm, a 6 x 8 grid of sites) appears as a cluster of binding sites; the movie ends on a zoom of a triangle, one of the 'sharp triangle' origami the study mixed in as fiducial markers. The raw frames are not drift-corrected, so the reconstruction is drawn where the camera saw each molecule at that moment and drifts with the stage (about 0.4 um in x and 0.6 um in y over the 3.3-hour recording). From the team's digital nucleic acid memory study: DNA-PAINT in TIRF, Nikon Ti2, 100x/1.49 plus 1.5x, 561 nm, ProEM EMCCD; the movie samples the recording, every frame at first and then faster.",
+    "technique": "dna-paint",
+    "paper": "Dickinson GD, Mortuza GM, Clay W, et al. (2021) An alternative approach to nucleic acid memory. Nat Commun 12:2371",
+    "doi": "10.1038/s41467-021-22277-y",
+    "source_path": "Zenodo 4672665: dNAM_DNAPAINT_Recordings.7z / 20191015_Recording3.tif; localisations dNAM_DNAPAINT_DriftCorrected_localizations / 20191015_Recording3_locs.hdf5",
+    "evidence": "Published open data (Zenodo 4672665, MIT licence; paper CC BY 4.0). Raw frames and the study's own ThunderSTORM localisations, drift-corrected in Picasso. The stage drift was measured back for display: per segment of the recording, the shift of the localisations that maximises the raw intensity under them (residual under 0.25 camera px after correction). Display only.",
+    "pixel_size_nm": 106.7,
+    "pixel_size_source": "paper Methods: 16 um EMCCD pixels, 100x objective plus 1.5x magnifier",
+    "project": "dna-memory-2021",
+    "published_data": true,
+    "licence": "Made by the Microscope Atlas from the study's published open data (Zenodo record 4672665, MIT licence); paper CC BY 4.0",
+    "public": true,
+    "source_url": "https://doi.org/10.5281/zenodo.4672665"
+  }
+]
