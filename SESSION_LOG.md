@@ -625,3 +625,10 @@ description (correct for IC295) plus a note that IC293 is endothelial.
 - 27/31 verified; 4 snippet-sourced because their maker pages were redesigned and no longer list the specs (3i AxL CTLS,
   Akoya PhenoImager HT now on the Quanterix site, Roche VENTANA DP 600, ImageXpress Micro Confocal). No values changed.
   Report docs/verify_light_more.md. Next: em_probe_open_more.json.
+
+## 2026-11-11: R12 round, em_probe_open_more.json re-verified
+- 28/29 verified. Two entries state no numbers (Nanosurf DriveAFM, Delmic SECOM), so their text claims were checked by
+  hand on the rendered pages. Correction: Delmic SECOM status current -> discontinued (its product page returns "Page not
+  found" and Delmic's product list now shows METEOR, not SECOM). Snippet-sourced: ALS Beamline 2.1 XM-2 stage rotation
+  (360°) and capillary mounting (the beamline page confirms source, energy range and closure; the Le Gros 2014 full text
+  could not be read). Report docs/verify_em_probe_open_more.md. Next: research_labelfree_more.json.
