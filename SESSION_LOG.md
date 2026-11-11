@@ -596,3 +596,11 @@ description (correct for IC295) plus a note that IC293 is endothelial.
 - Corrections: Talos F200C voltage set to the stated 200 kV; HT7800 0.2 nm resolution, GeminiSEM 32k x 24k frame store
   and Crossbeam femtosecond-laser option removed (not in the sources); Micheva & Smith 2007 full text added as a source.
   50/50 verified; docs/verify_electron_probe.md. Next: labelfree_open_historical.json.
+
+## 2026-11-11: R12 round, labelfree_open_historical.json re-verified
+- 43/51 verified; 8 snippet-sourced: WITec alpha300 (the cited page no longer lists the lasers, spectral resolution or
+  axial value), STELLARIS 8 CRS (720-980 nm pump), MSOT inVision (360/270 deg geometry), TwoMP (mass resolution), Thorlabs
+  Ganymede and Telesto-era PDFs and PicoQuant's specification PDF (links now return web pages), MicroTime 200 and
+  Luminosa laser ranges, MiEye licence (PyPI behind a captcha; its 2022 year confirmed via the HardwareX DOI).
+- No values changed: where a readable source is silent the values are kept and marked, to be re-read against maker
+  datasheets in a pass after R12. Report docs/verify_labelfree_open_historical.md. Next: lightsheet_invivo.json.
