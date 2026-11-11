@@ -548,3 +548,11 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   Static export checked with lazy loading (8 routes). pytest 55 passed, 1 skipped; smoke 45 ok; audit 132/132.
 - The server stopped twice during rounds (clean shutdown from an external signal, not from the tests); it is now
   started in its own session (`start_new_session=True`) so it should survive the shell's clean-up.
+
+## 2026-11-10: next rows agreed with George (R17-R23); R12 under way
+- George approved seven additions, now ledger rows R17-R23: a "which microscope for my experiment?" walkthrough,
+  image-analysis teaching modules, a troubleshooting guide, sourced sample-preparation protocols, one combined data file
+  for the history and quiz pages, shareable sim/builder state in URLs, and "teach with this" lesson outlines.
+- R12 (re-verification) is in progress: new `scripts/verify_sources.py` renders each source page in Chrome and checks
+  that every number an entry states appears there. superres.json: 33/47 entries fully found, 7 with numbers not found,
+  1 with no readable source; manual re-reading of the flagged entries is the next step (nothing changed in the data yet).
