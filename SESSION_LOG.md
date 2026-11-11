@@ -556,3 +556,16 @@ description (correct for IC295) plus a note that IC293 is endothelial.
 - R12 (re-verification) is in progress: new `scripts/verify_sources.py` renders each source page in Chrome and checks
   that every number an entry states appears there. superres.json: 33/47 entries fully found, 7 with numbers not found,
   1 with no readable source; manual re-reading of the flagged entries is the next step (nothing changed in the data yet).
+
+## 2026-11-10: R12 round, superres.json re-verified
+- Step 2 of the check (manual) on the entries the automatic pass flagged. Findings:
+  - 6 paper prototypes failed only because science.org/doi.org block automated browsers: years confirmed on Crossref.
+  - Nikon N-STORM: "Discontinued" matched only the site menu ("Discontinued Products"); the checker now ignores it.
+  - ONI Nanoimager and Bruker Vutara VXL: every spec confirmed, in ONI's technical specification PDF and in the Vutara
+    page's collapsed Specifications panels (opened as a visitor would). The ONI CO₂ note belongs to the optional incubator.
+  - DeltaVision OMX SR: 100/300 nm were not in either source (they say 2-fold); removed.
+  - Leica STELLARIS 8 STED: Leica's current page lists STED lines 589/660/775 (entry had 592); WLL range and the axial
+    value are not in the sources and were removed; the Danaher source now returns nothing and was replaced.
+  - Abberior Facility Line: all numbers confirmed (Emory specifications tab, Maryland panel); detector set varies by site.
+- All 47 entries carry `verified` (schema updated); report docs/verify_superres.md. Validator 0 problems; pytest 55
+  passed, 1 skipped; smoke 45 ok. Next R12 file: confocal.json (specs and years).

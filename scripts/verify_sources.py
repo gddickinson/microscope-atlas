@@ -83,7 +83,7 @@ def main():
             missing = [(f, n) for f, n in nums if not present(n, text)]
             results.append({"id": e["id"], "name": e["name"], "status": e.get("status"), "numbers": len(nums),
                             "missing": missing, "sources": fetched,
-                            "discontinued_words": bool(re.search(r"discontinu|no longer (available|sold)|end of (sale|life)|obsolete", text, re.I))})
+                            "discontinued_words": bool(re.search(r"discontinu(?!ed products)|no longer (available|sold)|end of (sale|life)|obsolete", text, re.I))})
             print(f"{e['id']:40} sources {sum(f['ok'] for f in fetched)}/{len(fetched)}  numbers {len(nums) - len(missing)}/{len(nums)}"
                   + (f"  missing {missing[:4]}" if missing else ""), flush=True)
         b.close()

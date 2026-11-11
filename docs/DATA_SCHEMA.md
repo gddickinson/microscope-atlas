@@ -26,6 +26,7 @@ A JSON list of objects:
 | `applications` | list of strings | no | typical uses |
 | `sources` | list of `{"url","title"}` | yes | at least one |
 | `checked` | string | yes | ISO date the sources were read |
+| `verified` | string | no | R12 re-check: date and outcome (every number found in the rendered sources, what was corrected), or `snippet-sourced: ...` listing values the sources do not show |
 
 ## `data/components/detectors.json`, `objectives.json`
 Same pattern: `id`, `name`, `manufacturer`, `type`, `year`, `specs` (object), `summary`, `sources`, `checked`.
