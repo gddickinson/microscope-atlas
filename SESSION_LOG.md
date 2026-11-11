@@ -632,3 +632,9 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   found" and Delmic's product list now shows METEOR, not SECOM). Snippet-sourced: ALS Beamline 2.1 XM-2 stage rotation
   (360°) and capillary mounting (the beamline page confirms source, energy range and closure; the Le Gros 2014 full text
   could not be read). Report docs/verify_em_probe_open_more.md. Next: research_labelfree_more.json.
+
+## 2026-11-11: R12 round, research_labelfree_more.json re-verified
+- 34/35 verified, no values changed. Hand checks: four maker entries without numbers (SENTERRA II, CellVista SLIM, LIFA,
+  MicAO 3DSR) read on the rendered pages; the OCT 1991 sensitivity (1e-10) found in the Europe PMC abstract (PubMed refuses
+  scripts); Levoy 2006's flagged "3" was "3D". Snippet-sourced: ISS Q2 excitation ranges (375-1000 nm, 400-950 nm), not on
+  the maker page or its Q2 datasheet. Report docs/verify_research_labelfree_more.md. Next: historical_more.json.
