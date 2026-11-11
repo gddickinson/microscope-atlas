@@ -660,3 +660,17 @@ description (correct for IC295) plus a note that IC293 is endothelial.
 - R12 completed: all 452 systems carry a `verified` note, 395 verified, 57 snippet-sourced. New row R24 (above R17): the
   second pass over the 57 snippet-sourced entries against maker datasheets and papers. Next: R24, starting with confocal.json
   (16 entries).
+
+## 2026-11-11: R24 round, confocal.json second pass
+- A search agent proposed sources for the 16 snippet-sourced entries; each was added and re-checked in Chrome with
+  `verify_sources.py` (agent text not trusted on its own). 12 now verified: LSM 900 (ZEISS brochure), LSM 5 LIVE (R&D World
+  505/1,010 fps), Cell Observer SD rpm (brochure PDF), STELLARIS 8 (spec page URL with trailing slash shows 410-850 nm; NUS
+  facility for 78 MHz), TCS SP8 (Pragolab PDF), SP8 DIVE, TCS SP5 (product sheet; 2006 from Analytica 2006 news), TCS SP2
+  AOBS (archived release + MPI-NAT page), FV5000MPE (Oct 2025 news), BC43 (Dec 2021 news), X-Light V3 (brochure, "15.000
+  rpm"), Bergamo II (archived brochure PDF), HyperScope (archived news).
+- Correction: TCS SP5 "conventional up to 2800 Hz; resonant 8000 Hz" -> "resonant scanner with 16,000 lines per second
+  (product sheet)"; 2800 Hz is from the SP5 II documentation.
+- Tools: `verify_sources.pdf_text` now percent-encodes URLs (PDF names with spaces or accents failed);
+  `apply_verification.py` counts any dated check as verified in the report header.
+- Still snippet-sourced (4): Cell Observer SD end-of-support years, STELLARIS 5 638 nm, TCS SP 400-750 nm, Radiance 2100
+  458 nm. Next: R24 on lightsheet_invivo.json (15 entries).

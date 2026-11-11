@@ -46,7 +46,7 @@ def main():
         elif e["id"] in res:
             e["verified"] = note_for(res[e["id"]], a.date)
     path.write_text("[\n" + ",\n".join(json.dumps(x, ensure_ascii=False) for x in entries) + "\n]\n")
-    ok = sum(1 for e in entries if e.get("verified", "").startswith(a.date))
+    ok = sum(1 for e in entries if e.get("verified", "")[:1].isdigit())  # any dated check
     sn = sum(1 for e in entries if e.get("verified", "").startswith("snippet"))
     name = path.stem
     lines = [f"# Re-verification: data/systems/{path.name} (R12)", "",

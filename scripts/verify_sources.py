@@ -54,7 +54,8 @@ def present(n: str, text: str, field: str = "") -> bool:
 
 def pdf_text(url: str) -> str:
     """Download a PDF source and return its text (pdftotext), for sources Chrome downloads instead of showing."""
-    import subprocess, tempfile, urllib.request
+    import subprocess, tempfile, urllib.parse, urllib.request
+    url = urllib.parse.quote(url, safe=":/?=&%#~+,;@")  # spaces and non-ASCII letters in file names
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36"})
     with urllib.request.urlopen(req, timeout=60) as r, tempfile.NamedTemporaryFile(suffix=".pdf") as f:
         data = r.read()
