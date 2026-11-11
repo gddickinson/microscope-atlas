@@ -56,7 +56,7 @@ export const LIT = [
     cite: 'Parker lab (UC Irvine): Total internal reflection fluorescence microscopy, construction notes', url: 'https://evanescentlight.com/microscopy_construction/TIRFM.htm',
     simplified: 'As described on the page: a 488 nm laser, a beam expander, an f = 150 mm focusing lens on a micrometer translation stage that moves the focus toward the edge of the back focal plane, a dichroic, an Olympus oil objective with NA 1.45, a barrier filter and an intensified CCD. Magnification 60× is assumed (the page text is garbled), the knife-edge field aperture and the intensifier relay are omitted.',
     desc: 'Translate the focusing lens and the beam walks across the objective pupil: epi, then HILO, then TIRF.',
-    components: [c('laser', 602.6, 20, 90, { lambda: 488, diam: 1, div: 0 }), c('expander', 602.6, 70, 90, { f1: 20, f2: 60 }), c('lens', 602.6, 250, 90, { f: 150 }),
+    components: [c('laser', 604.2, 20, 90, { lambda: 488, diam: 1, div: 0 }), c('expander', 604.2, 70, 90, { f1: 20, f2: 60 }), c('lens', 604.2, 250, 90, { f: 150 }),
       c('dichroic', 600, 300, -45, { cut: 500 }), c('objective', 700, 300, 0, { mag: 60, na: 1.45, nimm: 1.518, ftl: 180 }), c('tirf', 700 + df(60, 1.518, 180), 300, 0, { dye: 'Fluo-4', width: 6 }),
       c('longpass', 560, 300, 180, { cut: 505 }), c('tube', 500, 300, 180, { f: 180 }), c('camera', 320, 300, 180)] },
   { id: 'lit-parker-2p', title: 'Parker lab: build your own two-photon microscope', tech: ['multiphoton', 'open-hardware'],

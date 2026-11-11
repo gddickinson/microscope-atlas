@@ -137,7 +137,10 @@ for (const p of PRESETS) {
   }
 }
 const expect = { widefield: 'widefield', 'tirf-objective': 'tirf', 'tirf-prism': 'tirf', hilo: 'hilo', confocal: 'confocal', 'spinning-disk': 'spinning-disk',
-  'two-photon': 'two-photon', 'light-sheet': 'light-sheet', sted: 'sted', sim: 'sim', kohler: 'brightfield', darkfield: 'darkfield', 'lit-minsky-1961': 'confocal', 'lit-huisken-2004': 'light-sheet', 'lit-denk-1990': 'two-photon' };
+  'two-photon': 'two-photon', 'light-sheet': 'light-sheet', sted: 'sted', sim: 'sim', kohler: 'brightfield', darkfield: 'darkfield', 'lit-minsky-1961': 'confocal', 'lit-huisken-2004': 'light-sheet', 'lit-denk-1990': 'two-photon',
+  'lit-parker-tirf': 'tirf', 'lab-parker-flash-tirf': 'tirf', 'lab-parker-laser-spot': 'tirf', 'lab-parker-shadowless-tirf': 'tirf', 'lab-parker-axial-linescan': 'confocal',
+  'lab-parker-video-confocal': 'confocal', 'lab-parker-multifocal': 'widefield', 'lab-parker-lattice': 'light-sheet', 'lab-parker-sptpalm': 'hilo',
+  'lab-pathak-flicker-tirf': 'tirf', 'lab-pathak-traction-tirf': 'tirf', 'lab-pathak-halotag-tirf': 'tirf', 'lab-hughes-dnapaint': 'tirf' };
 for (const [id, m] of Object.entries(expect)) assert.equal(modes[id], m, `${id}: mode`);
 {
   const r = trace(presetById('widefield'), { spectra }), o = inferOptics(r, 'camera8');

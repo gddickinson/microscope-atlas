@@ -131,7 +131,8 @@ export function renderReadouts(el, items, result, selected) {
 export function renderPresets(el, presets, current, onPick) {
   const card = p => `<button class="tb-preset${p.id === current ? ' on' : ''}" data-id="${esc(p.id)}"><b>${esc(p.title)}</b><span>${esc(p.desc)}</span></button>`;
   el.innerHTML = `<h3>Basic set-ups</h3><div class="tb-presets">${presets.filter(p => p.group === 'basic').map(card).join('')}</div>
-    <h3>From the literature (simplified)</h3><div class="tb-presets">${presets.filter(p => p.group === 'literature').map(card).join('')}</div>`;
+    <h3>From the literature (simplified)</h3><div class="tb-presets">${presets.filter(p => p.group === 'literature').map(card).join('')}</div>
+    <h3>Parker, Pathak and Hughes labs (simplified, from their papers)</h3><div class="tb-presets">${presets.filter(p => p.group === 'labs').map(card).join('')}</div>`;
   el.onclick = e => { const b = e.target.closest('[data-id]'); if (b) onPick(b.dataset.id); };
 }
 

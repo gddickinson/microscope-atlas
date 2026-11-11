@@ -113,11 +113,19 @@ selects a part, arrow keys move it (Shift for 10 mm steps), R and E rotate it, D
 Each part explains what it does and links to techniques and suppliers. Readouts give power and spot size, plus
 magnification, resolution, Nyquist sampling, TIRF depth and Airy-unit pinhole size.
 
-There are 33 presets, from a 4f relay and interferometers to TIRF, confocal, two-photon, light-sheet, STED and SIM.
-Eleven are simplified set-ups from landmark papers and build guides, each cited and with its simplifications stated
+There are 48 presets, from a 4f relay and interferometers to TIRF, confocal, two-photon, light-sheet, STED and SIM.
+Twelve are simplified set-ups from landmark papers and build guides, each cited and with its simplifications stated
 (Axelrod 1981, Minsky, Denk 1990, Huisken 2004, OpenSPIM, Gibbs 2018 prism-TIRF, Parker lab TIRF and two-photon,
-Hell & Wichmann 1994, Gustafsson 2000, Tokunaga 2008, Dunsby 2008). Layouts can be saved, exported and shared
-as links.
+Hell & Wichmann 1994, Gustafsson 2000, Tokunaga 2008, Dunsby 2008). Twelve more are instruments of the Parker,
+Pathak and Hughes labs, drawn from their papers' Methods and the Parker lab's construction notes:
+- Parker lab: TIRF with UV flash photolysis, a steerable 405 nm photolysis spot, spinning-spot shadowless TIRF, the
+  axial line-scan and video-rate confocals, three-camera multi-focal imaging, a simplified lattice light sheet and
+  sptPALM in semi-TIRF;
+- Pathak lab: TIRF of Piezo1 calcium flickers, FRET traction force with calcium imaging, and single PIEZO1-HaloTag
+  channels;
+- Hughes lab: DNA-PAINT of DNA origami for digital nucleic acid memory.
+
+Layouts can be saved, exported and shared as links.
 
 **Sample imaging:** put a specimen on the table and every camera or detector shows a simulated image. Specimens
 include USAF and Siemens-star targets, bead pairs, microtubules, actin, mitochondria, nuclear pores, single

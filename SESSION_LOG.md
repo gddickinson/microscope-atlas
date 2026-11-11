@@ -513,3 +513,25 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   spectra viewer (choosing adds nothing until Enter, Space toggles a laser, Enter on ✕ removes); optical table route
   audited. 132/132 pages clean. pytest 54 passed, 1 skipped; smoke test ok; docs/img/spectra refreshed.
 - The server had been stopped (clean shutdown in its log); restarted.
+
+## 2026-11-10: Parker, Pathak and Hughes lab set-ups on the optical table (R16, George's request)
+- New `atlas/web/static/table_presets_labs.js` (group "labs", own heading in the preset panel): 12 cited presets.
+  Sources: open full texts via Europe PMC/PMC, George's PDFs in ~/Documents/myPublications (Dickinson & Parker 2013,
+  Smith et al. 2014, Dickinson et al. 2016, Piantanida et al. 2024) and the Parker lab construction pages
+  (axial line-scan, video-rate confocal, multi-focal); DOIs and volumes checked on Crossref (fixed Cell Calcium 26:271-279).
+  - Parker: flash-photolysis TIRF; 405 nm galvo-steered photolysis spot with 450 nm guide; spinning-spot shadowless
+    TIRF; axial line-scan confocal (40x/1.35, APD, UV arc lamp); video-rate confocal (resonant scanner, knife-blade
+    aperture, R-928); three-camera multi-focal (BS 30% and 50/50, Cascade 128+); simplified lattice light sheet;
+    sptPALM in semi-TIRF (405 + 561, 100x/1.40, 568 LP).
+  - Pathak: Piezo1 flicker TIRF (IX83 cellTIRF, 60x/1.45, Flash 4.0); FRET traction + Cal-520 TIRF (Nikon TiE,
+    100x/1.49, 532 + 473 nm, iXon); PIEZO1-HaloTag JF646-BAPTA TIRF (60x/1.50, 640 nm at 3.5 mW, ORCA-Fusion BT).
+    The AO lattice light sheet in the 2025 paper is a collaborator's instrument and was not added.
+  - Hughes: DNA-PAINT of dNAM origami (Ti2, 100x/1.49 + 1.5x, 561 nm ~130 uW, quad-band cube, ProEM 16 um).
+  - Not stated in the sources and marked so: video-rate confocal laser line; where the photolysis beam joins the
+    microscope; filter cubes of the IX83 systems; beam-shaping optics. Stand-in spectra: Fluo-4 for Cal-520, Alexa
+    Fluor 647 for JF646, tdTomato for red mEos2. The lattice relay is simplified for rays (stated in the note).
+- Bug: the existing "Parker lab: home-built objective-type TIRF" traced as widefield (laser 2.6 mm off-axis; TIR for
+  60x/1.45 with a 180 mm tube lens needs 3.99-4.35 mm); now 4.2 mm and TIRF.
+- Tests: lab presets need citation + simplification note; expected imaging mode for each (TIRF, HILO, confocal,
+  widefield, light-sheet). pytest 54 passed, 1 skipped; smoke ok; optical table audit ok.
+- DNA-PAINT movie caption (local): the triangle is one of the "sharp triangle" origami added as fiducials (dNAM Methods).

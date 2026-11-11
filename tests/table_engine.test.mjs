@@ -110,6 +110,7 @@ const techIds = new Set(json('data/technique_index.json').map(t => t.id));
 const suppliers = new Set(json('data/content/community.json').flatMap(g => g.links.map(l => l.name)));
 assert.ok(PRESETS.filter(p => p.group === 'basic').length >= 20, 'at least 20 basic presets');
 assert.ok(PRESETS.filter(p => p.group === 'literature').length >= 6, 'at least 6 literature presets');
+assert.ok(PRESETS.filter(p => p.group === 'labs').length >= 12, 'at least 12 lab presets');
 assert.equal(new Set(PRESETS.map(p => p.id)).size, PRESETS.length, 'unique preset ids');
 for (const p of PRESETS) {
   const r = trace(p, { spectra });
@@ -118,7 +119,7 @@ for (const p of PRESETS) {
   assert.equal(r.warnings.length, 0, `${p.id}: ${r.warnings.join('; ')}`);
   analyze(r);
   for (const t of p.tech || []) assert.ok(techIds.has(t), `${p.id}: technique ${t}`);
-  if (p.group === 'literature') assert.ok(p.cite && (p.doi || p.url) && p.simplified, `${p.id}: citation and simplification note`);
+  if (p.group === 'literature' || p.group === 'labs') assert.ok(p.cite && (p.doi || p.url) && p.simplified, `${p.id}: citation and simplification note`);
   for (const c of p.components) assert.ok(PARTS[c.type], `${p.id}: part ${c.type}`);
 }
 
