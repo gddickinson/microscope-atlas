@@ -604,3 +604,12 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   Luminosa laser ranges, MiEye licence (PyPI behind a captcha; its 2022 year confirmed via the HardwareX DOI).
 - No values changed: where a readable source is silent the values are kept and marked, to be re-read against maker
   datasheets in a pass after R12. Report docs/verify_labelfree_open_historical.md. Next: lightsheet_invivo.json.
+
+## 2026-11-11: R12 round, lightsheet_invivo.json re-verified
+- `verify_sources.py`: DOI sources now also bring the open-access full text (Europe PMC XML, or the PMC page for author
+  manuscripts), so numbers stated in a paper body can be found; this confirmed several research set-ups.
+- Mesolens: added its eLife DOI as a source (the eLife page is behind a captcha); all 8 numbers then found.
+- 35/50 verified, 15 snippet-sourced: research set-ups whose papers have no open full text or state the numbers in other
+  forms (SiMView, IsoView, Bessel plane illumination, diSPIM, ctASLM, OPFOS, DSLM, SCAPE 2015, the whole-brain 2013 rate)
+  and maker figures not on the cited pages (UltraMicroscope Blaze objectives, Doric, TruLive3D, SP8 DLS, mesoSPIM count,
+  Siedentopf 90° illumination). No values changed. Report docs/verify_lightsheet_invivo.md. Next: widefield_screening.json.

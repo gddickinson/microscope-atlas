@@ -71,7 +71,27 @@ def crossref_text(url: str) -> str:
     req = urllib.request.Request("https://api.crossref.org/works/" + doi, headers={"User-Agent": "AtlasDataFetch/1.0"})
     m = json.loads(urllib.request.urlopen(req, timeout=30).read())["message"]
     year = (m.get("published-print") or m.get("published-online") or m["issued"])["date-parts"][0][0]
-    return f"Crossref record for {doi}: {m['title'][0]}. {(m.get('container-title') or [''])[0]} {m.get('volume', '')}:{m.get('page', m.get('article-number', ''))}, published {year}. " + " " * 300
+    head = f"Crossref record for {doi}: {m['title'][0]}. {(m.get('container-title') or [''])[0]} {m.get('volume', '')}:{m.get('page', m.get('article-number', ''))}, published {year}. "
+    return head + " " * 300 + "\n" + full_text(doi)
+
+
+def full_text(doi: str) -> str:
+    """Open-access full text of a paper, if Europe PMC has it (XML for open-access articles, else the PMC page)."""
+    import html, urllib.parse, urllib.request
+    ua = {"User-Agent": "AtlasDataFetch/1.0"}
+    get = lambda u: urllib.request.urlopen(urllib.request.Request(u, headers=ua), timeout=60).read().decode("utf-8", "replace")
+    try:
+        hits = json.loads(get("https://www.ebi.ac.uk/europepmc/webservices/rest/search?format=json&query=" + urllib.parse.quote(f'DOI:"{doi}"')))["resultList"]["result"]
+        pmcid = next((h.get("pmcid") for h in hits if h.get("pmcid")), None)
+        if not pmcid:
+            return ""
+        try:
+            x = get(f"https://www.ebi.ac.uk/europepmc/webservices/rest/{pmcid}/fullTextXML")
+        except Exception:  # noqa: BLE001 - author manuscripts: the PMC page
+            x = re.sub(r"(?s)<(script|style|nav|header|footer)[^>]*>.*?</\1>", " ", get(f"https://pmc.ncbi.nlm.nih.gov/articles/{pmcid}/"))
+        return html.unescape(re.sub(r"\s+", " ", re.sub(r"<[^>]+>", " ", x)))
+    except Exception:  # noqa: BLE001 - no full text
+        return ""
 
 
 def render(page, url: str) -> str:
