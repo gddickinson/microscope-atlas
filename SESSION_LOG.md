@@ -587,3 +587,12 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   could not be read: Leica TCS SP2 AOBS, Thorlabs Bergamo). ZEISS LSM 980: unsourced 2018 year and 350 nm axial value
   removed. Denk 1990 year checked on Crossref. FVMPE-RS's flagged "5000" was the FV5000MPE model name.
 - Report docs/verify_confocal.md. Next R12 file: electron_probe.json.
+
+## 2026-11-10: R12 round, electron_probe.json re-verified
+- Checker fixes: numbers with thousands separators stay whole; resolution values (nm) also match Å, pm or µm (EM sources
+  give 2.1 Å, 53 pm, 6 µm); doi.org sources are read from their Crossref record (publishers' captchas blocked them).
+- New `scripts/apply_verification.py` records the `verified` notes (automatic results plus hand-checked overrides) and
+  writes the report, so later files take one command.
+- Corrections: Talos F200C voltage set to the stated 200 kV; HT7800 0.2 nm resolution, GeminiSEM 32k x 24k frame store
+  and Crossbeam femtosecond-laser option removed (not in the sources); Micheva & Smith 2007 full text added as a source.
+  50/50 verified; docs/verify_electron_probe.md. Next: labelfree_open_historical.json.

@@ -17,7 +17,7 @@ from pathlib import Path
 
 from playwright.sync_api import sync_playwright
 
-NUM = re.compile(r"\d+(?:[.,]\d+)?")
+NUM = re.compile(r"\d{1,3}(?:,\d{3})+(?!\d)|\d+(?:\.\d+)?")  # 1,200,000 is one number
 
 
 def numbers(entry: dict) -> list[tuple[str, str]]:
@@ -39,11 +39,16 @@ def norm(text: str) -> str:
     return t
 
 
-def present(n: str, text: str) -> bool:
-    """n appears as a whole number in text (so '15' does not match '150'); 2.0 also matches 2."""
+def present(n: str, text: str, field: str = "") -> bool:
+    """n appears as a whole number in text (so '15' does not match '150'); 2.0 also matches 2. Resolution values (nm) also
+    match the same length written in Å, pm or µm (0.21 nm = 2.1 Å = 210 pm), as EM and X-ray sources use those units."""
     pats = {n}
-    if "." in n:
-        pats.add(n.rstrip("0").rstrip("."))
+    if field.startswith("resolution.") and n.replace(".", "").isdigit():
+        v = float(n)
+        pats |= {f"{v * 10:g}", f"{v * 1000:g}", f"{v / 1000:g}"}
+    for q in list(pats):
+        if "." in q:
+            pats.add(q.rstrip("0").rstrip("."))
     return any(re.search(rf"(?<![\d.]){re.escape(p)}(?![\d])", text) for p in pats)
 
 
@@ -59,7 +64,22 @@ def pdf_text(url: str) -> str:
         return subprocess.run(["pdftotext", "-layout", f.name, "-"], capture_output=True, text=True, timeout=120).stdout
 
 
+def crossref_text(url: str) -> str:
+    """For a doi.org source (publishers often block automated browsers), the Crossref record: title, venue and year."""
+    import urllib.request
+    doi = url.split("doi.org/", 1)[1]
+    req = urllib.request.Request("https://api.crossref.org/works/" + doi, headers={"User-Agent": "AtlasDataFetch/1.0"})
+    m = json.loads(urllib.request.urlopen(req, timeout=30).read())["message"]
+    year = (m.get("published-print") or m.get("published-online") or m["issued"])["date-parts"][0][0]
+    return f"Crossref record for {doi}: {m['title'][0]}. {(m.get('container-title') or [''])[0]} {m.get('volume', '')}:{m.get('page', m.get('article-number', ''))}, published {year}. " + " " * 300
+
+
 def render(page, url: str) -> str:
+    if "doi.org/" in url:
+        try:
+            return crossref_text(url)
+        except Exception:  # noqa: BLE001 - fall back to the browser
+            pass
     if url.lower().split("?")[0].endswith(".pdf") or "asset-downloads" in url:
         try:
             return pdf_text(url)
@@ -103,7 +123,7 @@ def main():
                     texts.append(norm(t))
             text = "\n".join(texts)
             nums = numbers(e)
-            missing = [(f, n) for f, n in nums if not present(n, text)]
+            missing = [(f, n) for f, n in nums if not present(n, text, f)]
             results.append({"id": e["id"], "name": e["name"], "status": e.get("status"), "numbers": len(nums),
                             "missing": missing, "sources": fetched,
                             "discontinued_words": bool(re.search(r"discontinu(?!ed products)|no longer (available|sold)|end of (sale|life)|obsolete", text, re.I))})
