@@ -644,3 +644,9 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   the summary no longer names RCSEd; the Deutsches Museum source pointed at a development host that times out, now the
   archive permalink (digital.deutsches-museum.de/item/FA-005-1861), whose record dates the Ortholux II catalogue (list
   512-40) to May 1958. Report docs/verify_historical_more.md. Next: benchtop_routine.json.
+
+## 2026-11-11: R12 round, benchtop_routine.json re-verified
+- 22/24 verified, no values changed. Axion Omni and Logos CELENA X state no numbers; their features were read on the
+  rendered maker pages. Snippet-sourced: Nikon ECLIPSE Ei camera port "built-in 0.55x zoom lens" (spec page lists the
+  trinocular tube 50/50 only) and Leica DM500 wireless camera and eyepiece pointer options (not on the maker page).
+  Report docs/verify_benchtop_routine.md. Next: em_open_more2.json, the last R12 file.
