@@ -501,3 +501,15 @@ description (correct for IC295) plus a note that IC293 is endothelial.
   `aria-hidden` (the wavelength is in the row); planner rows get ids and `label for`. 131/131 clean.
 - pytest 54 passed, 1 skipped; smoke test 45 routes ok; docs/img spectra and fluorophores refreshed. R11 continues:
   optical table and spectra viewer by keyboard, then page weight and load time.
+
+## 2026-11-10: round 26, R11 keyboard use of the optical table and spectra viewer
+- Optical table: the arrow/R/E/Delete/undo keys existed but a part could only be selected with the mouse. Parts are
+  now focusable (`tabindex`, role button, named "<part> at x, y mm, angle°, selected"); focusing one selects it and
+  focus is restored after each redraw (`table_view.js`); dashed focus ring (`style_table.css`); board label lists the
+  keys; the hidden JSON import input is named.
+- Spectra viewer: 'Add fluorophore' added a dye on every change, so keyboard type-ahead or arrowing added one dye per
+  key. Now a mouse pick adds at once (pointer flag), the keyboard confirms with Enter, and an Add button is there.
+- `a11y_check.py`: keyboard tests for the table (Tab selects a part, arrows move with focus kept, R rotates) and the
+  spectra viewer (choosing adds nothing until Enter, Space toggles a laser, Enter on ✕ removes); optical table route
+  audited. 132/132 pages clean. pytest 54 passed, 1 skipped; smoke test ok; docs/img/spectra refreshed.
+- The server had been stopped (clean shutdown in its log); restarted.

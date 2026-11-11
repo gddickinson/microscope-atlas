@@ -56,7 +56,7 @@ route('spectra', async () => {
       <label>Presets</label><div>${list(Object.keys(PRESETS), p => `<button class="alt" data-preset="${esc(p)}">${esc(p)}</button>`)}</div>
       <label>Lasers</label><div id="lz">${list(LASERS, l => `<label style="display:inline-flex;gap:4px;margin-right:10px"><input type="checkbox" value="${l}"> <span style="color:${waveText(l)}">${l}</span></label>`)}</div>
       <label for="bands">Emission bands (nm, "lo-hi" comma separated)</label><input id="bands">
-      <label for="addf">Add fluorophore</label><select id="addf"><option value="">choose...</option>${list(names, n => `<option>${esc(n)}</option>`)}</select>
+      <label for="addf">Add fluorophore</label><div class="row" style="gap:6px;flex-wrap:nowrap"><select id="addf" aria-describedby="addf-help"><option value="">choose...</option>${list(names, n => `<option>${esc(n)}</option>`)}</select><button class="alt" id="addf-go" type="button">Add</button></div><span id="addf-help" class="small mute">Pick with the mouse, or choose with the keys and press Enter</span>
       <div id="chips" style="margin-top:8px"></div></div>
       <div><svg id="splot" class="plot" viewBox="0 0 900 360"></svg><div id="xtab" class="scroll"></div></div></div>`;
   const $id = id => document.getElementById(id);
@@ -99,7 +99,13 @@ route('spectra', async () => {
   });
   $id('lz').addEventListener('change', e => { const v = +e.target.value; e.target.checked ? state.lasers.add(v) : state.lasers.delete(v); plot(); table(); });
   $id('bands').addEventListener('change', e => { state.bands = e.target.value.split(',').map(t => t.trim().split('-').map(Number)).filter(b => b.length === 2 && b[0] < b[1]); plot(); table(); });
-  $id('addf').addEventListener('change', e => { if (e.target.value) { state.on.add(e.target.value); e.target.value = ''; sync(); } });
+  // a mouse pick adds at once; with the keyboard (where each key press changes the value) confirm with Enter or Add
+  const addSel = $id('addf'), addNow = () => { if (addSel.value) { state.on.add(addSel.value); addSel.value = ''; sync(); addSel.focus(); } };
+  let pointer = false;
+  addSel.addEventListener('pointerdown', () => { pointer = true; });
+  addSel.addEventListener('keydown', e => { pointer = false; if (e.key === 'Enter') { e.preventDefault(); addNow(); } });
+  addSel.addEventListener('change', () => { if (pointer) addNow(); });
+  $id('addf-go').addEventListener('click', addNow);
   sync();
 });
 

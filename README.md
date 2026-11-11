@@ -100,7 +100,8 @@ an AFM-imaged sphere, and the spinning-disk fill-factor floor.
 | ![Köhler simulation](docs/img/sim_kohler.jpg) | ![AFM simulation](docs/img/sim_afm.jpg) |
 
 ## Virtual optical table
-Prototype microscopes and laser set-ups on a breadboard with live 2D ray tracing. There are 43 part types:
+Prototype microscopes and laser set-ups on a breadboard with live 2D ray tracing. It works by mouse or keyboard: Tab
+selects a part, arrow keys move it (Shift for 10 mm steps), R and E rotate it, Delete removes it and Ctrl+Z undoes. There are 43 part types:
 - sources: lasers, LEDs, lamps, fibres;
 - mirrors and scanners: mirrors, galvos, SLMs, DMDs, deformable mirrors;
 - dichroics, filters, polarization optics, apertures and pinholes;
@@ -324,7 +325,7 @@ python3 -m venv .venv
 - Google Chrome is optional; with Playwright it powers `scripts/screenshots.py`, the README figures and a smoke
   test of every page.
 - `scripts/a11y_check.py --all` audits 131 pages at phone width (390 px): no sideways scrolling, every control and
-  link named, alt text, canvases described, WCAG text contrast, and keyboard control of each simulation. The latest result is in
+  link named, alt text, canvases described, WCAG text contrast, and keyboard control of each simulation, the optical table and the spectra viewer. The latest result is in
   [docs/a11y_report.md](docs/a11y_report.md).
 
 ## How the data were gathered

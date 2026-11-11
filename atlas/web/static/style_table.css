@@ -26,6 +26,7 @@ main.tb-wide { max-width:1680px; }
 .tb-hit { fill:transparent; }
 .tb-part:hover > :not(.tb-hit) { filter:brightness(1.35); }
 .tb-part.sel > :not(.tb-hit):not(title) { filter:drop-shadow(0 0 2px var(--gfp)); }
+.tb-part:focus { outline:none; } .tb-part:focus-visible > .tb-hit { stroke:var(--dapi); stroke-width:2; stroke-dasharray:4 3; }
 .tb-body { fill:#1a2742; stroke:#6b82b0; stroke-width:1; }
 .tb-aperture { stroke:none; } .tb-led { opacity:.9; }
 .tb-mount { fill:#2b3a5c; }

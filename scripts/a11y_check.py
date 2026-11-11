@@ -11,6 +11,7 @@ At a phone viewport (390 x 844) each page is checked for:
   * duplicate element ids (break label[for] and aria references);
   * text contrast (WCAG 2: 4.5:1, 3:1 for large text) against the composited background colours;
   * simulations: keyboard use. Tab reaches a slider, and arrow keys change it and the readout or plot.
+  * optical table and spectra viewer: keyboard selection, moving, rotating; adding, toggling and removing.
 Writes docs/a11y_report.md and exits 1 if any page has problems. Run with the server up:
   .venv/bin/python scripts/a11y_check.py [--all] [--out docs/a11y_report.md] [route ...]
 (--all adds every technique page and every lab tool.)
@@ -23,6 +24,9 @@ from playwright.sync_api import sync_playwright
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from screenshots import BASE, README  # noqa: E402
+
+# pages audited here but not in the README screenshot list
+EXTRA = [("optical_table", "table", 0, None)]
 
 AUDIT = r"""() => {
   const W = window.innerWidth, out = {overflow: [], unlabelled: [], noname: [], noalt: 0, canvas: 0, dupids: []};
@@ -91,13 +95,71 @@ def keyboard(page):
     return [] if page.evaluate(snap) != before else ["keyboard: arrow keys on the slider change nothing visible"]
 
 
+def tab_to(page, test, limit=120):
+    """Press Tab until the JS predicate `test` (on document.activeElement) is true; False if never."""
+    for _ in range(limit):
+        page.keyboard.press("Tab")
+        if page.evaluate(f"(a => {test})(document.activeElement)"):
+            return True
+    return False
+
+
+def keyboard_table(page):
+    """Optical table: Tab reaches a part and selects it; arrows move it (focus kept); R rotates it."""
+    if not tab_to(page, "a && a.classList && a.classList.contains('tb-part')"):
+        return ["keyboard: Tab never reaches a part on the optical table"]
+    page.wait_for_timeout(300)
+    probs = []
+    info = "(() => { const a = document.activeElement; return a && a.classList.contains('tb-part') ? [a.dataset.id, a.getAttribute('transform'), a.classList.contains('sel')] : null; })()"
+    first = page.evaluate(info)
+    if not first[2]:
+        probs.append("keyboard: focusing a part does not select it")
+    page.keyboard.press("ArrowRight"); page.wait_for_timeout(300)
+    moved = page.evaluate(info)
+    if not moved or moved[0] != first[0]:
+        probs.append("keyboard: focus is lost after moving a part")
+    elif moved[1] == first[1]:
+        probs.append("keyboard: arrow keys do not move the part")
+    page.keyboard.press("r"); page.wait_for_timeout(300)
+    rot = page.evaluate(info)
+    if not rot or rot[1] == (moved or first)[1]:
+        probs.append("keyboard: R does not rotate the part")
+    return probs
+
+
+def keyboard_spectra(page):
+    """Spectra viewer: add a dye with the keyboard, toggle a laser with Space, remove the dye with Enter."""
+    probs, chips = [], "document.querySelectorAll('#chips [data-rm]').length"
+    n0 = page.evaluate(chips)
+    if not tab_to(page, "a && a.id === 'addf'"):
+        return ["keyboard: Tab never reaches 'Add fluorophore'"]
+    page.keyboard.type("al"); page.wait_for_timeout(300)  # type-ahead to a dye: must not add anything yet
+    if page.evaluate(chips) != n0:
+        probs.append("keyboard: choosing in 'Add fluorophore' adds dyes before the choice is confirmed")
+    page.keyboard.press("Enter"); page.wait_for_timeout(400)
+    if page.evaluate(chips) != n0 + 1:
+        probs.append("keyboard: Enter does not add the chosen fluorophore")
+    plot = "document.querySelector('#splot').innerHTML.length"
+    page.evaluate("document.querySelector('#lz input').focus()")
+    before = page.evaluate(plot)
+    page.keyboard.press("Space"); page.wait_for_timeout(300)
+    if page.evaluate(plot) == before:
+        probs.append("keyboard: Space on a laser checkbox changes nothing")
+    n1 = page.evaluate(chips)
+    page.evaluate("document.querySelector('#chips [data-rm]').focus()")
+    page.keyboard.press("Enter"); page.wait_for_timeout(300)
+    if page.evaluate(chips) >= n1:
+        probs.append("keyboard: Enter on a dye's ✕ does not remove it")
+    return probs
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", default="docs/a11y_report.md")
     ap.add_argument("--all", action="store_true", help="also every technique page and every lab tool")
     ap.add_argument("routes", nargs="*")
     a = ap.parse_args()
-    todo = [r for r in README if not a.routes or r[0] in a.routes]
+    todo = [r for r in README + EXTRA if not a.routes or r[0] in a.routes]
     if a.all:
         import json, re, urllib.request
         techs = json.load(urllib.request.urlopen(BASE.split("#")[0] + "api/techniques"))
@@ -119,6 +181,10 @@ def main():
             probs = []
             if route.startswith("sim/"):
                 probs += keyboard(page)
+            elif route == "table":
+                probs += keyboard_table(page)
+            elif route == "spectra":
+                probs += keyboard_spectra(page)
             if r["pageWidth"] > 391:
                 probs.append(f"page {r['pageWidth']}px wide: " + ", ".join(r["overflow"][:6]))
             for k, lab in (("unlabelled", "unlabelled controls"), ("noname", "unnamed buttons/links"), ("dupids", "duplicate ids")):

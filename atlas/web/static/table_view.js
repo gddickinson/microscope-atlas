@@ -10,7 +10,7 @@ const NS = 'http://www.w3.org/2000/svg';
 const HANDLE = 32; // mm from the part centre
 
 export function createBoard(host, cb) {
-  host.innerHTML = `<svg class="tb-svg" xmlns="${NS}" role="application" aria-label="Optical breadboard: drag parts to move, drag the round handle to rotate">
+  host.innerHTML = `<svg class="tb-svg" xmlns="${NS}" role="application" aria-label="Optical breadboard. Drag parts to move and the round handle to rotate; or Tab to a part, then arrow keys move it (Shift for 10 mm), R and E rotate, Delete removes, Escape deselects">
     <defs><clipPath id="tb-clip"><rect class="tb-cliprect"/></clipPath><pattern id="tb-holes" width="25" height="25" patternUnits="userSpaceOnUse"><circle cx="12.5" cy="12.5" r="2.1" class="tb-hole"/></pattern></defs>
     <rect class="tb-plate" rx="6"/><rect class="tb-holes" fill="url(#tb-holes)"/>
     <g class="tb-beams" clip-path="url(#tb-clip)"></g><g class="tb-parts"></g><g class="tb-labels"></g><g class="tb-ui"></g></svg>`;
@@ -58,8 +58,13 @@ export function createBoard(host, cb) {
     board = { ...b };
     for (const k of ['plate', 'holes', 'cliprect']) { const r = L(k); r.setAttribute('width', board.w); r.setAttribute('height', board.h); }
     L('beams').innerHTML = result ? beams(result.segments, st.show) : '';
-    L('parts').innerHTML = (result ? result.components : []).map(c => `<g class="tb-part${c.id === st.selected ? ' sel' : ''}" data-id="${esc(c.id)}" transform="translate(${c.x} ${c.y}) rotate(${c.rot})">
-      <rect class="tb-hit" x="-12" y="-14" width="24" height="28"/>${draw(c)}<title>${esc(c.label || PARTS[c.type]?.label || c.type)}</title></g>`).join('');
+    // keyboard: every part is focusable and named; focusing one selects it, and focus survives the redraw
+    const had = svg.contains(document.activeElement) && document.activeElement.closest('.tb-part')?.dataset.id;
+    const name = c => c.label || PARTS[c.type]?.label || c.type;
+    L('parts').innerHTML = (result ? result.components : []).map(c => `<g class="tb-part${c.id === st.selected ? ' sel' : ''}" data-id="${esc(c.id)}" transform="translate(${c.x} ${c.y}) rotate(${c.rot})"
+      tabindex="0" role="button" aria-label="${esc(name(c))} at ${Math.round(c.x)}, ${Math.round(c.y)} mm, ${Math.round(c.rot)}°${c.id === st.selected ? ', selected' : ''}">
+      <rect class="tb-hit" x="-12" y="-14" width="24" height="28"/>${draw(c)}<title>${esc(name(c))}</title></g>`).join('');
+    if (had) L('parts').querySelector(`[data-id="${CSS.escape(had)}"]`)?.focus({ preventScroll: true });
     comps = result ? result.components : [];
     overlay();
   }
@@ -126,6 +131,7 @@ export function createBoard(host, cb) {
     if (d.mode === 'rotate' && d.moved) { const c = state.layout.components.find(k => k.id === d.id); cb.rotate(d.id, c.rot, true, true); }
     try { svg.releasePointerCapture(e.pointerId); } catch { /* already released */ }
   };
+  L('parts').addEventListener('focusin', e => { const id = e.target.closest('.tb-part')?.dataset.id; if (id && (!state || state.selected !== id)) cb.select(id); });
   svg.addEventListener('pointerup', end);
   svg.addEventListener('pointercancel', end);
   svg.addEventListener('wheel', e => { e.preventDefault(); zoomBy(Math.exp(e.deltaY * 0.0015), toBoard(e)); }, { passive: false });

@@ -37,7 +37,7 @@ route('table', async ([presetId], query) => {
         <div class="tb-viewer panel" hidden></div>
         <div class="tb-files panel"><b>Save and share</b>
           <div class="tb-filerow"><input class="tb-name" placeholder="Name this layout" aria-label="Layout name"><button data-act="save">Save</button><select class="tb-saved" aria-label="Saved layouts"></select><button class="alt" data-act="load">Load</button><button class="alt" data-act="forget">Delete</button></div>
-          <div class="tb-filerow"><button class="alt" data-act="export">Export JSON</button><button class="alt" data-act="import">Import JSON</button><input type="file" accept=".json,application/json" class="tb-file" hidden><button class="alt" data-act="share">Share link</button></div>
+          <div class="tb-filerow"><button class="alt" data-act="export">Export JSON</button><button class="alt" data-act="import">Import JSON</button><input type="file" accept=".json,application/json" class="tb-file" aria-label="Import a layout file" hidden><button class="alt" data-act="share">Share link</button></div>
           <input class="tb-shareurl" readonly hidden aria-label="Shareable link"><div class="tb-status small" aria-live="polite"></div></div>
       </div>
       <aside class="tb-side"><div class="tb-props panel"></div><div class="tb-readouts panel"></div></aside>
