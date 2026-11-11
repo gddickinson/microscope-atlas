@@ -535,3 +535,16 @@ description (correct for IC295) plus a note that IC293 is endothelial.
 - Tests: lab presets need citation + simplification note; expected imaging mode for each (TIRF, HILO, confocal,
   widefield, light-sheet). pytest 54 passed, 1 skipped; smoke ok; optical table audit ok.
 - DNA-PAINT movie caption (local): the triangle is one of the "sharp triangle" origami added as fiducials (dNAM Methods).
+
+## 2026-11-10: round 27, R11 page weight and load time (R11 completed)
+- Measured every smoke-test route (Playwright: requests, bytes by type, time to content). Every page downloaded all
+  ~85 JS modules (0.79 MB) because main.js imported every page; the Cells image database pulled 13.8 MB, mostly local
+  movies with `autoplay`; My Microscopy's 49 movies all downloaded on open.
+- Page modules now load on first visit: `main.js` has a PAGES table (module -> routes) and `core.lazy()`; the router
+  imports the module before rendering. Home 0.85 -> 0.12 MB (88 -> 16 requests), simulations 0.85 -> 0.22 MB.
+- New `media.js`: `lazyVideo` (poster, preload none, no src) and `watchVideos` (set src and play when 20% visible,
+  pause when not), used by learn.js and cells.js: cells/images 13.8 -> 3.5 MB; checked that videos load and play on scroll.
+- `tests/routes.test.mjs`: every route registered by a page module is in PAGES and vice versa; no eager page imports.
+  Static export checked with lazy loading (8 routes). pytest 55 passed, 1 skipped; smoke 45 ok; audit 132/132.
+- The server stopped twice during rounds (clean shutdown from an external signal, not from the tests); it is now
+  started in its own session (`start_new_session=True`) so it should survive the shell's clean-up.

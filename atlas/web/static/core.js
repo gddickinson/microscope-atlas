@@ -33,6 +33,9 @@ export const app = () => $('#app');
 // --- router ---------------------------------------------------------------
 const routes = {};
 export function route(name, fn) { routes[name] = fn; }
+// Page modules load on first visit: lazy({ name: () => import('./page.js') }); the module registers its routes.
+const loaders = {};
+export function lazy(map) { Object.assign(loaders, map); }
 
 export function go(hash) { location.hash = hash; }
 
@@ -49,12 +52,13 @@ export function onLeave(fn) { stopCurrent = fn; }
 async function render() {
   if (stopCurrent) { try { stopCurrent(); } catch (e) { console.warn(e); } stopCurrent = null; }
   const { name, args, query } = parse();
-  const fn = routes[name] || routes.notfound;
   $$('[data-nav]').forEach(a => a.classList.toggle('on', a.dataset.nav === name));
   $$('nav details').forEach(d => d.removeAttribute('open'));
   const root = app();
   root.innerHTML = '<p class="mute">Loading...</p>';
   try {
+    if (!routes[name] && loaders[name]) await loaders[name]();
+    const fn = routes[name] || routes.notfound;
     await fn(args, query);
   } catch (e) {
     console.error(e);

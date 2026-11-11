@@ -1,5 +1,6 @@
 // Cells page (#/cells/<tab>): labelled diagrams of cell types, cell structures, cell types, an image database of
 // freely licensed micrographs, and the cell identifier (cells_identify.js). Content: data/content/cells.json.
+import { lazyVideo, watchVideos } from './media.js';
 import { route, api, app, esc, list } from './core.js';
 import { DIAGRAMS } from './cell_diagrams.js';
 import { DIAGRAMS2 } from './cell_diagrams2.js';
@@ -15,7 +16,7 @@ export const cellImages = async () => {
   const [pub, mine] = await Promise.all([api('/images').catch(() => []), api('/portfolio/images').catch(() => [])]);
   return [...pub.filter(i => i.cell_type && !i.video), ...mine.filter(i => i.cell_type).map(i => ({ ...i, local: true }))];
 };
-const localFig = i => `<figure class="cfig">${/\.mp4$/i.test(i.url) ? `<video src="${esc(i.url)}" autoplay loop muted playsinline></video>` : `<a href="#/portfolio/${esc(i.project || '')}"><img src="${esc(i.url)}" alt="${esc(i.title)}" loading="lazy"></a>`}
+const localFig = i => `<figure class="cfig">${/\.mp4$/i.test(i.url) ? `${lazyVideo(i)}` : `<a href="#/portfolio/${esc(i.project || '')}"><img src="${esc(i.url)}" alt="${esc(i.title)}" loading="lazy"></a>`}
   <figcaption><b>${esc(i.title)}</b> <span class="tag r">local preview</span><br>${esc(i.caption || '')}<br><span class="credit">Parker lab archive (UC Irvine); shown only in your local copy</span></figcaption></figure>`;
 
 route('cells', async ([tab = 'diagrams', arg], query) => {
@@ -85,9 +86,9 @@ function images(host, T, imgs, query = {}) {
     const shown = imgs.filter(i => (!t || i.cell_type === t) && (!m || (i.techniques || []).includes(m)));
     host.querySelector('#ci-g').innerHTML = `<p class="small">${shown.length} images</p><div class="gallery compact">${list(shown, i => (i.local ? localFig(i) : figure(i)).replace('<figcaption>', `<figcaption><span class="tag g">${esc(T[i.cell_type]?.name || i.cell_type)}</span> `))}</div>`;
   };
-  const play = () => host.querySelectorAll('#ci-g video').forEach(v => { v.muted = true; v.play().catch(() => {}); });
+  const play = () => watchVideos(host.querySelector('#ci-g'));  // movies load and play only when scrolled into view
   host.querySelector('#ci-t').onchange = () => { draw(); play(); }; host.querySelector('#ci-m').onchange = () => { draw(); play(); };
-  draw();
+  draw(); play();
 }
 
 

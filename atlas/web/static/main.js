@@ -1,26 +1,17 @@
-// Entry point: background, page modules (each registers its routes), search box, router.
-import { background, start, route, app, go, $ } from './core.js';
+// Entry point: background, search box, router. Page modules are loaded on demand: each entry below maps the routes a
+// module registers (route(name, fn) in that module) to its file, so a visit downloads only the code that page needs.
+import { background, start, route, lazy, app, go, $ } from './core.js';
 import { loadLinks } from './links.js';
-import './papers.js';
-import './images.js';
-import './videos.js';
-import './table.js';
-import './home.js';
-import './systems.js';
-import './systems_compare.js';
-import './components.js';
-import './techniques.js';
-import './fluor.js';
-import './sims.js';
-import './learn.js';
-import './quiz.js';
-import './tools.js';
-import './lab.js';
-import './imagelab.js';
-import './builder.js';
-import './cells.js';
-import './nobel.js';
-import './matrix.js';
+
+const PAGES = {
+  'papers.js': ['papers', 'community'], 'images.js': ['gallery'], 'videos.js': ['videos'], 'table.js': ['table'],
+  'home.js': ['home'], 'systems.js': ['systems', 'system', 'manufacturers'], 'systems_compare.js': ['compare'],
+  'components.js': ['components'], 'techniques.js': ['techniques', 'technique'], 'fluor.js': ['fluorophores', 'spectra'],
+  'sims.js': ['sims', 'sim'], 'learn.js': ['fundamentals', 'history', 'glossary', 'portfolio', 'about'], 'quiz.js': ['quiz'],
+  'tools.js': ['chooser', 'calc'], 'lab.js': ['lab'], 'imagelab.js': ['imagelab'], 'builder.js': ['builder'], 'cells.js': ['cells'],
+  'nobel.js': ['nobel'], 'matrix.js': ['matrix'],
+};
+lazy(Object.fromEntries(Object.entries(PAGES).flatMap(([file, names]) => names.map(n => [n, () => import('./' + file)]))));
 
 route('notfound', () => { app().innerHTML = '<h1>Not found</h1><p><a href="#/">Back to the start</a></p>'; });
 
